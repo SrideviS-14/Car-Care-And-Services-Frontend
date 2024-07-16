@@ -1,11 +1,11 @@
 import React from 'react';
 import EastIcon from '@mui/icons-material/East';
-import BuildIcon from '@mui/icons-material/Build'; 
-import SettingsIcon from '@mui/icons-material/Settings'; 
-import LocalGasStationIcon from '@mui/icons-material/LocalGasStation'; 
-import ElectricCarIcon from '@mui/icons-material/ElectricCar'; 
-import AcUnitIcon from '@mui/icons-material/AcUnit'; 
-import CarCrashSharpIcon from '@mui/icons-material/CarCrashSharp'; 
+import BuildIcon from '@mui/icons-material/Build';
+import SettingsIcon from '@mui/icons-material/Settings';
+import LocalGasStationIcon from '@mui/icons-material/LocalGasStation';
+import ElectricCarIcon from '@mui/icons-material/ElectricCar';
+import AcUnitIcon from '@mui/icons-material/AcUnit';
+import CarCrashSharpIcon from '@mui/icons-material/CarCrashSharp';
 import HighlightIcon from '@mui/icons-material/Highlight';
 import { Box,Button, Card, CardActions, CardContent, CardMedia, Typography,Grid } from "@mui/material";
 function Home() {
@@ -16,10 +16,10 @@ function Home() {
     { title: 'Electronic Services', icon: ElectricCarIcon },
     { title: 'Air Conditioning Service', icon: AcUnitIcon },
     { title: 'Engine Service', icon: CarCrashSharpIcon },
-    { title: 'Brake Service', icon: SettingsIcon }, 
+    { title: 'Brake Service', icon: SettingsIcon },
     { title: 'Car Bulb Check', icon: HighlightIcon }
   ];
-  
+ 
   return (
     <div>
       <Card sx={{ display: 'flex', maxWidth: 1100,marginLeft:23,marginTop:12,backgroundColor:'#d7dce2',borderRadius:10}}>
@@ -38,8 +38,16 @@ function Home() {
       </Typography>
     </CardContent>
     <CardActions>
-      <Button size="medium">Book A service</Button>
-      <Button size="medium">Learn More</Button>
+      <Button size="medium" sx={{
+    color: '#000080',
+    '&:hover': {
+      bgcolor: '#b0c4de',
+    }}}>Book A service</Button>
+      <Button size="medium" sx={{
+    color: '#000080',
+    '&:hover': {
+      bgcolor: '#b0c4de',
+    }}}>Learn More</Button>
     </CardActions>
   </Box>
 </Card>
@@ -69,5 +77,6 @@ function Home() {
     </div>
   );
 }
-
+ 
 export default Home;
+ 

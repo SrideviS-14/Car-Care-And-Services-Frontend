@@ -1,0 +1,48 @@
+nav{
+    margin-left: 600px;
+    margin-top: 25px;
+}
+.homepage{
+    text-decoration: none;
+    margin-left: 18px;
+    font-size:x-large;
+    color: black;
+}
+.packagepage{
+    text-decoration: none;
+    margin-left: 18px;
+    font-size:x-large;
+    color: black;
+}
+.aboutpage{
+    text-decoration: none;
+    margin-left: 18px;
+    font-size:x-large;
+    color: black;
+}
+.guidepage{
+    text-decoration: none;
+    margin-left: 18px;
+    font-size:x-large;
+    color: black;
+}
+.servicepage{
+    text-decoration: none;
+    margin-left: 18px;
+    font-size:x-large;
+    color: black;
+}
+
+
+.homepage:hover{
+    color:#FF2800;
+}
+.aboutpage:hover{
+    color:#FF2800;
+}
+.guidepage:hover{
+    color:#FF2800;
+}
+.servicepage:hover{
+    color:#FF2800;
+}

@@ -1,11 +1,11 @@
 import React from 'react';
 import EastIcon from '@mui/icons-material/East';
-import BuildIcon from '@mui/icons-material/Build'; 
-import SettingsIcon from '@mui/icons-material/Settings'; 
-import LocalGasStationIcon from '@mui/icons-material/LocalGasStation'; 
-import ElectricCarIcon from '@mui/icons-material/ElectricCar'; 
-import AcUnitIcon from '@mui/icons-material/AcUnit'; 
-import CarCrashSharpIcon from '@mui/icons-material/CarCrashSharp'; 
+import BuildIcon from '@mui/icons-material/Build';
+import SettingsIcon from '@mui/icons-material/Settings';
+import LocalGasStationIcon from '@mui/icons-material/LocalGasStation';
+import ElectricCarIcon from '@mui/icons-material/ElectricCar';
+import AcUnitIcon from '@mui/icons-material/AcUnit';
+import CarCrashSharpIcon from '@mui/icons-material/CarCrashSharp';
 import HighlightIcon from '@mui/icons-material/Highlight';
 import { Box,Button, Card, CardActions, CardContent, CardMedia, Typography,Grid } from "@mui/material";
 function Home() {
@@ -16,30 +16,38 @@ function Home() {
     { title: 'Electronic Services', icon: ElectricCarIcon },
     { title: 'Air Conditioning Service', icon: AcUnitIcon },
     { title: 'Engine Service', icon: CarCrashSharpIcon },
-    { title: 'Brake Service', icon: SettingsIcon }, 
+    { title: 'Brake Service', icon: SettingsIcon },
     { title: 'Car Bulb Check', icon: HighlightIcon }
   ];
-  
+ 
   return (
     <div>
-      <Card sx={{ display: 'flex', maxWidth: 1100,marginLeft:23,marginTop:12,backgroundColor:'#d7dce2',borderRadius:10}}>
+      <Card sx={{ display: 'flex', maxWidth: 1100,marginLeft:23,marginTop:12,backgroundColor:'#d7dce2',borderRadius:10,color:'black'}}>
   <CardMedia
     sx={{ width: 1700, height: 500 }}
     image={'https://jmautorepair.com/wp-content/uploads/sites/3436/2023/03/932280slider4.jpg'}
     title="Car Repair"
   />
-  <Box sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
+  <Box sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'center',color:'black' }}>
     <CardContent>
-      <Typography gutterBottom variant="h3" component="div">
+      <Typography gutterBottom variant="h3" component="div"style={{color:'black'}}>
         World-Class Service for Your Car
       </Typography>
-      <Typography variant="h6" color="text.secondary">
+      <Typography variant="h6">
         At MCQueen Car Service, quality service is affordable. We are powered by MCQueen, to be your world-class workshop next door for complete car care - service, maintenance, and car repairs, for any car.
       </Typography>
     </CardContent>
     <CardActions>
-      <Button size="medium">Book A service</Button>
-      <Button size="medium">Learn More</Button>
+      <Button size="medium" sx={{
+    color: '#000080',
+    '&:hover': {
+      bgcolor: '#b0c4de',
+    }}}>Book A service</Button>
+      <Button size="medium" sx={{
+    color: '#000080',
+    '&:hover': {
+      bgcolor: '#b0c4de',
+    }}}>Learn More</Button>
     </CardActions>
   </Box>
 </Card>
@@ -69,5 +77,6 @@ function Home() {
     </div>
   );
 }
-
+ 
 export default Home;
+ 

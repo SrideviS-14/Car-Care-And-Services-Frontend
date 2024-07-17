@@ -22,18 +22,18 @@ function Home() {
  
   return (
     <div>
-      <Card sx={{ display: 'flex', maxWidth: 1100,marginLeft:23,marginTop:12,backgroundColor:'#d7dce2',borderRadius:10}}>
+      <Card sx={{ display: 'flex', maxWidth: 1100,marginLeft:23,marginTop:12,backgroundColor:'#d7dce2',borderRadius:10,color:'black'}}>
   <CardMedia
     sx={{ width: 1700, height: 500 }}
     image={'https://jmautorepair.com/wp-content/uploads/sites/3436/2023/03/932280slider4.jpg'}
     title="Car Repair"
   />
-  <Box sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
+  <Box sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'center',color:'black' }}>
     <CardContent>
-      <Typography gutterBottom variant="h3" component="div">
+      <Typography gutterBottom variant="h3" component="div"style={{color:'black'}}>
         World-Class Service for Your Car
       </Typography>
-      <Typography variant="h6" color="text.secondary">
+      <Typography variant="h6">
         At MCQueen Car Service, quality service is affordable. We are powered by MCQueen, to be your world-class workshop next door for complete car care - service, maintenance, and car repairs, for any car.
       </Typography>
     </CardContent>

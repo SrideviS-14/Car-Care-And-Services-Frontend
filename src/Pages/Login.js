@@ -7,7 +7,7 @@ import { useAuth } from './AuthContext';
 function Login()
 {
   const navigate=useNavigate();
-  const { isLoggedIn, setIsLoggedIn } = useAuth();
+  const { isLoggedIn, setIsLoggedIn, jwt, setJwt } = useAuth();
   axios.defaults.headers.common['Access-Control-Allow-Origin'] = '*';
   axios.defaults.headers.common['Access-Control-Allow-Headers'] = 'Origin, X-Requested-With, Content-Type, Accept';
   const api = axios.create({
@@ -22,8 +22,9 @@ function Login()
     try {
         const response = await api.post('/account/login', formData);
         setIsLoggedIn(true);
+        setJwt(response.data.token);
         navigate('/');
-        console.log('Registration successful:', response.data.user);
+        console.log('Registration successful:', response.data.token);
         // Handle success (e.g., redirect to login page)
     } catch (error) {
         alert("Invalid User Name or Password!");

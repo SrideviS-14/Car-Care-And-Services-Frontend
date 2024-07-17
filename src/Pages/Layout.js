@@ -19,7 +19,7 @@ return(
     <nav className="main-header">
         <Link className="homepage" to="/">Home</Link>
         <Link className="aboutpage" to="/About">About Us</Link>
-        <Link className="guidepage"to="/Guides">Guides</Link>
+        <Link className="guidepage"to="/Cart">Cart</Link>
         <Link className="packagepage" to="/Package">Packages</Link>
         <Link className="servicepage"to="/Service">Book A Service</Link>
         {isLoggedIn ? 

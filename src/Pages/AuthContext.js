@@ -1,19 +1,18 @@
 // AuthContext.js
 import { createContext, useContext, useState } from 'react';
-
+ 
 const AuthContext = createContext();
-
+ 
 export function AuthProvider({ children }) {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [jwt, setJwt] = useState('');
-
+  const [jwt, setJwt] = useState(localStorage.getItem('jwt') || '');
+ 
   return (
-    <AuthContext.Provider value={{ isLoggedIn, setIsLoggedIn, jwt, setJwt }}>
+    <AuthContext.Provider value={{  jwt, setJwt }}>
       {children}
-    </AuthContext.Provider> 
+    </AuthContext.Provider>
   );
 }
-
+ 
 export function useAuth() {
   return useContext(AuthContext);
 }

@@ -58,6 +58,7 @@ return (
               required
               id="outlined-required"
               label="Enter Your Email"
+              type="email"
               fullWidth
               value={formData.email}
               onChange={(e) => setFormData({ ...formData, email: e.target.value })}

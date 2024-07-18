@@ -5,3 +5,53 @@ h1{
 button{
     background-color: #126cfc;
 }
+nav{
+    margin-left: 600px;
+    margin-top: 25px;
+}
+.homepage{
+    text-decoration: none;
+    margin-left: 18px;
+    font-size:x-large;
+    color: black;
+}
+.packagepage{
+    text-decoration: none;
+    margin-left: 18px;
+    font-size:x-large;
+    color: black;
+}
+.aboutpage{
+    text-decoration: none;
+    margin-left: 18px;
+    font-size:x-large;
+    color: black;
+}
+.guidepage{
+    text-decoration: none;
+    margin-left: 18px;
+    font-size:x-large;
+    color: black;
+}
+.servicepage{
+    text-decoration: none;
+    margin-left: 18px;
+    font-size:x-large;
+    color: black;
+}
+.homepage:hover{
+    color:#0000fd;
+}
+.aboutpage:hover{
+    color:#0000fd;
+}
+.guidepage:hover{
+    color:#0000fd;
+}
+.servicepage:hover{
+    color:#0000fd;
+}
+.packagepage:hover{
+    color:#0000fd;  
+}
+

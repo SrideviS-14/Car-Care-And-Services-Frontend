@@ -1,5 +1,4 @@
 import { Outlet,Link} from "react-router-dom";
-import './pages.css';
 import './Login.js';
 import './Signup.js';
 import './Layout.css';
@@ -8,12 +7,13 @@ import { useAuth } from './AuthContext';
 
 function Layout(){
 
-  const { isLoggedIn, setIsLoggedIn } = useAuth();
-
-   const handleLogout = () => {
-    setIsLoggedIn(false);
-   }
-
+  const { jwt, setJwt } = useAuth();
+ 
+  const handleLogout = () => {
+   localStorage.setItem('jwt', '');
+   setJwt('');
+   console.log(localStorage.getItem('jwt'));
+  }
 return(
     <>
     <nav className="main-header">
@@ -22,7 +22,7 @@ return(
         <Link className="guidepage"to="/Cart">Cart</Link>
         <Link className="packagepage" to="/Package">Packages</Link>
         <Link className="servicepage"to="/Service">Book A Service</Link>
-        {isLoggedIn ? 
+        {!!jwt ? 
                         <Link className="login" to="/">
                         <Button onClick={handleLogout} style={{
                             fontSize: 'medium',

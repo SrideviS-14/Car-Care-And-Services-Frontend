@@ -29,23 +29,13 @@ function Cart() {
       });
   }, []);
 
-  const handleConfirmBooking = async () => {
-    try {
-      const response = await api.get('/cart/getServices'); // Corrected the payload
-      alert('booking confirmed');
-      navigate('/confirmBooking');
-      console.log('Added successfully!', response.data);
-    } catch (error) {
-      alert('Could not add!');
-      console.error('Registration failed:', error);
-      // Handle error (e.g., display error message)
-    }
+  const handleProceedToInvoice = async () => {
+      navigate('/invoice');
   }
   const handleAddToCart = async (service_ID) => {
     try {
       console.log(service_ID);
       const response = await api.post('/cart/addService', service_ID); // Corrected the payload
-      alert('added successfully');
       console.log('Added successfully!', response.data);
     } catch (error) {
       alert('Could not add!');
@@ -54,46 +44,42 @@ function Cart() {
     }
   };
   
-
+ 
   return (
-    <div>
+    <div style={{ fontFamily: 'Times New Roman, Times, serif' }}>
       <br />
       <br />
-      <Typography style={{ fontSize: 'xx-large', justifyContent: 'center', textAlign: 'center' }}>
+      <Typography style={{ fontFamily:'Times New Roman, Times, serif',fontSize: 'xx-large', justifyContent: 'center', textAlign: 'center' }}>
         Service Offered
       </Typography>
       <br />
       <br />
-      <Grid container spacing={2} style={{ display: 'grid', justifyContent: 'center' }}>
+      <Grid container spacing={2} style={{ flexDirection: 'row',fontFamily:'Times New Roman, Times, serif', display: 'grid', justifyContent: 'center' }}>
         {carddata.map((item) => (
           <Grid item key={item.service_ID}>
-            <Card style={{ justifyContent: 'center', width: '900px', height: '280px', borderRadius: '5', backgroundColor: '#d7dce2' }}>
+            <Card style={{fontFamily:'Times New Roman, Times, serif',justifyContent: 'center', width: '900px', height: '280px', borderRadius: '5', backgroundColor: '#d7dce2' }}>
               <CardContent style={{ fontSize: 'x-Large', display: 'flex', flexDirection: 'column' }}>
-                <div style={{ fontSize: 'xx-large', fontWeight: 'bold' }}>{item.service_Name}</div>
-                <div style={{ textAlign: 'right' }}>₹{item.service_Amount}</div>
+                <div style={{fontFamily:'Times New Roman, Times, serif', fontSize: 'xx-large', fontWeight: 'bold' }}>{item.service_Name}</div>
+                <div style={{fontFamily:'Times New Roman, Times, serif', textAlign: 'right' }}>₹{item.service_Amount}</div>
                 <br />
-                <div style={{ textAlign: 'left' }}>{item.description}</div>
+                <div style={{fontFamily:'Times New Roman, Times, serif', textAlign: 'left' }}>{item.description}</div>
                 <br />
-                <CardActions style={{ justifyContent: 'flex-end', marginBottom:19}}>
-                <Button
-
-  size="medium"
-  variant="contained"
-  style={{ backgroundColor: '#000080',marginBottom:50 }}
-  onClick={() => handleAddToCart(item.service_ID)} // Corrected the onClick handler
->
-  <ShoppingCartIcon /> Add To Cart
+                <CardActions style={{ 
+                  fontFamily:'Times New Roman, Times, serif',justifyContent: 'flex-end', marginBottom:19}}>
+                <Button size="medium" variant="contained" style={{ backgroundColor: '#000080',marginBottom:50 }}onClick={() => handleAddToCart(item.service_ID)}>
+<ShoppingCartIcon /> Add To Cart
 </Button>
-
                 </CardActions>
               </CardContent>
             </Card>
           </Grid>
         ))}
         <br />
-        <Button size='medium' variant='contained' style={{ backgroundColor: '#000080' }}
-              onClick={() => handleConfirmBooking()} >Confirm Booking</Button>
       </Grid>
+      <CardActions style={{alignContent:'center',justifyContent:'center'}}>
+      <Button size='medium' variant='contained' style={{alignContent:'center',justifyContent:'center',backgroundColor: '#000080' }}
+              onClick={() => handleProceedToInvoice()} >Proceed To invoice</Button>
+        </CardActions>
     </div>
   );
 }

@@ -17,20 +17,21 @@ function Login()
     username: '',
     password: '',
 });
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    try {
-        const response = await api.post('/account/login', formData);
-        setIsLoggedIn(true);
-        setJwt(response.data.token);
-        navigate('/');
-        console.log('Registration successful:', response.data.token);
-        // Handle success (e.g., redirect to login page)
-    } catch (error) {
-        alert("Invalid User Name or Password!");
-        console.error('Registration failed:');
-        // Handle error (e.g., display error message)
-    }
+const handleSubmit = async (e) => {
+  e.preventDefault();
+  try {
+      const response = await api.post('/account/login', formData);
+      localStorage.setItem('jwt', response.data.token);
+      console.log(localStorage.getItem('jwt'));
+      setJwt(response.data.token);
+      navigate('/');
+      console.log('Registration successful:', response.data.token);
+      // Handle success (e.g., redirect to login page)
+  } catch (error) {
+      alert("Invalid User Name or Password!");
+      console.error('Registration failed:');
+      // Handle error (e.g., display error message)
+  }
 };
 
 return (

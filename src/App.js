@@ -8,7 +8,8 @@ import Service from './Pages/Service.js'
 import Login from './Pages/Login.js';
 import SignUp from './Pages/Signup.js';
 import Package from './Pages/Package.js';
-import ConfirmBooking from './Pages/ConfirmBooking.js'
+import Invoice from './Pages/Invoice.js';
+import Payment from  './Pages/Payment.js';
 
 function App() {
   return (
@@ -24,7 +25,8 @@ function App() {
         <Route path='service' element={<Service />}></Route>
         <Route path='login' element={<Login />}></Route>
         <Route path='signup' element={<SignUp />}></Route>
-        <Route path='confirmBooking' element={<ConfirmBooking />}></Route>
+        <Route path='invoice' element={<Invoice />}></Route>
+        <Route path='payment' element={<Payment />}></Route>
         </Route>
       </Routes>
       </BrowserRouter>

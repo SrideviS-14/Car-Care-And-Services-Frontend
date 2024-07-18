@@ -21,29 +21,44 @@ function Home() {
   ];
  
   return (
-    <div>
-      <Card sx={{ display: 'flex', maxWidth: 1100,marginLeft:23,marginTop:12,backgroundColor:'#d7dce2',borderRadius:10,color:'black'}}>
+    <div style={{fontFamily:'Times New Roman, Times, serif'}}>
+      <br></br>
+      <br></br>
+      <div style={{
+  display: 'flex',
+  justifyContent: 'center',
+  alignItems: 'center',
+  height: '55px',
+  backgroundColor: '#000080',
+  fontSize: 'x-large',
+  fontWeight: 'bolder',
+  color: 'white'
+}}>
+  <marquee>Call to this (+91) 9475765201 to book your service</marquee>
+</div>
+
+      <Card sx={{ justifyContent:'center',height:'max',display: 'flex', maxWidth: 1100,marginLeft:23,marginTop:12,backgroundColor:'#d7dce2',borderRadius:10,color:'black'}}>
   <CardMedia
     sx={{ width: 1700, height: 500 }}
     image={'https://jmautorepair.com/wp-content/uploads/sites/3436/2023/03/932280slider4.jpg'}
     title="Car Repair"
   />
-  <Box sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'center',color:'black' }}>
+  <Box sx={{ fontFamily:'Times New Roman, Times, serif',display: 'flex', flexDirection: 'column', justifyContent: 'center',color:'black' }}>
     <CardContent>
-      <Typography gutterBottom variant="h3" component="div"style={{color:'black'}}>
+      <Typography gutterBottom variant="h3" component="div"style={{fontFamily:'Times New Roman, Times, serif',color:'black'}}>
         World-Class Service for Your Car
       </Typography>
-      <Typography variant="h6">
+      <Typography variant="h6"style={{fontFamily:'Times New Roman, Times, serif'}}>
         At MCQueen Car Service, quality service is affordable. We are powered by MCQueen, to be your world-class workshop next door for complete car care - service, maintenance, and car repairs, for any car.
       </Typography>
     </CardContent>
     <CardActions>
-      <Button size="medium" sx={{
+      <Button size="medium" sx={{fontFamily:'Times New Roman, Times, serif',
     color: '#000080',
     '&:hover': {
       bgcolor: '#b0c4de',
     }}}>Book A service</Button>
-      <Button size="medium" sx={{
+      <Button size="medium" sx={{fontFamily:'Times New Roman, Times, serif',
     color: '#000080',
     '&:hover': {
       bgcolor: '#b0c4de',
@@ -51,21 +66,21 @@ function Home() {
     </CardActions>
   </Box>
 </Card>
-<h1 style={{fontFamily:'Arial, "Helvetica Neue", Helvetica, sans-serif'}}>Our Services</h1>
-<h1 style={{color:'white',textAlign:'center',fontFamily:'Arial, "Helvetica Neue", Helvetica, sans-serif'}}>Visit our nearest workshop for high-quality service </h1>
+<h1 style={{color:'black',fontFamily:'Times New Roman, Times, serif',}}>Our Services</h1>
+<h1 style={{color:'black',textAlign:'center',fontFamily:'Times New Roman, Times, serif'}}>Visit our nearest workshop for high-quality service </h1>
 <Grid container spacing={3}>
 {cardsData.map((card, index) => (
   <Grid item xs={6} sm={3} key={index}sx={{ marginRight: -1, marginLeft: -1 }}>
-    <Card sx={{ maxWidth: 300, maxHeight: 230, borderRadius: 10, marginLeft:8,backgroundColor:'#d7dce2' }}>
+    <Card sx={{ maxWidth: 300, maxHeight: 230, borderRadius: 10, marginLeft:8,fontFamily:'Times New Roman, Times, serif',backgroundColor:'#d7dce2' }}>
       <CardContent sx={{ justifyContent: 'center', display: 'flex' }}>
         <card.icon style={{ fontSize: 60 }} />
       </CardContent>
       <CardContent>
-        <Typography gutterBottom variant="h5" component="h4" style={{ textAlign: 'center' }}>
+        <Typography gutterBottom variant="h5" component="h4" style={{ textAlign: 'center',fontFamily:'Times New Roman, Times, serif' }}>
           {card.title}
         </Typography>
       </CardContent>
-      <CardActions style={{ justifyContent: 'center' }}>
+      <CardActions style={{ justifyContent: 'center',fontFamily:'Times New Roman, Times, serif'}}>
         <Button size="large" color="primary">
           <EastIcon />
         </Button>

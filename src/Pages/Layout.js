@@ -18,7 +18,7 @@ function Layout(){
   }
 return(
     <>
-     <video src={video} autoPlay loop muted style={{ width: '200px', height: '200px' }}></video>
+     <video src={video} autoPlay loop muted style={{ width: '200px', height: '200px',fontFamily:'Times New Roman, Times, serif' }}></video>
     <nav className="main-header">
         <Link className="homepage" to="/">Home</Link>
         <Link className="aboutpage" to="/About">About Us</Link>

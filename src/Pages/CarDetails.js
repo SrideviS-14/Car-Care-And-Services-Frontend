@@ -7,14 +7,14 @@ function CarDetails(){
         }
     return(
         <div>
-            <Box sx={{justifyContent:"center"  ,marginTop:"20px"}}>
-            <Card sx={{marigntop:'50px',marginLeft:'500px',width:'470px', height:'700px',justifyContent: "center", borderRadius: 12, backgroundColor: '#d7dce2' }}>
-<Grid spacing={2} sx={{marginLeft:'5px',marginTop:'30px'}}>
+            <Box sx={{justifyContent:"center"  ,marginTop:"20px",fontFamily:'Times New Roman, Times, serif'}}>
+            <Card sx={{marigntop:'50px',fontFamily:'Times New Roman, Times, serif',marginLeft:'500px',width:'470px', height:'700px',justifyContent: "center", borderRadius: 12, backgroundColor: '#d7dce2' }}>
+<Grid spacing={2} sx={{fontFamily:'Times New Roman, Times, serif',marginLeft:'5px',marginTop:'30px'}}>
 <Grid  spacing={2}>
-    <Typography variant='h6' sx={{textAlign:'center',fontWeight:'bolder'}}>Please Type Out Car Details</Typography>
+    <Typography variant='h6' sx={{textAlign:'center',fontWeight:'bolder',fontFamily:'Times New Roman, Times, serif'}}>Please Type Out Car Details</Typography>
 <CardContent>
   <Box md={2}>
-  <Typography gutterBottom variant="subtitle1">
+  <Typography gutterBottom variant="subtitle1" style={{fontFamily:'Times New Roman, Times, serif'}}>
     Car Number
     </Typography>
     <TextField
@@ -26,7 +26,7 @@ function CarDetails(){
   </Box>
   <br></br>
   <Box md={2}>
-  <Typography gutterBottom variant="subtitle1">
+  <Typography gutterBottom variant="subtitle1" style={{fontFamily:'Times New Roman, Times, serif'}}>
     Car Model
     </Typography>
     <TextField
@@ -38,7 +38,7 @@ function CarDetails(){
   </Box>
   <br></br>
   <Box md={2}>
-  <Typography gutterBottom variant="subtitle1">
+  <Typography gutterBottom variant="subtitle1" style={{fontFamily:'Times New Roman, Times, serif'}}>
     Car Company
     </Typography>
     <TextField
@@ -50,7 +50,7 @@ function CarDetails(){
   </Box>
   <br></br>
   <Box md={2}>
-  <Typography gutterBottom variant="subtitle1">
+  <Typography gutterBottom variant="subtitle1" style={{fontFamily:'Times New Roman, Times, serif'}}>
     Car Type
     </Typography>
     <TextField
@@ -62,7 +62,7 @@ function CarDetails(){
     </Box>
   <br></br>
   <Box md={2}>
-  <Typography gutterBottom variant="subtitle1">
+  <Typography gutterBottom variant="subtitle1"style={{fontFamily:'Times New Roman, Times, serif'}}>
     Car Colour
     </Typography>
     <TextField
@@ -73,8 +73,8 @@ function CarDetails(){
     />
   </Box>
   </CardContent>
-  <CardActions sx={{justifyContent:'center'}}>
-    <Button size='large' variant='contained'onClick={handlesubmit} style={{alignContent:'center',backgroundColor: '#000080' }}>Submit</Button>
+  <CardActions sx={{justifyContent:'center',fontFamily:'Times New Roman, Times, serif'}}>
+    <Button size='large' variant='contained'onClick={handlesubmit} style={{alignContent:'center',backgroundColor: '#000080',fontFamily:'Times New Roman, Times, serif'}}>Submit</Button>
   </CardActions>
   </Grid>
   </Grid>

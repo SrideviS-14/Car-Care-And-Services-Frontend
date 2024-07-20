@@ -50,16 +50,16 @@ function Invoice() {
       navigate('/cart');
     }
     return (
-      <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+      <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center',fontFamily:'Times New Roman, Times, serif' }}>
 
-            <Paper elevation={3} style={{ marginTop:'50px',marginBottom:'50px',padding: '20px', width: '600px', maxWidth: '100%' }} ref={componentRef}>
+            <Paper elevation={3} style={{ marginTop:'50px',marginBottom:'50px',padding: '20px', width: '600px', maxWidth: '100%',fontFamily:'Times New Roman, Times, serif' }} ref={componentRef}>
            <div className="col-md-4 brcode">
                                         <Barcode value='1234567890'width={1} height={50} displayValue={false} />
                                     </div>
                                     <div className="col-md-8 text-right bbc">
-                                        <h4 style={{ color: '#325aa8' }}><strong>Company</strong></h4>
-                                        <p>(+91) 9475765201</p>
-                                        <p>Company@gmail.com</p>
+                                        <h4 style={{ color: '#325aa8',fontFamily:'Times New Roman, Times, serif' }}><strong>Company</strong></h4>
+                                        <p style={{fontFamily:'Times New Roman, Times, serif'}}>(+91) 9475765201</p>
+                                        <p style={{fontFamily:'Times New Roman, Times, serif'}}>Company@gmail.com</p>
                                     </div>
           <Typography variant="h4" align="center" gutterBottom>
             Invoice
@@ -68,30 +68,30 @@ function Invoice() {
             <Table aria-label="simple table">
               <TableHead style={{fontWeight:'bolder'}}>
                 <TableRow>
-                  <TableCell style={{fontWeight:'bolder'}}>Service Name</TableCell>
-                  <TableCell style={{fontWeight:'bolder'}}align="right">Amount</TableCell>
+                  <TableCell style={{fontWeight:'bolder',fontFamily:'Times New Roman, Times, serif'}}>Service Name</TableCell>
+                  <TableCell style={{fontWeight:'bolder',fontFamily:'Times New Roman, Times, serif'}}align="right">Amount</TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
                 {services.map((service) => (
                   <TableRow key={service.service_ID}>
-                    <TableCell component="th" scope="row">
+                    <TableCell component="th" scope="row" style={{fontFamily:'Times New Roman, Times, serif'}}>
                       {service.service_Name}
                     </TableCell>
-                    <TableCell align="right">₹{service.service_Amount}</TableCell>
+                    <TableCell align="right" style={{fontFamily:'Times New Roman, Times, serif'}}>₹{service.service_Amount}</TableCell>
                   </TableRow>
                 ))}
                 <TableRow>
-                  <TableCell component="th" scope="row" style={{ fontWeight: 'bold' }}>
+                  <TableCell component="th" scope="row" style={{ fontWeight: 'bold',fontFamily:'Times New Roman, Times, serif' }}>
                     GST
                   </TableCell>
-                  <TableCell align="right" style={{ fontWeight: 'bold' }}>₹155</TableCell>
+                  <TableCell align="right" style={{ fontWeight: 'bold',fontFamily:'Times New Roman, Times, serif' }}>₹155</TableCell>
                 </TableRow>
                 <TableRow>
-                  <TableCell component="th" scope="row" style={{ fontWeight: 'bold' }}>
+                  <TableCell component="th" scope="row" style={{ fontWeight: 'bold',fontFamily:'Times New Roman, Times, serif' }}>
                     Total
                   </TableCell>
-                  <TableCell align="right" style={{ fontWeight: 'bold' }}>₹{finaldata + 155}</TableCell>
+                  <TableCell align="right" style={{ fontWeight: 'bold',fontFamily:'Times New Roman, Times, serif' }}>₹{finaldata + 155}</TableCell>
                 </TableRow>
               </TableBody>
             </Table>

@@ -8,7 +8,23 @@ import AcUnitIcon from '@mui/icons-material/AcUnit';
 import CarCrashSharpIcon from '@mui/icons-material/CarCrashSharp';
 import HighlightIcon from '@mui/icons-material/Highlight';
 import { Box,Button, Card, CardActions, CardContent, CardMedia, Typography,Grid } from "@mui/material";
+import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
+import { useAuth } from './AuthContext';
 function Home() {
+  const {jwt, setJwt } = useAuth();
+  axios.defaults.headers.common['Access-Control-Allow-Origin'] = '*';
+  axios.defaults.headers.common['Access-Control-Allow-Headers'] = 'Origin, X-Requested-With, Content-Type, Accept';
+  const api = axios.create({
+    baseURL: 'http://localhost:8080',
+    headers: {
+      Authorization: `Bearer ${jwt}`,
+      "Content-Type": 'application/json'
+    }, 
+  });
+  const navigate = useNavigate();
+  const HandleClick = () =>{
+    {!!jwt ? navigate('/Cart') : navigate('/login')}}
   const cardsData = [
     { title: 'Inspection & Checks', icon: SettingsIcon },
     { title: 'Car Repair Service', icon: BuildIcon },
@@ -24,6 +40,10 @@ function Home() {
     <div style={{fontFamily:'Times New Roman, Times, serif'}}>
       <br></br>
       <br></br>
+      <br></br>
+      <br></br>
+<br></br>
+<br></br>
       <div style={{
   display: 'flex',
   justifyContent: 'center',
@@ -36,7 +56,7 @@ function Home() {
 }}>
   <marquee>Call to this (+91) 9475765201 to book your service</marquee>
 </div>
-
+ 
       <Card sx={{ justifyContent:'center',height:'max',display: 'flex', maxWidth: 1100,marginLeft:23,marginTop:12,backgroundColor:'#d7dce2',borderRadius:10,color:'black'}}>
   <CardMedia
     sx={{ width: 1700, height: 500 }}
@@ -81,7 +101,7 @@ function Home() {
         </Typography>
       </CardContent>
       <CardActions style={{ justifyContent: 'center',fontFamily:'Times New Roman, Times, serif'}}>
-        <Button size="large" color="primary">
+        <Button size="large" color="primary" onClick={HandleClick}>
           <EastIcon />
         </Button>
       </CardActions>
@@ -89,9 +109,9 @@ function Home() {
   </Grid>
 ))}
       </Grid>
+      <br></br>
+      <br></br>
     </div>
   );
 }
- 
 export default Home;
- 

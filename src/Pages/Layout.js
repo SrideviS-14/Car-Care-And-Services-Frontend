@@ -1,12 +1,14 @@
+
 import { Outlet,Link} from "react-router-dom";
 import './Login.js';
 import './Signup.js';
 import './Layout.css';
 import { Button } from "@mui/material";
 import { useAuth } from './AuthContext';
-
+import video from './images/WheelsUp.mp4';
+import Footer from './Footer.js'; 
 function Layout(){
-
+ 
   const { jwt, setJwt } = useAuth();
  
   const handleLogout = () => {
@@ -16,13 +18,14 @@ function Layout(){
   }
 return(
     <>
+     <video src={video} autoPlay loop muted style={{ width: '200px', height: '200px' }}></video>
     <nav className="main-header">
         <Link className="homepage" to="/">Home</Link>
         <Link className="aboutpage" to="/About">About Us</Link>
         <Link className="guidepage"to="/Cart">Cart</Link>
         <Link className="packagepage" to="/Package">Packages</Link>
-        <Link className="servicepage"to="/Service">Book A Service</Link>
-        {!!jwt ? 
+        <Link className="servicepage"to="/Service">Quick Book</Link>
+        {!!jwt ?
                         <Link className="login" to="/">
                         <Button onClick={handleLogout} style={{
                             fontSize: 'medium',
@@ -64,12 +67,14 @@ return(
                   }}>Log in</Button>
                 </Link>
         </>
-
+ 
                 }
-        
+       
     </nav>
     <Outlet />
+    <Footer />
     </>
 )
 }
 export default Layout;
+ 

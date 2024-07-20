@@ -23,7 +23,7 @@ function SignUp()
     e.preventDefault();
     try {
         const response = await api.post('/account/register', formData);
-        navigate('/login')
+        navigate('/CarDetails')
         console.log('Registration successful:', response.data.user);
         // Handle success (e.g., redirect to login page)
     } catch (error) {
@@ -105,6 +105,9 @@ return (
             <FormControlLabel control={<Checkbox/>} style={{justifyContent:'center'}} label="Email me with offers and updates" />
             </FormGroup>
         </Card>
+        <br></br>
+    <br></br>
+    <br></br>
         </Box>
 );
 }

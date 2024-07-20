@@ -66,6 +66,7 @@ return (
               type="password"
               autoComplete="current-password"
               fullWidth
+              
               value={formData.password}
               onChange={(e) => setFormData({ ...formData, password: e.target.value })}
             />
@@ -79,6 +80,9 @@ return (
         </CardActions>
         </Card>
         </Box>
+        <br></br>
+      <br></br>
+      <br></br>
     </div>
 );
 }

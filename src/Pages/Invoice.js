@@ -51,7 +51,8 @@ function Invoice() {
     }
     return (
       <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-            <Paper elevation={3} style={{ padding: '20px', width: '600px', maxWidth: '100%' }} ref={componentRef}>
+
+            <Paper elevation={3} style={{ marginTop:'50px',marginBottom:'50px',padding: '20px', width: '600px', maxWidth: '100%' }} ref={componentRef}>
            <div className="col-md-4 brcode">
                                         <Barcode value='1234567890'width={1} height={50} displayValue={false} />
                                     </div>
@@ -105,6 +106,9 @@ function Invoice() {
                   onClick={() => handlePayment()} >Proceed To Pay</Button> 
         </CardActions>
           </div>
+ <br></br>
+ <br></br>
+ 
         </Paper>
         </div>
     );

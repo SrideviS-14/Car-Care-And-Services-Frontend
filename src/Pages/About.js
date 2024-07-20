@@ -1,4 +1,4 @@
-import { Box,Button, Card, CardActions, CardContent, CardMedia,Typography} from "@mui/material";
+import { Grid,Box,Button, Card, CardActions, CardContent, CardMedia,Typography} from "@mui/material";
 function About()
 {    
  
@@ -31,23 +31,49 @@ function About()
   <br></br>
   <br></br>
   <br></br>
+  <Card sx={{ fontFamily:'Times New Roman, Times, serif',backgroundColor:'#d7dce2',borderRadius:10,marginLeft:23,display: 'flex', flexDirection: 'row', fontFamily: 'Times New Roman, Times, serif', width: 1100,height:700 }}>
+  <Grid container>
+          <Grid item xs={12} md={6}>
+            <CardContent>
   <Typography variant="h4" style={{fontFamily:'Times New Roman, Times, serif',textAlign:'center'}}>Our History</Typography>
   <br></br>
-  <Typography variant="body1" component='div' style={{fontFamily:'Times New Roman, Times, serif',justifyContent:'center'}}>For a century, SF Car Care and Services has been a beacon of excellence in the automotive service industry. With a vast network of over 15,000 dedicated workshops spanning more than 150 nations, our journey began on January 1, 1921, when the esteemed Max Eisenmann & Co in Hamburg was honored as the “Official Installation and Repair Workshop of SF Car Care and Services.”</Typography>
+  <Typography variant="h6" component='div' style={{fontFamily:'Times New Roman, Times, serif',justifyContent:'center'}}>For a century, SF Car Care and Services has been a beacon of excellence in the automotive service industry. With a vast network of over 15,000 dedicated workshops spanning more than 150 nations, our journey began on January 1, 1921, when the esteemed Max Eisenmann & Co in Hamburg was honored as the “Official Installation and Repair Workshop of SF Car Care and Services.”</Typography>
   <br></br>
-  <Typography variant="body1" component='div' style={{fontFamily:'Times New Roman, Times, serif',justifyContent:'center'}}>Our network comprises select garages that not only meet but often surpass the rigorous standards set by SF Car Care. These establishments are fueled by a fervent love for automobiles and a commitment to delivering top-notch service. The founding ethos of SF Car Care, rooted in unwavering quality and customer-centricity, has ensured that these high standards permeate every facet of our operations.</Typography>
+  <Typography variant="h6" component='div' style={{fontFamily:'Times New Roman, Times, serif',justifyContent:'center'}}>Our network comprises select garages that not only meet but often surpass the rigorous standards set by SF Car Care. These establishments are fueled by a fervent love for automobiles and a commitment to delivering top-notch service. The founding ethos of SF Car Care, rooted in unwavering quality and customer-centricity, has ensured that these high standards permeate every facet of our operations.</Typography>
   <br></br>
-  <Typography variant="body1" component='div'style={{fontFamily:'Times New Roman, Times, serif',justifyContent:'center'}}>Each of our garages operates under the stewardship of passionate and ambitious individuals, who consistently uphold and advance the quality benchmarks established by SF Car Care.</Typography>
+  <Typography variant="h6" component='div'style={{fontFamily:'Times New Roman, Times, serif',justifyContent:'center'}}>Each of our garages operates under the stewardship of passionate and ambitious individuals, who consistently uphold and advance the quality benchmarks established by SF Car Care.</Typography>
   <br></br>
+  </CardContent>
+  </Grid>
+  <Grid item xs={12} md={6}>
+  <CardMedia sx={{ width: 550, height: 700 }}
+    image={'https://tse4.mm.bing.net/th/id/OIP.9SFkL2rMuOuZeA5sv8xClgHaE8?w=292&h=195&c=7&r=0&o=5&dpr=1.3&pid=1.7'}
+    title="Car Repair">
+  </CardMedia>
+  </Grid>
+  </Grid>
+  </Card>
+  <br></br>
+  <br></br>
+  <Card sx={{fontFamily:'Times New Roman, Times, serif',backgroundColor:'#d7dce2',borderRadius:10,marginLeft:23,display: 'flex', flexDirection: 'row-reverse', fontFamily: 'Times New Roman, Times, serif', maxWidth: 1100, }}>
+  <Grid container>
+  <Grid item xs={12} md={6}>
+    <CardMedia
+    sx={{ width: 550, height: 500 }}
+    image={'https://as1.ftcdn.net/v2/jpg/03/14/27/54/1000_F_314275459_ePzHi4T8mbZjzPmRW1pEkbL7VzOI8gid.jpg'}
+    title="Car Repair">
+    </CardMedia>
+    </Grid>
+          <Grid item xs={12} md={6}>
+            <CardContent> 
   <Typography variant="h4" style={{fontFamily:'Times New Roman, Times, serif',textAlign:'center'}}>Celebrating 100 Years of SF Car Care and Services</Typography>
   <br></br>
-  <Typography variant="body1" component='div'style={{fontFamily:'Times New Roman, Times, serif',justifyContent:'center'}}>Your car’s best friend The motto “Your car’s best friend” encapsulates our brand promise, reverberating through the entirety of SF Car Care and Services. Over the past century, we have evolved into a comprehensive workshop network, offering vehicle owners superior maintenance, repair, and diagnostic services.</Typography>
+  <Typography variant="h6" component='div'style={{fontFamily:'Times New Roman, Times, serif',justifyContent:'center'}}>Your car’s best friend The motto “Your car’s best friend” encapsulates our brand promise, reverberating through the entirety of SF Car Care and Services. Over the past century, we have evolved into a comprehensive workshop network, offering vehicle owners superior maintenance, repair, and diagnostic services.</Typography>
   <br></br>
-  <Typography variant="h4" style={{fontFamily:'Times New Roman, Times, serif',textAlign:'center'}}>SF Car Care and Services Milestones</Typography>
-  <br></br>
-  <Typography variant="body1" component='div'style={{fontFamily:'Times New Roman, Times, serif',justifyContent:'center'}}>A Century of Automotive Excellence Throughout SF Car Care’s illustrious 100-year history, we have been at the forefront of automotive breakthroughs, introducing revolutionary technologies such as anti-lock braking systems (ABS) and spearheading innovations in common rail diesel injection systems. Our legacy is built on a foundation of pioneering spirit and a relentless pursuit of innovation.</Typography>
-  <br></br>
-  <br></br>
+  </CardContent>
+          </Grid>
+        </Grid>
+      </Card>
   <br></br>
   <br></br>
   <Typography variant="h4" component='div'style={{justifyContent:'center',fontFamily:'Times New Roman, Times, serif',textAlign:'center'}}>

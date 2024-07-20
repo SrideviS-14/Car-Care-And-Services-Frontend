@@ -3,26 +3,29 @@ import QRCode from "react-qr-code";
 import { useAuth } from './AuthContext';
 import  { Grid, Button, Card,CardActions,CardContent, Typography,TextField,Box } from "@mui/material";
 import axios from "axios";
- 
+
 function Payment(){
-    const { jwt, setJwt } = useAuth();
+    const { jwt} = useAuth();
     const [formData, setFormData] = useState({
-        cardHolderName: '',
-        cardNumber: '',
-        expirationDate: ''
+        Booking_ID: 2,
+        Payment_Type: 'Online',
+        Card_Holder_Name: '',
+        Card_Number: '',
+        Expiration_Date: ''
     });
     axios.defaults.headers.common['Access-Control-Allow-Origin'] = '*';
     axios.defaults.headers.common['Access-Control-Allow-Headers'] = 'Origin, X-Requested-With, Content-Type, Accept';
     const api = axios.create({
-        baseURL: 'http://localhost:8080', // Change this to your actual backend URL
+        baseURL: 'http://localhost:8080',
+        headers: {
+          Authorization: `Bearer ${jwt}`,
+          "Content-Type": 'application/json'
+        },  // Change this to your actual backend URL
     });
-    const handleSubmit = async (e) => {
+    const handlePayment = async (e) => {
         e.preventDefault();
         try {
-            const response = await api.post('/account/login', formData);
-            localStorage.setItem('jwt', response.data.token);
-            console.log(localStorage.getItem('jwt'));
-            setJwt(response.data.token);
+            const response = await api.post('/payment/makePayment', formData);
             console.log('Registration successful:', response.data.token);
             // Handle success (e.g., redirect to login page)
         } catch (error) {
@@ -59,8 +62,8 @@ return(
               id="outlined-required"
               label="Enter card holder name"
               fullWidth
-              value={formData.cardHolderName}
-              onChange={(e) => setFormData({ ...formData, cardHolderName: e.target.value })}
+              value={formData.Card_Holder_Name}
+              onChange={(e) => setFormData({ ...formData, Card_Holder_Name: e.target.value })}
             />
           </Box>
           <Box mb={2}>
@@ -73,8 +76,8 @@ return(
               label="Enter your card number"
               type="password"
               fullWidth
-              value={formData.cardNumber}
-              onChange={(e) => setFormData({ ...formData, cardNumber: e.target.value })}
+              value={formData.Card_Number}
+              onChange={(e) => setFormData({ ...formData, Card_Number: e.target.value })}
             />
           </Box>
           <Box mb={2}>
@@ -87,19 +90,21 @@ return(
               label="Enter your card expiry date"
               type="password"
               fullWidth
-              value={formData.expirationDate}
-              onChange={(e) => setFormData({ ...formData, expirationDate: e.target.value })}
+              value={formData.Expiration_Date}
+              onChange={(e) => setFormData({ ...formData, Expiration_Date: e.target.value })}
             />
           </Box>
         </CardContent>
         <CardActions>
             <Box width="100%" display="flex" justifyContent="center">
-            <Button size="large" variant="contained"style={{backgroundColor:'#000080'}} >Make Payment</Button>
+            <Button size="large" variant="contained"style={{backgroundColor:'#000080'}} onClick={(e) => handlePayment(e)}>Make Payment</Button>
             </Box>
         </CardActions>
         </Card>
         </Box>
     </div>
+    <br></br>
+    <br></br>
     <br></br>
     <br></br>
     </Grid>

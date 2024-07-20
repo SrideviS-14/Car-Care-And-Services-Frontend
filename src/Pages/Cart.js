@@ -30,7 +30,7 @@ function Cart() {
   }, []);
 
   const handleProceedToInvoice = async () => {
-      navigate('/invoice');
+      navigate('/confirmbooking');
   }
   const handleAddToCart = async (service_ID) => {
     try {
@@ -47,39 +47,45 @@ function Cart() {
  
   return (
     <div style={{ fontFamily: 'Times New Roman, Times, serif' }}>
-      <br />
-      <br />
-      <Typography style={{ fontFamily:'Times New Roman, Times, serif',fontSize: 'xx-large', justifyContent: 'center', textAlign: 'center' }}>
+      <br></br>
+      <br></br>
+      <Typography variant="h4" align="center" gutterBottom>
         Service Offered
       </Typography>
-      <br />
-      <br />
-      <Grid container spacing={2} style={{ flexDirection: 'row',fontFamily:'Times New Roman, Times, serif', display: 'grid', justifyContent: 'center' }}>
+      <Grid container spacing={1}>
         {carddata.map((item) => (
-          <Grid item key={item.service_ID}>
-            <Card style={{fontFamily:'Times New Roman, Times, serif',justifyContent: 'center', width: '900px', height: '280px', borderRadius: '5', backgroundColor: '#d7dce2' }}>
-              <CardContent style={{ fontSize: 'x-Large', display: 'flex', flexDirection: 'column' }}>
-                <div style={{fontFamily:'Times New Roman, Times, serif', fontSize: 'xx-large', fontWeight: 'bold' }}>{item.service_Name}</div>
-                <div style={{fontFamily:'Times New Roman, Times, serif', textAlign: 'right' }}>₹{item.service_Amount}</div>
-                <br />
-                <div style={{fontFamily:'Times New Roman, Times, serif', textAlign: 'left' }}>{item.description}</div>
-                <br />
-                <CardActions style={{ 
-                  fontFamily:'Times New Roman, Times, serif',justifyContent: 'flex-end', marginBottom:19}}>
-                <Button size="medium" variant="contained" style={{ backgroundColor: '#000080',marginBottom:50 }}onClick={() => handleAddToCart(item.service_ID)}>
-<ShoppingCartIcon /> Add To Cart
-</Button>
-                </CardActions>
+          <Grid item xs={11} sm={6} key={item.service_ID}>
+            <Card sx={{ m: 2, marginLeft: 15, width: 550, height: 250,backgroundColor: '#d7dce2' }}>
+              <CardContent>
+                <Typography variant="h5" component="div">
+                  {item.service_Name}
+                </Typography>
+                <Typography color="text.secondary" style={{color:'black',fontWeight:'bolder',fontSize:'x-large',marginLeft:'370px'}}>
+                  ₹{item.service_Amount}
+                </Typography>
+                <br></br>
+                <Typography variant="body2">
+                  {item.description}
+                </Typography>
               </CardContent>
+              <CardActions style={{ justifyContent: 'center' }}>
+                <Button size="small" variant='contained' style={{ backgroundColor: '#000080' }} onClick={() => handleAddToCart(item.service_ID)}>
+                  <ShoppingCartIcon /> Add To Cart
+                </Button>
+              </CardActions>
             </Card>
           </Grid>
         ))}
-        <br />
       </Grid>
-      <CardActions style={{alignContent:'center',justifyContent:'center'}}>
-      <Button size='medium' variant='contained' style={{alignContent:'center',justifyContent:'center',backgroundColor: '#000080' }}
-              onClick={() => handleProceedToInvoice()} >Proceed To invoice</Button>
-        </CardActions>
+      <br></br>
+      <CardActions style={{ justifyContent: 'center' }}>
+        <Button size="large" variant='contained' style={{ backgroundColor: '#000080' }} onClick={handleProceedToInvoice}>
+         Confirm Booking
+        </Button>
+      </CardActions>
+      <br></br>
+      <br></br>
+      <br></br>
     </div>
   );
 }

@@ -28,7 +28,7 @@ function Package() {
   }, []);
     return (
       <div>
-      <Grid container spacing={4} style={{ marginTop: '180px', justifyContent: 'center'}}>
+      <Grid container spacing={4} style={{ marginBottom:'100px',marginTop: '180px', justifyContent: 'center'}}>
         {packagedata.map((item) => (
           <Grid item key={item.package_ID} style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
             <Card style={{backgroundColor:'#dcdcdc',width:'400px',height:'400px',fontFamily:'Times New Roman, Times, serif',fontSize:'large',color:'black',borderColor:'#d4af37',borderRadius:'15px',border:'5px 5px 5px 5px'}}>
@@ -53,6 +53,9 @@ function Package() {
             </Card>
           </Grid>
         ))}
+              <br></br>
+      <br></br>
+      <br></br>
       </Grid>
           </div>
         );

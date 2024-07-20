@@ -10,6 +10,8 @@ import SignUp from './Pages/Signup.js';
 import Package from './Pages/Package.js';
 import Invoice from './Pages/Invoice.js';
 import Payment from  './Pages/Payment.js';
+import CarDetails from './Pages/CarDetails.js'
+import ConfirmBooking from './Pages/ConfirmBooking.js';
 
 function App() {
   return (
@@ -27,6 +29,8 @@ function App() {
         <Route path='signup' element={<SignUp />}></Route>
         <Route path='invoice' element={<Invoice />}></Route>
         <Route path='payment' element={<Payment />}></Route>
+        <Route path='cardetails' element={<CarDetails />}></Route>
+        <Route path='confirmbooking' element={<ConfirmBooking />}></Route>
         </Route>
       </Routes>
       </BrowserRouter>

@@ -6,8 +6,9 @@ button{
     background-color: #126cfc;
 }
 nav{
-    margin-left: 600px;
-    margin-top: 25px;
+    margin-left: 500px;
+    margin-top: -135px;
+    align-items: center;
 }
 .homepage{
     text-decoration: none;
@@ -54,4 +55,3 @@ nav{
 .packagepage:hover{
     color:#0000fd;  
 }
-

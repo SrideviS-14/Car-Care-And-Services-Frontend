@@ -57,7 +57,7 @@ function Home() {
   <marquee>Call to this (+91) 9475765201 to book your service</marquee>
 </div>
  
-      <Card sx={{ justifyContent:'center',height:'max',display: 'flex', maxWidth: 1100,marginLeft:23,marginTop:12,backgroundColor:'#d7dce2',borderRadius:10,color:'black'}}>
+      <Card sx={{fontFamily:'Times New Roman, Times, serif',justifyContent:'center',height:'max',display: 'flex', maxWidth: 1100,marginLeft:23,marginTop:12,backgroundColor:'#d7dce2',borderRadius:10,color:'black'}}>
   <CardMedia
     sx={{ width: 1700, height: 500 }}
     image={'https://jmautorepair.com/wp-content/uploads/sites/3436/2023/03/932280slider4.jpg'}
@@ -109,6 +109,7 @@ function Home() {
   </Grid>
 ))}
       </Grid>
+      <br></br>
       <br></br>
       <br></br>
     </div>

@@ -85,6 +85,9 @@ function About()
   <li><Typography variant="h5" style={{fontFamily:'Times New Roman, Times, serif',textAlign:'left'}}><Button style={{color:'black'}}></Button>Fair and Reasonable</Typography></li>
   <li><Typography variant="h5" style={{fontFamily:'Times New Roman, Times, serif',textAlign:'left'}}><Button style={{color:'black'}}></Button>Personal and Committed</Typography></li>
   </ul>
+  <br></br>
+      <br></br>
+      <br></br>
       </div>
     );
   }

@@ -27,11 +27,16 @@ function ConfirmBooking() {
         console.error('Error fetching data:', error);
       });
   }, []);
-  const handleRemoveService = (serviceId) => {
-    // Update the state to filter out the service with the matching serviceId
-    setcarddata(carddata.filter(item => item.service_ID !== serviceId));
+  const handleRemoveService = async (serviceId) => {
+    try {
+      const response = await api.post('/cart/removeService', serviceId);
+      setcarddata(carddata.filter(item => item.service_ID !== serviceId));
+      console.log('Successful', response.data);
+  } catch (error) {
+      alert("Cannot remove");
+      console.error('Failed');
   }
-  
+  }
   const navigate = useNavigate();
   const handleAddService = async () => {
     navigate('/cart');
@@ -43,7 +48,7 @@ function ConfirmBooking() {
     <div>
       <br />
       <br />
-      <Typography style={{ fontSize: 'xx-large', justifyContent: 'center', textAlign: 'center' }}>
+      <Typography style={{ fontSize: 'xx-large', justifyContent: 'center', textAlign: 'center' ,fontFamily:'Times New Roman, Times, serif'}}>
         Service Selected
       </Typography>
       <br />
@@ -51,15 +56,15 @@ function ConfirmBooking() {
       {carddata.map((item) => (
         <>
   <Grid  container spacing={3}item key={item.service_ID}>
-    <Card style={{ marginLeft:'320px',justifyContent: 'center', width: '900px', height: '290px', borderRadius: '5', backgroundColor: '#d7dce2' }}>
-      <CardContent style={{ fontSize: 'x-Large', flexDirection: 'column' }}>
-        <div style={{ fontSize: 'xx-large', fontWeight: 'bold' }}>{item.service_Name}</div>
-        <div style={{ textAlign: 'right' }}>₹{item.service_Amount}</div>
+    <Card style={{ marginLeft:'320px',justifyContent: 'center', width: '900px', height: '290px', borderRadius: '5', backgroundColor: '#d7dce2',fontFamily:'Times New Roman, Times, serif' }}>
+      <CardContent style={{ fontSize: 'x-Large', flexDirection: 'column',fontFamily:'Times New Roman, Times, serif' }}>
+        <div style={{ fontSize: 'xx-large', fontWeight: 'bold',fontFamily:'Times New Roman, Times, serif' }}>{item.service_Name}</div>
+        <div style={{ textAlign: 'right',fontFamily:'Times New Roman, Times, serif' }}>₹{item.service_Amount}</div>
         <br />
-        <div style={{ textAlign: 'left' }}>{item.description}</div>
+        <div style={{ textAlign: 'left',fontFamily:'Times New Roman, Times, serif' }}>{item.description}</div>
         <br />
-        <CardActions style={{ justifyContent: 'flex-end' }}>
-          <Button size='medium' variant='outlined' style={{ margin: '5px' }}
+        <CardActions style={{ justifyContent: 'flex-end',fontFamily:'Times New Roman, Times, serif' }}>
+          <Button size='medium' variant='outlined' style={{ margin: '5px',fontFamily:'Times New Roman, Times, serif' }}
             onClick={() => handleRemoveService(item.service_ID)}><DeleteIcon />  Remove</Button>
         </CardActions>
       </CardContent>

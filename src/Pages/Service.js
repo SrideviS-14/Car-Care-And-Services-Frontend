@@ -1,17 +1,5 @@
 import React,{useState, useEffect} from 'react';
-import {
-  Box,
-  Button,
-  Card,
-  CardContent,
-  Checkbox,
-  FormControlLabel,
-  FormGroup,
-  FormLabel,
-  Grid,
-  TextField,
-  Typography
-} from "@mui/material";
+import {Box,Button,Card,CardContent,Checkbox,FormControlLabel,FormGroup,FormLabel,Grid,TextField,Typography} from "@mui/material";
 import EastIcon from '@mui/icons-material/East';
 import BuildIcon from '@mui/icons-material/Build';
 import SettingsIcon from '@mui/icons-material/Settings';
@@ -34,7 +22,7 @@ function Service() {
     headers: {
       Authorization: `Bearer ${jwt}`,
       "Content-Type": 'application/json'
-    }, // Change this to your actual backend URL
+    },
   });
   const [carddata, setcarddata] = useState([]);
   const cardsData = [
@@ -81,14 +69,14 @@ function Service() {
     }
   };
   return (
-<Box display="flex" justifyContent="center" alignItems="center" marginTop="20px">
+<Box display="flex" justifyContent="center" alignItems="center" marginTop="20px" fontFamily='Times New Roman, Times, serif'>
       <Card sx={{ width: 800, height: 870, justifyContent: "center", borderRadius: 12, backgroundColor: '#d7dce2' }}>
       <Typography gutterBottom variant="h5" component="div"style={{textAlign:'center',padding:5,marginTop:10}}>Book A Car Service In Just A Minute</Typography>
       <Typography gutterBottom variant="h6" component="div"style={{textAlign:'center'}}>Experience An Exquisite On A Click </Typography><br></br>
         <Grid container spacing={2}>
           <Grid item xs={15} md={6}>
           <CardContent>
-            <Box md={2}>
+            <Box md={2} style={{fontFamily:'Times New Roman, Times, serif'}}>
             <Typography gutterBottom variant="subtitle1">
               Car Number
               </Typography>
@@ -100,7 +88,7 @@ function Service() {
               />
             </Box>
             <br></br>
-            <Box md={2}>
+            <Box md={2} style={{fontFamily:'Times New Roman, Times, serif'}}>
             <Typography gutterBottom variant="subtitle1">
               Car Model
               </Typography>
@@ -112,7 +100,7 @@ function Service() {
               />
             </Box>
             <br></br>
-            <Box md={2}>
+            <Box md={2} style={{fontFamily:'Times New Roman, Times, serif'}}>
             <Typography gutterBottom variant="subtitle1">
               Car Company
               </Typography>
@@ -124,7 +112,7 @@ function Service() {
               />
             </Box>
             <br></br>
-            <Box md={2}>
+            <Box md={2} style={{fontFamily:'Times New Roman, Times, serif'}}>
             <Typography gutterBottom variant="subtitle1">
               Car Type
               </Typography>
@@ -136,7 +124,7 @@ function Service() {
               />
               </Box>
             <br></br>
-            <Box md={2}>
+            <Box md={2} style={{fontFamily:'Times New Roman, Times, serif'}}>
             <Typography gutterBottom variant="subtitle1">
               Car Colour
               </Typography>
@@ -149,7 +137,7 @@ function Service() {
             </Box>
             </CardContent>
           </Grid>
-          <Grid item xs={12} md={6} style={{ marginTop: 5 }}>
+          <Grid item xs={12} md={6} style={{ marginTop: 5,fontFamily:'Times New Roman, Times, serif' }}>
             <CardContent>
               <FormLabel component="legend">Select Your Services</FormLabel>
               <FormGroup>
@@ -167,7 +155,7 @@ function Service() {
               ))}
               </FormGroup>
             </CardContent>
-            <Box width="100%" display="flex" justifyContent="center">
+            <Box width="100%" display="flex" justifyContent="center" fontFamily='Times New Roman, Times, serif'>
               <Button size="large" variant="contained" sx={{ backgroundColor: '#000080' }} onClick={handleAddToCart}>
                 Book Service
               </Button>
@@ -176,6 +164,9 @@ function Service() {
  
         </Grid>
       </Card>
+      <br></br>
+    <br></br>
+    <br></br>
     </Box>
   );
 }

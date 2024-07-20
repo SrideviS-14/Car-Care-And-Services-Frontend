@@ -36,24 +36,24 @@ function Payment(){
     };
 return(
 <>
-<Grid rowspacing={{}}>
-<h1 style={{ color: "black",textAlign:'center'}}>Payment</h1><br></br>
-<h1 style={{color: "black",textAlign:'center'}}>Scan this QR code or enter your card details to make payment!</h1>
+<Grid style={{fontFamily:'Times New Roman, Times, serif'}}>
+<h1 style={{ fontFamily:'Times New Roman, Times, serif',color: "black",textAlign:'center'}}>Payment</h1><br></br>
+<h1 style={{color: "black",textAlign:'center',fontFamily:'Times New Roman, Times, serif'}}>Scan this QR code or enter your card details to make payment!</h1>
 <br></br>
 <br></br>
-<div style={{ display: 'flex', justifyContent: 'center' }}>
+<div style={{ display: 'flex', justifyContent: 'center' ,fontFamily:'Times New Roman, Times, serif'}}>
   <QRCode
-    style={{ width:'500px',height:'400px',marginTop:'50' }}
+    style={{ width:'500px',height:'400px',marginTop:'50',fontFamily:'Times New Roman, Times, serif' }}
     value={jwt}
     viewBox={`0 0 256 256`}
   />
  
-    <Box  width="700px" display="flex" justifyContent="center" alignItems="center">
-    <Card sx={{ flexDirection: 'row', backgroundColor: '#d7dce2', height: 540, justifyContent: "center", borderRadius: 12 }}>
+    <Box  width="700px" display="flex" justifyContent="center" alignItems="center" fontFamily='Times New Roman, Times, serif'>
+    <Card sx={{ flexDirection: 'row', backgroundColor: '#d7dce2', height: 540, justifyContent: "center", borderRadius: 12,fontFamily:'Times New Roman, Times, serif' }}>
         <CardContent>
-        <h1 gutterBottom variant="h5" component="div"style={{textAlign:'center', color: "black"}}>Enter your Card Details for Payment</h1>
+        <h1 gutterBottom variant="h5" component="div"style={{textAlign:'center', color: "black",fontFamily:'Times New Roman, Times, serif'}}>Enter your Card Details for Payment</h1>
         <br></br>
-        <Box mb={2}>
+        <Box mb={2} style={{fontFamily:'Times New Roman, Times, serif'}}>
             <Typography gutterBottom variant="subtitle1">
               Card Holder Name:
             </Typography>
@@ -66,7 +66,7 @@ return(
               onChange={(e) => setFormData({ ...formData, Card_Holder_Name: e.target.value })}
             />
           </Box>
-          <Box mb={2}>
+          <Box mb={2} style={{fontFamily:'Times New Roman, Times, serif'}}>
             <Typography gutterBottom variant="subtitle1">
               Card Number:
             </Typography>
@@ -80,7 +80,7 @@ return(
               onChange={(e) => setFormData({ ...formData, Card_Number: e.target.value })}
             />
           </Box>
-          <Box mb={2}>
+          <Box mb={2} style={{fontFamily:'Times New Roman, Times, serif'}}>
             <Typography gutterBottom variant="subtitle1">
               Expiration Date:
             </Typography>

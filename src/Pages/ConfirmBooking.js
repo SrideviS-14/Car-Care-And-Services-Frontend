@@ -64,8 +64,8 @@ function ConfirmBooking() {
         <div style={{ textAlign: 'left',fontFamily:'Times New Roman, Times, serif' }}>{item.description}</div>
         <br />
         <CardActions style={{ justifyContent: 'flex-end',fontFamily:'Times New Roman, Times, serif' }}>
-          <Button size='medium' variant='outlined' style={{ margin: '5px',fontFamily:'Times New Roman, Times, serif' }}
-            onClick={() => handleRemoveService(item.service_ID)}><DeleteIcon />  Remove</Button>
+          <Button size='medium' variant='outlined' style={{ color:'#000080',borderColor: '#000080',margin: '5px',fontFamily:'Times New Roman, Times, serif' }}
+            onClick={() => handleRemoveService(item.service_ID)}> <DeleteIcon />   Remove</Button>
         </CardActions>
       </CardContent>
     </Card>
@@ -75,7 +75,7 @@ function ConfirmBooking() {
   </>
 ))}
 <br></br>
-        <CardActions style={{alignContent:'center',justifyContent:'center'}}>
+        <CardActions style={{alignContent:'center',justifyContent:'center',fontFamily:'Times New Roman, Times, serif'}}>
         <Button size='medium' variant='contained' style={{ backgroundColor: '#000080' }}
               onClick={() => handleAddService()} >Add Service</Button>
         <Button size='medium' variant='contained' style={{ backgroundColor: '#000080' }}

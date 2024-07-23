@@ -5,23 +5,23 @@ import FormGroup from '@mui/material/FormGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
 import { useNavigate } from "react-router-dom";
-
+ 
 function SignUp() {
   const navigate = useNavigate();
   axios.defaults.headers.common['Access-Control-Allow-Origin'] = '*';
   axios.defaults.headers.common['Access-Control-Allow-Headers'] = 'Origin, X-Requested-With, Content-Type, Accept';
-
+ 
   const api = axios.create({
     baseURL: 'http://localhost:8080', // Change this to your actual backend URL
   });
-
+ 
   const [formData, setFormData] = useState({
     userName: '',
     email: '',
     phoneNumber: '',
     password: '',
   });
-
+ 
   const [errors, setErrors] = useState({
     userNameError: false,
     emailError: false,
@@ -32,7 +32,7 @@ function SignUp() {
     phoneNumberHelperText: '',
     passwordHelperText: '',
   });
-
+ 
   const validateForm = () => {
     let isValid = true;
     let newErrors = {
@@ -45,13 +45,13 @@ function SignUp() {
       phoneNumberHelperText: '',
       passwordHelperText: '',
     };
-
+ 
     if (!formData.userName || formData.userName.length < 6) {
       newErrors.userNameError = true;
       newErrors.userNameHelperText = 'Username must be at least 6 characters';
       isValid = false;
     }
-
+ 
     if (!formData.password || formData.password.length < 8) {
       newErrors.passwordError = true;
       newErrors.passwordHelperText = 'Password must be at least 8 characters';
@@ -62,7 +62,7 @@ function SignUp() {
       newErrors.emailHelperText = 'A valid email is required';
       isValid = false;
     }
-
+ 
     if (!formData.phoneNumber || formData.phoneNumber.length < 10) {
       newErrors.phoneNumberError = true;
       newErrors.phoneNumberHelperText = 'A valid phone number is required';
@@ -71,7 +71,7 @@ function SignUp() {
     setErrors(newErrors);
     return isValid;
   };
-
+ 
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (validateForm()) {
@@ -86,13 +86,13 @@ function SignUp() {
       }
     }
   };
-
+ 
   return (
-    <Box height="90vh" display="flex" justifyContent="center" alignItems="center" marginTop="100px" marginBottom="100px" >
-      <Card sx={{ width: 550, height: 820, justifyContent: "center", borderRadius: 12, backgroundColor: '#d7dce2',fontFamily:'Times New Roman, Times, serif' }}>
-        <CardContent>
+    <Box fontFamily='Times New Roman, Times, serif' height="90vh" display="flex" justifyContent="center" alignItems="center" marginTop="100px" marginBottom="100px" >
+      <Card sx={{fontFamily:'Times New Roman, Times, serif', width: 550, height: 820, justifyContent: "center", borderRadius: 12, backgroundColor: '#d7dce2' }}>
+        <CardContent sx={{fontFamily:'Times New Roman, Times, serif'}}>
           <Typography gutterBottom variant="h5" component="div" style={{ textAlign: 'center', padding: 5, marginTop: 10,fontFamily:'Times New Roman, Times, serif' }}>Sign Up Here</Typography>
-          <Typography gutterBottom variant="h6" component="div" style={{ textAlign: 'center',fontFamily:'Times New Roman, Times, serif' }}>Experience An Exquisite On A Click </Typography><br></br>
+          <Typography gutterBottom variant="h6" component="div" style={{ textAlign: 'center',fontFamily:'Times New Roman, Times, serif' }}>Experience An Exquisite Service On A Click </Typography><br></br>
           <Box md={2}>
             <Typography gutterBottom variant="subtitle1"sx={{fontFamily:'Times New Roman, Times, serif'}}>
               User Name:
@@ -181,5 +181,5 @@ function SignUp() {
     </Box>
   );
 }
-
+ 
 export default SignUp;

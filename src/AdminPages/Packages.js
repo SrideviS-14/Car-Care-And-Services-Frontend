@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import { useAuth } from './AuthContext';
+import EditIcon from '@mui/icons-material/Edit';
+import DeleteIcon from '@mui/icons-material/Delete';
+import { useAuth } from '../Pages/AuthContext';
 import {Grid,Card, CardActions,Button} from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import { CardContent,Snackbar, IconButton } from '@mui/material';
  
-function Package() {
+function Packages() {
   const navigate = useNavigate();
   const {jwt, setJwt } = useAuth();
   axios.defaults.headers.common['Access-Control-Allow-Origin'] = '*';
@@ -28,18 +30,7 @@ function Package() {
         console.error('Error fetching data:', error);
       });
   }, []);
-  const handleBuyPackage = async (package_ID) => {
-    try {
-        const response = await api.post('/package/buyPackage', package_ID);
-        navigate('/invoice');
-        console.log('Registration successful:', response.data);
-        // Handle success (e.g., redirect to login page)
-    } catch (error) {
-        alert("Invalid User Name or Password!");
-        console.error('Registration failed:');
-        // Handle error (e.g., display error message)
-    }
-  }
+  
     return (
       <div>
       <Grid container spacing={4} style={{ marginTop: '180px', justifyContent: 'center'}}>
@@ -59,9 +50,8 @@ function Package() {
                            </CardContent>
                            <div className="button-container" style={{ display:'flex',justifyContent:'center'}}>
                 <CardActions>
-                  <Button size="medium" variant="contained" style={{ backgroundColor: '#000080' }} onClick={() => handleBuyPackage(item.package_ID)}>
-                    Buy Now
-                  </Button>
+                <Button size='medium' variant='contained' sx={{backgroundColor:'#000080'}}><EditIcon /></Button>
+                <Button size='medium' variant='contained' sx={{backgroundColor:'#000080'}}><DeleteIcon /></Button>
                 </CardActions>
               </div>
             </Card>
@@ -77,4 +67,4 @@ function Package() {
           </div>
         );
       }
-export default Package;
+export default Packages;

@@ -1,7 +1,11 @@
 import { Grid,Box,Button, Card, CardActions, CardContent, CardMedia,Typography} from "@mui/material";
+import { useNavigate } from "react-router-dom";
 function About()
 {    
- 
+  const navigate = useNavigate();
+  const handlebutton = () =>{
+    navigate('/service')
+  } 
     return (
       <div>
         <Card sx={{ backgroundColor:'#d7dce2',borderRadius:10,display: 'flex',fontFamily:'Times New Roman, Times, serif', maxWidth: 1100,marginLeft:23,marginTop:12 }}>
@@ -21,17 +25,17 @@ function About()
     </CardContent>
     <CardActions>
       <Button size="large" sx={{
-    color: '#000080',
-    '&:hover': {
+    backgroundColor: '#000080',color:'white',fontFamily:'Times New Roman, Times, serif'
+    ,'&:hover': {
       bgcolor: '#b0c4de',
-    }}}>Book A service</Button>
+    }}}onClick={handlebutton}>Book A service</Button>
     </CardActions>
   </Box>
   </Card>
   <br></br>
   <br></br>
   <br></br>
-  <Card sx={{ fontFamily:'Times New Roman, Times, serif',backgroundColor:'#d7dce2',borderRadius:10,marginLeft:23,display: 'flex', flexDirection: 'row', fontFamily: 'Times New Roman, Times, serif', width: 1100,height:700 }}>
+  <Card sx={{ fontFamily:'Times New Roman, Times, serif',backgroundColor:'#d7dce2',borderRadius:10,marginLeft:10,display: 'flex', flexDirection: 'row', fontFamily: 'Times New Roman, Times, serif', width: 1300,height:700 }}>
   <Grid container>
           <Grid item xs={12} md={6}>
             <CardContent>
@@ -46,7 +50,7 @@ function About()
   </CardContent>
   </Grid>
   <Grid item xs={12} md={6}>
-  <CardMedia sx={{ width: 550, height: 700 }}
+  <CardMedia sx={{ width: 700, height: 700 }}
     image={'https://tse4.mm.bing.net/th/id/OIP.9SFkL2rMuOuZeA5sv8xClgHaE8?w=292&h=195&c=7&r=0&o=5&dpr=1.3&pid=1.7'}
     title="Car Repair">
   </CardMedia>

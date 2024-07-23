@@ -69,8 +69,8 @@ function Service() {
     }
   };
   return (
-<Box display="flex" justifyContent="center" alignItems="center" marginTop="20px" fontFamily='Times New Roman, Times, serif'>
-      <Card sx={{ width: 800, height: 870, justifyContent: "center", borderRadius: 12, backgroundColor: '#d7dce2' }}>
+<Box display="flex" justifyContent="center" alignItems="center" marginTop="50px" marginBottom="50px" fontFamily='Times New Roman, Times, serif'>
+      <Card sx={{ width: 800, height: 700, justifyContent: "center", borderRadius: 12, backgroundColor: '#d7dce2' }}>
       <Typography gutterBottom variant="h5" component="div"style={{textAlign:'center',padding:5,marginTop:10}}>Book A Car Service In Just A Minute</Typography>
       <Typography gutterBottom variant="h6" component="div"style={{textAlign:'center'}}>Experience An Exquisite On A Click </Typography><br></br>
         <Grid container spacing={2}>

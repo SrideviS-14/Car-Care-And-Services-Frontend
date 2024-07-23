@@ -49,18 +49,18 @@ function Cart() {
     <div style={{ fontFamily: 'Times New Roman, Times, serif' }}>
       <br></br>
       <br></br>
-      <Typography variant="h4" align="center" gutterBottom>
-        Service Offered
+      <Typography variant="h4" align="center" gutterBottom sx={{ fontFamily: 'Times New Roman, Times, serif' }}>
+        Services Offered
       </Typography>
       <Grid container spacing={1}>
         {carddata.map((item) => (
           <Grid item xs={11} sm={6} key={item.service_ID}>
-            <Card sx={{ m: 2, marginLeft: 15, width: 550, height: 250,backgroundColor: '#d7dce2' }}>
+            <Card sx={{ m: 2, marginLeft: 15, width: 550, height: 250,backgroundColor: '#d7dce2',fontFamily:'Times New Roman, Times, serif' }}>
               <CardContent>
-                <Typography variant="h5" component="div">
+                <Typography variant="h5" component="div"style={{fontFamily:'Times New Roman, Times, serif'}}>
                   {item.service_Name}
                 </Typography>
-                <Typography color="text.secondary" style={{color:'black',fontWeight:'bolder',fontSize:'x-large',marginLeft:'370px'}}>
+                <Typography color="text.secondary" style={{fontFamily:'Times New Roman, Times, serif',color:'black',fontSize:'x-large',textAlign:'right',fontFamily:'Times New Roman, Times, serif'}}>
                   ₹{item.service_Amount}
                 </Typography>
                 <br></br>
@@ -69,7 +69,7 @@ function Cart() {
                 </Typography>
               </CardContent>
               <CardActions style={{ justifyContent: 'center' }}>
-                <Button size="small" variant='contained' style={{ backgroundColor: '#000080' }} onClick={() => handleAddToCart(item.service_ID)}>
+                <Button size="small" variant='contained' style={{ backgroundColor: '#000080',fontFamily:'Times New Roman, Times, serif' }} onClick={() => handleAddToCart(item.service_ID)}>
                   <ShoppingCartIcon /> Add To Cart
                 </Button>
               </CardActions>
@@ -79,7 +79,7 @@ function Cart() {
       </Grid>
       <br></br>
       <CardActions style={{ justifyContent: 'center' }}>
-        <Button size="large" variant='contained' style={{ backgroundColor: '#000080' }} onClick={handleProceedToInvoice}>
+        <Button size="large" variant='contained' style={{ backgroundColor: '#000080',fontFamily:'Times New Roman, Times, serif' }} onClick={handleProceedToInvoice}>
          Confirm Booking
         </Button>
       </CardActions>

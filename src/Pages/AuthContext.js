@@ -5,9 +5,10 @@ const AuthContext = createContext();
  
 export function AuthProvider({ children }) {
   const [jwt, setJwt] = useState(localStorage.getItem('jwt') || '');
+  const [role, setRole] = useState('')
  
   return (
-    <AuthContext.Provider value={{  jwt, setJwt }}>
+    <AuthContext.Provider value={{  jwt, setJwt, role, setRole }}>
       {children}
     </AuthContext.Provider>
   );

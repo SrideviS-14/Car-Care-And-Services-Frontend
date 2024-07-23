@@ -35,7 +35,12 @@ function Home() {
     { title: 'Brake Service', icon: SettingsIcon },
     { title: 'Car Bulb Check', icon: HighlightIcon }
   ];
- 
+  const handlebutton = () =>{
+    navigate('/service')
+  }
+ const handlebutton1 = () =>{
+  navigate('/about')
+ }
   return (
     <div style={{fontFamily:'Times New Roman, Times, serif'}}>
       <br></br>
@@ -73,16 +78,16 @@ function Home() {
       </Typography>
     </CardContent>
     <CardActions>
-      <Button size="medium" sx={{fontFamily:'Times New Roman, Times, serif',
-    color: '#000080',
+      <Button size="medium" variant='outlined' sx={{fontFamily:'Times New Roman, Times, serif',
+    color: '#000080',borderColor:'#000080',
     '&:hover': {
       bgcolor: '#b0c4de',
-    }}}>Book A service</Button>
-      <Button size="medium" sx={{fontFamily:'Times New Roman, Times, serif',
-    color: '#000080',
+    }}}onClick={handlebutton}>Book A service</Button>
+      <Button size="medium" variant='outlined' sx={{fontFamily:'Times New Roman, Times, serif',
+    color: '#000080',borderColor:'#000080',
     '&:hover': {
       bgcolor: '#b0c4de',
-    }}}>Learn More</Button>
+    }}}onClick={handlebutton1}>Learn More</Button>
     </CardActions>
   </Box>
 </Card>

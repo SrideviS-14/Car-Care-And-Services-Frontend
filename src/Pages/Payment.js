@@ -3,16 +3,22 @@ import QRCode from "react-qr-code";
 import { useAuth } from './AuthContext';
 import  { Grid, Button, Card,CardActions,CardContent, Typography,TextField,Box } from "@mui/material";
 import axios from "axios";
+import CloseIcon from '@mui/icons-material/Close';
+import IconButton from '@mui/material/IconButton';
+import Snackbar from '@mui/material/Snackbar';
+import { useLocation } from "react-router-dom";
 
 function Payment(){
     const { jwt} = useAuth();
+    const location = useLocation();
+    const bookingId = location.state ? location.state.bookingId : null;
     const [formData, setFormData] = useState({
-        Booking_ID: 2,
-        Payment_Type: 'Online',
-        Card_Holder_Name: '',
-        Card_Number: '',
-        Expiration_Date: ''
-    });
+      Booking_ID: bookingId,
+      Payment_Type: 'Online',
+      Card_Holder_Name: '',
+      Card_Number: '',
+      Expiration_Date: ''
+  });
     axios.defaults.headers.common['Access-Control-Allow-Origin'] = '*';
     axios.defaults.headers.common['Access-Control-Allow-Headers'] = 'Origin, X-Requested-With, Content-Type, Accept';
     const api = axios.create({
@@ -23,6 +29,7 @@ function Payment(){
         },  // Change this to your actual backend URL
     });
     const handlePayment = async (e) => {
+      setOpen(true);
         e.preventDefault();
         try {
             const response = await api.post('/payment/makePayment', formData);
@@ -34,6 +41,23 @@ function Payment(){
             // Handle error (e.g., display error message)
         }
     };
+    const [open, setOpen] = React.useState(false);
+    const handleClose = (event, reason) => {
+      if (reason === 'clickaway') {
+        return;
+      }
+      setOpen(false);
+    };
+    const action =(
+      <IconButton
+            size="small"
+            aria-label="close"
+            color="inherit"
+            onClick={handleClose}
+          >
+            <CloseIcon fontSize="small" />
+          </IconButton>
+     )
 return(
 <>
 <Grid style={{fontFamily:'Times New Roman, Times, serif'}}>
@@ -44,7 +68,7 @@ return(
 <div style={{ display: 'flex', justifyContent: 'center' ,fontFamily:'Times New Roman, Times, serif'}}>
   <QRCode
     style={{ width:'500px',height:'400px',marginTop:'50',fontFamily:'Times New Roman, Times, serif' }}
-    value={jwt}
+    value="upi://pay?pa=sridevi.srsv@oksbi&pn=Sridevi%20Srsv&aid=uGICAgMCymIPzZA"
     viewBox={`0 0 256 256`}
   />
  
@@ -102,6 +126,15 @@ return(
         </CardActions>
         </Card>
         </Box>
+        <Snackbar
+        severity="success"
+        open={open}
+        autoHideDuration={2000}
+        onClose={handleClose}
+        message="Payment Successful"
+        action={action}
+        anchorOrigin={{ vertical: 'top', horizontal: 'center' }} 
+      />
     </div>
     <br></br>
     <br></br>

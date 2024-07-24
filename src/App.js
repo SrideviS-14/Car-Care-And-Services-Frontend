@@ -13,7 +13,6 @@ import Payment from  './Pages/Payment.js';
 import CarDetails from './Pages/CarDetails.js'
 import Dashboard from './AdminPages/Dashboard.js';
 import ConfirmBooking from './Pages/ConfirmBooking.js';
-import AdminHome from './AdminPages/AdminHome.js';
 import Services from './AdminPages/Services.js';
 import Booking from './AdminPages/Booking.js';
 import Packages from './AdminPages/Packages.js';
@@ -35,7 +34,6 @@ function App() {
         <Route path='payment' element={<Payment />}></Route>
         <Route path='cardetails' element={<CarDetails />}></Route>
         <Route path='confirmbooking' element={<ConfirmBooking />}></Route>
-        <Route path='adminhome' element={<AdminHome />}></Route>
         <Route path='booking' element={<Booking/>}></Route>
         <Route path='services' element={<Services />}></Route>
         <Route path='packages' element={<Packages />}></Route>

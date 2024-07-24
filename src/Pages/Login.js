@@ -3,7 +3,10 @@ import { Button, Card, CardActions, CardContent, Typography, TextField, Box } fr
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from './AuthContext';
- 
+import IconButton from '@mui/material/IconButton';
+import CloseIcon from '@mui/icons-material/Close';
+import Snackbar from '@mui/material/Snackbar'; 
+
 function Login() {
   const navigate = useNavigate();
   const { setJwt, setRole, role } = useAuth();
@@ -57,15 +60,59 @@ function Login() {
         localStorage.setItem('jwt', response.data.token);
         setJwt(response.data.token);
         setRole(response.data.user.role);
-        navigate('/');
-        
+        localStorage.setItem('role', role);
+        setOpen(true);
+        if (response.data.user.role === 'admin') {
+          setTimeout(()=>{
+            navigate('/dashboard');
+          },500);
+        } else {
+          setTimeout(() => {
+            navigate('/');
+          }, 500);
+        }
       } catch (error) {
-        alert("Invalid User Name or Password!");
+        setOpenFail(true);
+        setOpen(false);
         console.error('Login failed:', error);
       }
     }
   };
- 
+  const [open, setOpen] = React.useState(false);
+  const [openFail, setOpenFail] = React.useState(false);
+  const handleClose = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+
+    setOpen(false);
+  };
+  const handleCloseFail = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+    setOpenFail(false);
+  };
+  const action =(
+    <IconButton
+        size="small"
+        aria-label="close"
+        color="inherit"
+        onClick={handleClose}
+      >
+        <CloseIcon fontSize="small" />
+      </IconButton>
+   )
+   const action1 =(
+    <IconButton
+        size="small"
+        aria-label="close"
+        color="inherit"
+        onClick={handleCloseFail}
+      >
+        <CloseIcon fontSize="small" />
+      </IconButton>
+   )
   return (
     <div>
       <Box fontFamily='Times New Roman, Times, serif' height="90vh" display="flex" justifyContent="center" alignItems="center">
@@ -114,6 +161,24 @@ function Login() {
           </CardActions>
         </Card>
       </Box>
+      <Snackbar
+        open={open}
+        severity="success"
+        autoHideDuration={2000} // Display for 4 seconds
+        onClose={handleClose}
+        message="login Successfull"
+        action={action}
+        anchorOrigin={{ vertical: 'top', horizontal: 'center' }} // Display at the top
+      />
+      <Snackbar
+        open={openFail}
+        severity="error"
+        autoHideDuration={2000}
+        onClose={handleCloseFail}
+        message="Login Unsuccessful"
+        action={action1}
+        anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
+      />
       <br></br>
       <br></br>
       <br></br>
@@ -122,4 +187,3 @@ function Login() {
 }
  
 export default Login;
- 

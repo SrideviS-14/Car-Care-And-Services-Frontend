@@ -4,8 +4,14 @@ import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import axios from 'axios';
 import { useAuth } from './AuthContext';
 import { useNavigate } from 'react-router-dom';
+import CloseIcon from '@mui/icons-material/Close';
+import IconButton from '@mui/material/IconButton';
+import Snackbar from '@mui/material/Snackbar';
+
 function Cart() {
   const navigate = useNavigate();
+  const [openAddToCart, setOpenAddToCart] = React.useState(false);
+  const [openConfirmBooking, setOpenConfirmBooking] = React.useState(false);
   const {jwt, setJwt } = useAuth();
   axios.defaults.headers.common['Access-Control-Allow-Origin'] = '*';
   axios.defaults.headers.common['Access-Control-Allow-Headers'] = 'Origin, X-Requested-With, Content-Type, Accept';
@@ -30,10 +36,14 @@ function Cart() {
   }, []);
 
   const handleProceedToInvoice = async () => {
+    setOpenConfirmBooking(true);
+    setTimeout(() => {
       navigate('/confirmbooking');
+    }, 500);
   }
   const handleAddToCart = async (service_ID) => {
     try {
+      setOpenAddToCart(true);
       console.log(service_ID);
       const response = await api.post('/cart/addService', service_ID); // Corrected the payload
       console.log('Added successfully!', response.data);
@@ -43,8 +53,23 @@ function Cart() {
       // Handle error (e.g., display error message)
     }
   };
-  
- 
+  const handleClose = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+    setOpenAddToCart(false);
+    setOpenConfirmBooking(false);
+  };
+  const action =(
+    <IconButton
+          size="small"
+          aria-label="close"
+          color="inherit"
+          onClick={handleClose}
+        >
+          <CloseIcon fontSize="small" />
+        </IconButton>
+   )
   return (
     <div style={{ fontFamily: 'Times New Roman, Times, serif' }}>
       <br></br>
@@ -76,12 +101,29 @@ function Cart() {
             </Card>
           </Grid>
         ))}
+        <Snackbar
+        severity="success"
+        open={openAddToCart}
+        autoHideDuration={2000}
+        onClose={handleClose}
+        message="Added To Cart Successfully"
+        action={action}
+        anchorOrigin={{ vertical: 'top', horizontal: 'center' }} 
+      />
       </Grid>
       <br></br>
       <CardActions style={{ justifyContent: 'center' }}>
         <Button size="large" variant='contained' style={{ backgroundColor: '#000080',fontFamily:'Times New Roman, Times, serif' }} onClick={handleProceedToInvoice}>
          Confirm Booking
         </Button>
+        <Snackbar
+        severity="success"
+        open={openConfirmBooking}
+        autoHideDuration={2000}
+        onClose={handleClose}
+        message="Your Booking is Confirmed"
+        action={action}
+      />
       </CardActions>
       <br></br>
       <br></br>

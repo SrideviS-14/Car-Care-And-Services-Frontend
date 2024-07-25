@@ -24,7 +24,7 @@ return(
      <nav className="main-header">
         <Link className="homepage" to="/">Home</Link>
         <Link className="aboutpage" to="/About">About Us</Link>
-        <Link className="guidepage"to="/Cart">Cart</Link>
+        <Link className="guidepage"to="/Cart">Services</Link>
         <Link className="packagepage" to="/Package">Packages</Link>
         <Link className="servicepage"to="/Service">Quick Book</Link>
         {!!jwt ?
@@ -75,7 +75,6 @@ return(
     </nav>
     :
     <nav className="main-header">
-    <Link className="homepage" index to="/adminhome">Admin Home</Link>
     <Link className="aboutpage" to="/dashboard">Dashboard</Link>
     <Link className="bookingpage" to='/booking'>Booking</Link>
     <Link className="servicepage" to='/services'>Services</Link>

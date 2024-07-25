@@ -4,6 +4,9 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import { TextField,Button, Card, CardActions, CardContent, Grid, Typography } from '@mui/material';
 import axios from 'axios';
 import Dialog from '@mui/material/Dialog';
+import CloseIcon from '@mui/icons-material/Close';
+import IconButton from '@mui/material/IconButton';
+import Snackbar from '@mui/material/Snackbar';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
@@ -35,6 +38,13 @@ function Services(){
   const handleClose = () => {
     setOpen(false);
   };
+  const [opendelete, setOpendelete] = React.useState(false);
+
+ 
+
+  const handleClosedelete = () => {
+    setOpen(false);
+  };
   
   useEffect(() => {
     api.get('/service/getAllServices')
@@ -46,33 +56,42 @@ function Services(){
         console.error('Error fetching data:', error);
       });
   }, []);
-  const handledelete = async (service_ID) => {
-    try {
-      const response = await api.delete(`/service/deleteService/${service_ID}`);
-      console.log('Deleted successfully!', response.data);
-      setcarddata(carddata.filter(item => item.service_ID !== service_ID));
-      // Update the state or perform any other actions needed after successful deletion
-    } catch (error) {
-      alert('Could not delete the service!');
-      console.error('Deletion failed:', error);
-      // Handle error (e.g., display error message)
-    }
+  const [deleteConfirmOpen, setDeleteConfirmOpen] = useState(false);
+const [serviceToDelete, setServiceToDelete] = useState(null);
+
+const handleDeleteConfirmationOpen = (service_ID) => {
+  setServiceToDelete(service_ID);
+  setDeleteConfirmOpen(true);
+};
+
+const handleDeleteConfirmationClose = () => {
+  setDeleteConfirmOpen(false);
+};
+
+const handledelete = async () => {
+  try {
+    const response = await api.delete(`/service/deleteService/${serviceToDelete}`);
+    console.log('Deleted successfully!', response.data);
+    setcarddata(carddata.filter(item => item.service_ID !== serviceToDelete));
+    setDeleteConfirmOpen(false);
+  } catch (error) {
+    alert('Could not delete the service!');
+    console.error('Deletion failed:', error);
   }
+}
+  
   const handleupdate = async () => {
-    setOpen(false);
     try {
-        console.log(data);
+      console.log(data);
       const response = await api.put(`/service/updateService`, data);
       console.log('Updates successfully!', response.data);
       api.get('/service/getAllServices')
       .then((response) => {
         setcarddata(response.data);
       })
-      // Update the state or perform any other actions needed after successful deletion
     } catch (error) {
-      alert('Could not delete the service!');
-      console.error('Deletion failed:', error);
-      // Handle error (e.g., display error message)
+      alert('Could not update the service!');
+      console.error('Update failed:', error);
     }
   }
   
@@ -100,12 +119,28 @@ function Services(){
               </CardContent>
               <CardActions sx={{justifyContent:'center'}}>
                 <Button size='medium' variant='contained' sx={{backgroundColor:'#000080'}}onClick={() => handleClickOpen(item)}><EditIcon /></Button>
-                <Button size='medium' variant='contained' sx={{backgroundColor:'#000080'}} onClick={() => handledelete(item.service_ID)}><DeleteIcon /></Button>
+                <Button size='medium' variant='contained' sx={{backgroundColor:'#000080'}} onClick={() => handleDeleteConfirmationOpen(item.service_ID)}><DeleteIcon /></Button>
               </CardActions>
             </Card>
           </Grid>
         ))}
       </Grid>
+      <Dialog
+  open={deleteConfirmOpen}
+  onClose={handleDeleteConfirmationClose}
+>
+  <DialogTitle>{"Confirm Deletion"}</DialogTitle>
+  <DialogContent>
+    <DialogContentText>
+      {"Are you sure you want to delete this service?"}
+    </DialogContentText>
+  </DialogContent>
+  <DialogActions>
+    <Button onClick={handleDeleteConfirmationClose}>Cancel</Button>
+    <Button onClick={handledelete}>Delete</Button>
+  </DialogActions>
+</Dialog>
+
       <br></br>
       <Dialog
         open={open}
@@ -159,6 +194,7 @@ function Services(){
           <Button type="submit" onClick={handleupdate}>Save</Button>
         </DialogActions>
       </Dialog>
+    
         </div>
     );
 }

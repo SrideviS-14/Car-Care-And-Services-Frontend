@@ -4,6 +4,10 @@ import axios from 'axios';
 import { useAuth } from './AuthContext';
 import { useNavigate } from 'react-router-dom';
 import DeleteIcon from '@mui/icons-material/Delete';
+import CloseIcon from '@mui/icons-material/Close';
+import IconButton from '@mui/material/IconButton';
+import Snackbar from '@mui/material/Snackbar';
+
 function ConfirmBooking() {
   const {jwt, setJwt } = useAuth();
   axios.defaults.headers.common['Access-Control-Allow-Origin'] = '*';
@@ -16,6 +20,8 @@ function ConfirmBooking() {
     }, // Change this to your actual backend URL
   });
   const [carddata, setcarddata] = useState([]);
+  const [openRemove, setOpenRemove] = useState(false);
+  const [openInvoice, setOpenInvoice] = useState(false);
  
   useEffect(() => {
     api.get('/cart/getServices')
@@ -32,6 +38,7 @@ function ConfirmBooking() {
       const response = await api.post('/cart/removeService', serviceId);
       setcarddata(carddata.filter(item => item.service_ID !== serviceId));
       console.log('Successful', response.data);
+      setOpenRemove(true);
   } catch (error) {
       alert("Cannot remove");
       console.error('Failed');
@@ -42,8 +49,28 @@ function ConfirmBooking() {
     navigate('/cart');
   }
   const handleInvoice = async () => {
-    navigate('/invoice');
+    setOpenInvoice(true);
+    setTimeout(() => {
+        navigate('/invoice');
+      }, 1000);
   }
+  const handleClose = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+    setOpenRemove(false);
+    setOpenInvoice(false);
+  };
+  const action =(
+    <IconButton
+          size="small"
+          aria-label="close"
+          color="inherit"
+          onClick={handleClose}
+        >
+          <CloseIcon fontSize="small" />
+        </IconButton>
+   )
   return (
     <div>
       <br />
@@ -81,6 +108,24 @@ function ConfirmBooking() {
         <Button size='medium' variant='contained' style={{ backgroundColor: '#000080' }}
               onClick={() => handleInvoice()} >Proceed To Invoice</Button>
 </CardActions>
+<Snackbar
+severity="error"
+        open={openRemove}
+        autoHideDuration={2000}
+        onClose={handleClose}
+        message="Removed From Cart Successfully"
+        action={action}
+        anchorOrigin={{ vertical: 'top', horizontal: 'center' }} 
+      />
+<Snackbar
+severity="success"
+        open={openInvoice}
+        autoHideDuration={2000}
+        onClose={handleClose}
+        message="Proceeding To Invoice"
+        action={action}
+        anchorOrigin={{ vertical: 'top', horizontal: 'center' }} 
+      />
 <br></br>
 <br></br>
     </div>

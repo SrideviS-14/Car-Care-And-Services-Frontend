@@ -5,6 +5,9 @@ import FormGroup from '@mui/material/FormGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
 import { useNavigate } from "react-router-dom";
+import CloseIcon from '@mui/icons-material/Close';
+import IconButton from '@mui/material/IconButton';
+import Snackbar from '@mui/material/Snackbar';
  
 function SignUp() {
   const navigate = useNavigate();
@@ -14,7 +17,15 @@ function SignUp() {
   const api = axios.create({
     baseURL: 'http://localhost:8080', // Change this to your actual backend URL
   });
- 
+  const [open, setOpen] = React.useState(false);
+
+  const handleClose = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+
+    setOpen(false);
+  };
   const [formData, setFormData] = useState({
     userName: '',
     email: '',
@@ -71,14 +82,26 @@ function SignUp() {
     setErrors(newErrors);
     return isValid;
   };
- 
+ const action =(
+  <IconButton
+        size="small"
+        aria-label="close"
+        color="inherit"
+        onClick={handleClose}
+      >
+        <CloseIcon fontSize="small" />
+      </IconButton>
+ )
   const handleSubmit = async (e) => {
+    setOpen(true);
     e.preventDefault();
     if (validateForm()) {
       try {
         const response = await api.post('/account/register', formData);
         // If the registration is successful, navigate to the CarDetails page
-        navigate('/CarDetails');
+        setTimeout(() => {
+          navigate('/CarDetails');
+        }, 1000);
       } catch (error) {
         // Handle registration error
         console.error('Registration failed:', error);
@@ -171,6 +194,14 @@ function SignUp() {
           <FormControlLabel control={<Checkbox />} style={{ justifyContent: 'center' }} label="Email me with offers and updates" />
         </FormGroup>
       </Card>
+      <Snackbar
+        open={open}
+        autoHideDuration={2000}
+        onClose={handleClose}
+        message="Registration Successfull"
+        action={action}
+        anchorOrigin={{ vertical: 'top', horizontal: 'center' }} 
+      />
       <br></br>
       <br></br>
       <br></br>
@@ -179,6 +210,7 @@ function SignUp() {
       <br></br>
       <br></br>
     </Box>
+    
   );
 }
  

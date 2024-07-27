@@ -7,12 +7,60 @@ import ElectricCarIcon from '@mui/icons-material/ElectricCar';
 import AcUnitIcon from '@mui/icons-material/AcUnit';
 import CarCrashSharpIcon from '@mui/icons-material/CarCrashSharp';
 import HighlightIcon from '@mui/icons-material/Highlight';
-import { Box,Button, Card, CardActions, CardContent, CardMedia, Typography,Grid } from "@mui/material";
+import { Box, Button, Card, CardActions, CardContent, CardMedia, Typography, Grid } from "@mui/material";
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { useAuth } from './AuthContext';
+import ReactCardFlip from 'react-card-flip';
+import { motion } from "framer-motion";
+
+class MyCard extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            isFlipped: false,
+        };
+        this.handleHover = this.handleHover.bind(this);
+        this.handleHoverLeave = this.handleHoverLeave.bind(this);
+    }
+
+    handleHover(e) {
+        e.preventDefault();
+        this.setState({ isFlipped: true });
+    }
+
+    handleHoverLeave(e) {
+        e.preventDefault();
+        this.setState({ isFlipped: false });
+    }
+
+    render() {
+        return (
+            <ReactCardFlip isFlipped={this.state.isFlipped} flipDirection="vertical" flipSpeedBackToFront={1} flipSpeedFrontToBack={1} sx={{alignContent:'center', justifyContent: 'center'}}>
+                <Card onMouseEnter={this.handleHover} onMouseLeave={this.handleHoverLeave} sx={{ textAlign: 'center', fontFamily:'Times New Roman, Times, serif',alignContent:'center', justifyContent: 'center',width:320,height:310, borderRadius: 10, marginLeft:8, fontFamily:'Times New Roman, Times, serif', backgroundColor:'#F2F3F4','&:hover': { bgcolor:'#0abab5' } }}>
+                    <CardContent sx={{ alignContent:'center', justifyContent: 'center', display: 'flex' }}>
+                        <this.props.icon style={{ fontSize: 60 }} onClick={this.props.onIconClick} />
+                    </CardContent>
+                    <CardContent sx={{ alignContent:'center', justifyContent: 'center',textAlign: 'center', fontFamily:'Times New Roman, Times, serif' }}>
+                        <Typography gutterBottom variant="h6" component="h6" style={{ justifyContent:'center', textAlign: 'center', fontFamily:'Times New Roman, Times, serif' }}>
+                            {this.props.title}
+                        </Typography>
+                    </CardContent>
+                </Card>
+                <Card onMouseEnter={this.handleHover} onMouseLeave={this.handleHoverLeave} sx={{textAlign: 'center', fontFamily:'Times New Roman, Times, serif', width: 320, height: 310, borderRadius: 10, marginLeft:8, fontFamily:'Times New Roman, Times, serif', backgroundColor:'#F2F3F4' }}>
+                    <CardContent sx={{ alignContent:'center', justifyContent: 'center' }}>
+                        <Typography gutterBottom variant="h6" component="h6" style={{ textAlign: 'center', fontFamily:'Times New Roman, Times, serif' }}>
+                            {this.props.description}
+                        </Typography>
+                    </CardContent>
+                </Card>
+            </ReactCardFlip>
+        );
+    }
+}
+
 function Home() {
-  const {jwt, setJwt } = useAuth();
+  const { jwt, setJwt } = useAuth();
   axios.defaults.headers.common['Access-Control-Allow-Origin'] = '*';
   axios.defaults.headers.common['Access-Control-Allow-Headers'] = 'Origin, X-Requested-With, Content-Type, Accept';
   const api = axios.create({
@@ -23,96 +71,88 @@ function Home() {
     }, 
   });
   const navigate = useNavigate();
-  const HandleClick = () =>{
-    {!!jwt ? navigate('/Cart') : navigate('/login')}}
+  const HandleClick = () => {
+    {!!jwt ? navigate('/Cart') : navigate('/login')}
+  }
+  const handleIconClick = () => {
+    navigate('/some-page');
+  }
   const cardsData = [
-    { title: 'Inspection & Checks', icon: SettingsIcon },
-    { title: 'Car Repair Service', icon: BuildIcon },
-    { title: 'Tyre Service', icon: LocalGasStationIcon },
-    { title: 'Electronic Services', icon: ElectricCarIcon },
-    { title: 'Air Conditioning Service', icon: AcUnitIcon },
-    { title: 'Engine Service', icon: CarCrashSharpIcon },
-    { title: 'Brake Service', icon: SettingsIcon },
-    { title: 'Car Bulb Check', icon: HighlightIcon }
+    { title: 'Inspection & Checks', icon: SettingsIcon, description: "Comprehensive inspection of the vehicle, including safety checks, fluid levels, and overall condition. Our skilled technicians meticulously examine critical components to ensure optimal performance and safety." },
+    { title: 'Car Repair Service', icon: BuildIcon, description: "Our expert mechanics handle mechanical issues, engine problems, and other malfunctions. Whether it's a faulty transmission, worn-out brakes, or engine diagnostics, we provide reliable repairs to keep your vehicle running smoothly." },
+    { title: 'Tyre Service', icon: LocalGasStationIcon, description: "Tire maintenance is crucial for safe driving. Our tire experts perform rotation, balancing, and alignment to extend tire life and enhance handling. We ensure your wheels are road-ready." },
+    { title: 'Electronic Services', icon: ElectricCarIcon, description: "Modern vehicles rely on intricate electronic systems. Our skilled technicians diagnose and repair issues related to sensors, wiring, and onboard components. Trust us to keep your car's electronics in top shape." },
+    { title: 'Air Conditioning Service', icon: AcUnitIcon, description: "Don't sweat it! Our air conditioning service includes thorough inspection, cleaning, and maintenance. We ensure your A/C system blows cool air during scorching summers." },
+    { title: 'Engine Service', icon: CarCrashSharpIcon, description: "Your engine deserves the best care. Our comprehensive engine service covers oil changes, filter replacements, and performance checks. We fine-tune your engine for optimal efficiency and longevity." },
+    { title: 'Brake Service', icon: SettingsIcon, description: "Safety first! Our brake service includes inspection, adjustment, and repair of the braking system. We ensure your brakes respond promptly, providing reliable stopping power." },
+    { title: 'Car Bulb Check', icon: HighlightIcon, description: "See and be seen! Our technicians verify and replace bulbs (headlights, taillights, etc.) as needed. Proper lighting enhances visibility and safety on the road." }
   ];
-  const handlebutton = () =>{
+  const handlebutton = () => {
     navigate('/service')
   }
- const handlebutton1 = () =>{
-  navigate('/about')
- }
+  const handlebutton1 = () => {
+    navigate('/about')
+  }
+  const text = "World-Class Service for Your Car".split(" ");
   return (
-    <div style={{fontFamily:'Times New Roman, Times, serif'}}>
+    <div style={{ fontFamily:'Times New Roman, Times, serif' }}>
       <br></br>
       <br></br>
-      <br></br>
-      <br></br>
-<br></br>
-<br></br>
       <div style={{
-  display: 'flex',
-  justifyContent: 'center',
-  alignItems: 'center',
-  height: '55px',
-  backgroundColor: '#000080',
-  fontSize: 'x-large',
-  fontWeight: 'bolder',
-  color: 'white'
-}}>
-  <marquee>Call to this (+91) 9475765201 to book your service</marquee>
-</div>
- 
-      <Card sx={{fontFamily:'Times New Roman, Times, serif',justifyContent:'center',height:'max',display: 'flex', maxWidth: 1100,marginLeft:23,marginTop:12,backgroundColor:'#d7dce2',borderRadius:10,color:'black'}}>
-  <CardMedia
-    sx={{ width: 1700, height: 500 }}
-    image={'https://jmautorepair.com/wp-content/uploads/sites/3436/2023/03/932280slider4.jpg'}
-    title="Car Repair"
-  />
-  <Box sx={{ fontFamily:'Times New Roman, Times, serif',display: 'flex', flexDirection: 'column', justifyContent: 'center',color:'black' }}>
-    <CardContent>
-      <Typography gutterBottom variant="h3" component="div"style={{fontFamily:'Times New Roman, Times, serif',color:'black'}}>
-        World-Class Service for Your Car
-      </Typography>
-      <Typography variant="h6"style={{fontFamily:'Times New Roman, Times, serif'}}>
-        At MCQueen Car Service, quality service is affordable. We are powered by MCQueen, to be your world-class workshop next door for complete car care - service, maintenance, and car repairs, for any car.
-      </Typography>
-    </CardContent>
-    <CardActions>
-      <Button size="medium" variant='outlined' sx={{fontFamily:'Times New Roman, Times, serif',
-    color: '#000080',borderColor:'#000080',
-    '&:hover': {
-      bgcolor: '#b0c4de',
-    }}}onClick={handlebutton}>Book A service</Button>
-      <Button size="medium" variant='outlined' sx={{fontFamily:'Times New Roman, Times, serif',
-    color: '#000080',borderColor:'#000080',
-    '&:hover': {
-      bgcolor: '#b0c4de',
-    }}}onClick={handlebutton1}>Learn More</Button>
-    </CardActions>
-  </Box>
-</Card>
-<h1 style={{color:'black',fontFamily:'Times New Roman, Times, serif',}}>Our Services</h1>
-<h1 style={{color:'black',textAlign:'center',fontFamily:'Times New Roman, Times, serif'}}>Visit our nearest workshop for high-quality service </h1>
-<Grid container spacing={3}>
-{cardsData.map((card, index) => (
-  <Grid item xs={6} sm={3} key={index}sx={{ marginRight: -1, marginLeft: -1 }}>
-    <Card sx={{ maxWidth: 300, maxHeight: 230, borderRadius: 10, marginLeft:8,fontFamily:'Times New Roman, Times, serif',backgroundColor:'#d7dce2' }}>
-      <CardContent sx={{ justifyContent: 'center', display: 'flex' }}>
-        <card.icon style={{ fontSize: 60 }} />
-      </CardContent>
-      <CardContent>
-        <Typography gutterBottom variant="h5" component="h4" style={{ textAlign: 'center',fontFamily:'Times New Roman, Times, serif' }}>
-          {card.title}
-        </Typography>
-      </CardContent>
-      <CardActions style={{ justifyContent: 'center',fontFamily:'Times New Roman, Times, serif'}}>
-        <Button size="large" color="primary" onClick={HandleClick}>
-          <EastIcon />
-        </Button>
-      </CardActions>
-    </Card>
-  </Grid>
-))}
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor:'#008b8b',
+        height: '55px',
+        fontSize: 'x-large',
+        fontWeight: 'bolder',
+        color: 'white'
+      }}>
+        <marquee>Call to this (+91) 9475765201 to book your service</marquee>
+      </div>
+      <Card sx={{ fontFamily:'Times New Roman, Times, serif', justifyContent:'center', height:'max', display: 'flex', maxWidth: 1100, marginLeft:23, marginTop:12, backgroundColor:'#F2F3F4', borderRadius:10, color:'black' }}>
+        <CardMedia
+          sx={{width: 1700, height: 500 }}
+          image={'https://jmautorepair.com/wp-content/uploads/sites/3436/2023/03/932280slider4.jpg'}
+          title="Car Repair"
+        />
+        <Box sx={{ color: 'black', fontFamily:'Times New Roman, Times, serif', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
+          <CardContent>
+          <div style={{fontSize:'300%',fontWeight:'lighter',fontFamily:'Times New Roman, Times, serif'}}>
+              {text.map((el, i) => (
+                <motion.span
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{
+                    duration: 1,
+                    delay: i / 10
+                  }}
+                  key={i}
+                >
+                  {el}{" "}
+                </motion.span>
+              ))}
+            </div>
+            <br></br>
+            <Typography variant="h6" style={{ fontFamily:'Times New Roman, Times, serif' }}>
+              At MCQueen Car Service, quality service is affordable. We are powered by MCQueen, to be your world-class workshop next door for complete car care - service, maintenance, and car repairs, for any car.
+            </Typography>
+          </CardContent>
+          <CardActions>
+            <Button size="medium" variant='contained' sx={{ fontFamily:'Times New Roman, Times, serif', borderColor:'#008b8b', backgroundColor:'#008b8b', '&:hover': { bgcolor: '#b0c4de' }}} onClick={handlebutton}>Book A service</Button>
+            <Button size="medium" variant='contained' sx={{ fontFamily:'Times New Roman, Times, serif', borderColor:'#008b8b', backgroundColor:'#008b8b', '&:hover': { bgcolor: '#b0c4de' }}} onClick={handlebutton1}>Learn More</Button>
+          </CardActions>
+        </Box>
+      </Card>
+      <h1 style={{ color:'black', fontFamily:'Times New Roman, Times, serif' }}>Our Services</h1>
+      <h1 style={{ color:'black', textAlign:'center', fontFamily:'Times New Roman, Times, serif' }}>Visit our nearest workshop for high-quality service </h1>
+      <br></br>
+      <Grid container spacing={2}>
+        {cardsData.map((card, index) => (
+          <Grid item xs={6} sm={3} key={index} sx={{ marginRight: -2, marginLeft: -1 }}>
+            <MyCard title={card.title} description={card.description} icon={card.icon} onIconClick={handleIconClick} />
+          </Grid>
+        ))}
       </Grid>
       <br></br>
       <br></br>

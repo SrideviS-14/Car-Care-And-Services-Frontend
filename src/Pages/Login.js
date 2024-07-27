@@ -116,7 +116,7 @@ function Login() {
   return (
     <div>
       <Box fontFamily='Times New Roman, Times, serif' height="90vh" display="flex" justifyContent="center" alignItems="center">
-        <Card sx={{ fontFamily:'Times New Roman, Times, serif',width: 500, backgroundColor: '#d7dce2', height: 450, justifyContent: "center", borderRadius: 12 }}>
+        <Card sx={{ fontFamily:'Times New Roman, Times, serif',width: 500, backgroundColor: '#F2F3F4', height: 450, justifyContent: "center", borderRadius: 12 }}>
           <CardContent>
             <Typography gutterBottom variant="h5" component="div" style={{ fontFamily:'Times New Roman, Times, serif',textAlign: 'center' }}>Login In Here</Typography>
             <Typography gutterBottom variant="h6" component="div" style={{ fontFamily:'Times New Roman, Times, serif',textAlign: 'center' }}>Book Your Service In A Click </Typography><br></br>
@@ -155,8 +155,8 @@ function Login() {
           </CardContent>
           <CardActions>
             <Box width="100%" display="flex" justifyContent="center">
-              <Button size="large" variant="contained" style={{ marginRight: 15, backgroundColor: '#000080' }}>Forgot Password</Button>
-              <Button size="large" variant="contained" style={{ backgroundColor: '#000080' }} onClick={handleSubmit}>Login In</Button>
+              <Button size="large" variant="contained" style={{ marginRight: 15, backgroundColor: '#008b8b' }}>Forgot Password</Button>
+              <Button size="large" variant="contained" style={{ backgroundColor: '#008b8b' }} onClick={handleSubmit}>Login In</Button>
             </Box>
           </CardActions>
         </Card>

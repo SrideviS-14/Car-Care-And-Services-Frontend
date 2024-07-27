@@ -48,8 +48,8 @@ function Packages() {
                            </CardContent>
                            <div className="button-container" style={{ display:'flex',justifyContent:'center'}}>
                 <CardActions>
-                <Button size='medium' variant='contained' sx={{backgroundColor:'#000080'}}><EditIcon /></Button>
-                <Button size='medium' variant='contained' sx={{backgroundColor:'#000080'}}><DeleteIcon /></Button>
+                <Button size='medium' variant='contained' sx={{backgroundColor:'#008b8b'}}><EditIcon /></Button>
+                <Button size='medium' variant='contained' sx={{backgroundColor:'#008b8b'}}><DeleteIcon /></Button>
                 </CardActions>
               </div>
             </Card>

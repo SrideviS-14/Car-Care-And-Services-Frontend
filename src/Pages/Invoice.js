@@ -12,7 +12,7 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import Slide from '@mui/material/Slide';
- 
+import Tick from './images/tickicon.gif'
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
@@ -29,7 +29,8 @@ function Invoice() {
       IsActive: true
 });
   const [open, setOpen] = React.useState(false);
- 
+  const [openalert,setopenalert] = React.useState(false);
+
   const handleClose = () => {
     setOpen(false);
   };
@@ -91,10 +92,16 @@ function Invoice() {
         // Handle error (e.g., display error message)
     }
   }
+  const handleClosealert = () => {
+    setopenalert(false);
+    navigate('/');// Wait 2 seconds before navigating
+  }
+  
   const handleInPersonPay = async(e) => {
     e.preventDefault();
     try {
         const response = await api.post('/booking/book', formData);
+        setopenalert(true);
         console.log('Registration successful:', response.data.token);
         // Handle success (e.g., redirect to login page)
     } catch (error) {
@@ -102,7 +109,6 @@ function Invoice() {
         console.error('Registration failed:');
         // Handle error (e.g., display error message)
     }
-    navigate('/');
   }
   useEffect(() => {
     api.get('/cart/getServices')
@@ -136,9 +142,9 @@ function Invoice() {
                                         <Barcode value={finaldata} width={1} height={50} displayValue={false} />
                                     </div>
                                     <div className="col-md-8 text-right bbc">
-                                        <h4 style={{ color: '#325aa8',fontFamily:'Times New Roman, Times, serif' }}><strong>Company</strong></h4>
+                                        <h4 style={{ color: '#325aa8',fontFamily:'Times New Roman, Times, serif' }}><strong>Wheels Up Company</strong></h4>
                                         <p style={{fontFamily:'Times New Roman, Times, serif'}}>(+91) 9475765201</p>
-                                        <p style={{fontFamily:'Times New Roman, Times, serif'}}>Company@gmail.com</p>
+                                        <p style={{fontFamily:'Times New Roman, Times, serif'}}>wheelsup.carservices@gmail.com</p>
                                     </div>
           <Typography variant="h4" align="center" gutterBottom>
             Invoice
@@ -177,11 +183,11 @@ function Invoice() {
           </TableContainer>
           <div style={{ display: 'flex', justifyContent: 'center', margin: '20px' }}>
           <CardActions style={{alignContent:'center',justifyContent:'center'}}>
-            <Button size='medium' variant='contained' style={{alignContent:'center',justifyContent:'center',backgroundColor: '#000080' }}
+            <Button size='medium' variant='contained' style={{alignContent:'center',justifyContent:'center',backgroundColor: '#008b8b' }}
                   onClick={handlePrint} >Download Invoice</Button>
-          <Button size='medium' variant='contained' style={{alignContent:'center',justifyContent:'center',backgroundColor: '#000080' }}
+          <Button size='medium' variant='contained' style={{alignContent:'center',justifyContent:'center',backgroundColor: '#008b8b' }}
                   onClick={() => handleBackToCart()} >Back To Cart</Button>
-           <Button size='medium' variant='contained' style={{alignContent:'center',justifyContent:'center',backgroundColor: '#000080' }}
+           <Button size='medium' variant='contained' style={{alignContent:'center',justifyContent:'center',backgroundColor: '#008b8b' }}
                   onClick={() => handlePayment()} >Proceed To Pay</Button>
         </CardActions>
           </div>
@@ -189,6 +195,28 @@ function Invoice() {
  <br></br>
  
         </Paper>
+        <Dialog
+  open={openalert}
+  onClose={handleClosealert}
+  aria-labelledby="alert-dialog-title"
+  aria-describedby="alert-dialog-description"
+>
+  <DialogTitle id="alert-dialog-title">
+  <img src={Tick} style={{justifyContent:'center',alignItems:'center',textAlign:'center',marginLeft:'80px'}}></img>
+  </DialogTitle>
+  <DialogContent>
+    <DialogContentText id="alert-dialog-description">
+      Your Booking is Confirmed
+      Do visit us again 
+    </DialogContentText>
+  </DialogContent>
+  <DialogActions>
+    <Button onClick={handleClosealert} autoFocus>
+      Thank You
+    </Button>
+  </DialogActions>
+</Dialog>
+
         <Dialog
         open={open}
         TransitionComponent={Transition}

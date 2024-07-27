@@ -39,11 +39,20 @@ function ConfirmBooking() {
       setcarddata(carddata.filter(item => item.service_ID !== serviceId));
       console.log('Successful', response.data);
       setOpenRemove(true);
-  } catch (error) {
+ 
+      // Enable the button for this service in localStorage
+      const savedDisabledStatus = JSON.parse(localStorage.getItem(`disabledStatus-${jwt}`));
+      if (savedDisabledStatus) {
+        savedDisabledStatus[serviceId] = false;
+        localStorage.setItem(`disabledStatus-${jwt}`, JSON.stringify(savedDisabledStatus));
+      }
+    } catch (error) {
       alert("Cannot remove");
       console.error('Failed');
-  }
-  }
+    }
+  };
+ 
+ 
   const navigate = useNavigate();
   const handleAddService = async () => {
     navigate('/cart');
@@ -83,7 +92,7 @@ function ConfirmBooking() {
       {carddata.map((item) => (
         <>
   <Grid  container spacing={3}item key={item.service_ID}>
-    <Card style={{ marginLeft:'320px',justifyContent: 'center', width: '900px', height: '290px', borderRadius: '5', backgroundColor: '#d7dce2',fontFamily:'Times New Roman, Times, serif' }}>
+    <Card style={{ marginLeft:'320px',justifyContent: 'center', width: '900px', height: '290px', borderRadius: '5', backgroundColor: '#F2F3F4',fontFamily:'Times New Roman, Times, serif' }}>
       <CardContent style={{ fontSize: 'x-Large', flexDirection: 'column',fontFamily:'Times New Roman, Times, serif' }}>
         <div style={{ fontSize: 'xx-large', fontWeight: 'bold',fontFamily:'Times New Roman, Times, serif' }}>{item.service_Name}</div>
         <div style={{ textAlign: 'right',fontFamily:'Times New Roman, Times, serif' }}>₹{item.service_Amount}</div>
@@ -91,7 +100,7 @@ function ConfirmBooking() {
         <div style={{ textAlign: 'left',fontFamily:'Times New Roman, Times, serif' }}>{item.description}</div>
         <br />
         <CardActions style={{ justifyContent: 'flex-end',fontFamily:'Times New Roman, Times, serif' }}>
-          <Button size='medium' variant='outlined' style={{ color:'#000080',borderColor: '#000080',margin: '5px',fontFamily:'Times New Roman, Times, serif' }}
+          <Button size='medium' variant='outlined' style={{ color:'#008b8b',borderColor: '#008b8b',margin: '5px',fontFamily:'Times New Roman, Times, serif' }}
             onClick={() => handleRemoveService(item.service_ID)}> <DeleteIcon />   Remove</Button>
         </CardActions>
       </CardContent>
@@ -103,9 +112,9 @@ function ConfirmBooking() {
 ))}
 <br></br>
         <CardActions style={{alignContent:'center',justifyContent:'center',fontFamily:'Times New Roman, Times, serif'}}>
-        <Button size='medium' variant='contained' style={{ backgroundColor: '#000080' }}
+        <Button size='medium' variant='contained' style={{ backgroundColor: '#008b8b' }}
               onClick={() => handleAddService()} >Add Service</Button>
-        <Button size='medium' variant='contained' style={{ backgroundColor: '#000080' }}
+        <Button size='medium' variant='contained' style={{ backgroundColor: '#008b8b' }}
               onClick={() => handleInvoice()} >Proceed To Invoice</Button>
 </CardActions>
 <Snackbar

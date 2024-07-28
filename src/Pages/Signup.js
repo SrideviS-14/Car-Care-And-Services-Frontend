@@ -8,8 +8,10 @@ import { useNavigate } from "react-router-dom";
 import CloseIcon from '@mui/icons-material/Close';
 import IconButton from '@mui/material/IconButton';
 import Snackbar from '@mui/material/Snackbar';
- 
+import { useAuth } from "./AuthContext";
+
 function SignUp() {
+  const {jwt, setJwt} = useAuth();
   const navigate = useNavigate();
   axios.defaults.headers.common['Access-Control-Allow-Origin'] = '*';
   axios.defaults.headers.common['Access-Control-Allow-Headers'] = 'Origin, X-Requested-With, Content-Type, Accept';
@@ -99,8 +101,12 @@ function SignUp() {
       try {
         const response = await api.post('/account/register', formData);
         // If the registration is successful, navigate to the CarDetails page
+        console.log(response.data.user.id);
+        setJwt(response.data.token)
+        localStorage.setItem('jwt', jwt);
+    
         setTimeout(() => {
-          navigate('/CarDetails');
+          navigate('/CarDetails', { state: { userID: response.data.user.id } });
         }, 1000);
       } catch (error) {
         // Handle registration error
@@ -112,7 +118,7 @@ function SignUp() {
  
   return (
     <Box fontFamily='Times New Roman, Times, serif' height="90vh" display="flex" justifyContent="center" alignItems="center" marginTop="100px" marginBottom="100px" >
-      <Card sx={{fontFamily:'Times New Roman, Times, serif', width: 550, height: 820, justifyContent: "center", borderRadius: 12, backgroundColor: '#d7dce2' }}>
+      <Card sx={{fontFamily:'Times New Roman, Times, serif', width: 550, height: 760, justifyContent: "center", borderRadius: 12, backgroundColor: '#F2F3F4' }}>
         <CardContent sx={{fontFamily:'Times New Roman, Times, serif'}}>
           <Typography gutterBottom variant="h5" component="div" style={{ textAlign: 'center', padding: 5, marginTop: 10,fontFamily:'Times New Roman, Times, serif' }}>Sign Up Here</Typography>
           <Typography gutterBottom variant="h6" component="div" style={{ textAlign: 'center',fontFamily:'Times New Roman, Times, serif' }}>Experience An Exquisite Service On A Click </Typography><br></br>
@@ -183,7 +189,7 @@ function SignUp() {
         <CardActions>
           <Box width="100%" display="flex" justifyContent="center">
         <Typography gutterBottom variant="subtitle2" style={{ textAlign: 'center',fontFamily:'Times New Roman, Times, serif'}}>
-            <Button size="large" variant="contained" style={{ backgroundColor: '#000080' }} onClick={handleSubmit}>Sign Up</Button>
+            <Button size="large" variant="contained" style={{ backgroundColor: '#008b8b' }} onClick={handleSubmit}>Sign Up</Button>
             </Typography>
           </Box>
         </CardActions>

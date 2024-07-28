@@ -13,6 +13,8 @@ function Cart() {
   const [openAddToCart, setOpenAddToCart] = React.useState(false);
   const [openConfirmBooking, setOpenConfirmBooking] = React.useState(false);
   const {jwt, setJwt } = useAuth();
+  const [disabledStatus, setDisabledStatus] = useState({});
+  const [addedStatus, setAddedStatus] = useState({});
   axios.defaults.headers.common['Access-Control-Allow-Origin'] = '*';
   axios.defaults.headers.common['Access-Control-Allow-Headers'] = 'Origin, X-Requested-With, Content-Type, Accept';
   const api = axios.create({
@@ -25,6 +27,16 @@ function Cart() {
   const [carddata, setcarddata] = useState([]);
 
   useEffect(() => {
+    if (!jwt) {
+      localStorage.removeItem(`disabledStatus-${jwt}`);
+      setDisabledStatus({});
+    } else {
+      const savedDisabledStatus = JSON.parse(localStorage.getItem(`disabledStatus-${jwt}`));
+      if (savedDisabledStatus) {
+        setDisabledStatus(savedDisabledStatus);
+      }
+    }
+ 
     api.get('/service/getAllServices')
       .then((response) => {
         console.log(response.data);
@@ -33,8 +45,8 @@ function Cart() {
       .catch((error) => {
         console.error('Error fetching data:', error);
       });
-  }, []);
-
+  }, [jwt]);
+ 
   const handleProceedToInvoice = async () => {
     setOpenConfirmBooking(true);
     setTimeout(() => {
@@ -45,6 +57,12 @@ function Cart() {
     try {
       setOpenAddToCart(true);
       console.log(service_ID);
+      setDisabledStatus(prevStatus => {
+        const newStatus = { ...prevStatus, [service_ID]: true };
+        localStorage.setItem(`disabledStatus-${jwt}`, JSON.stringify(newStatus));
+        return newStatus;
+      });
+      setAddedStatus(prevStatus => ({ ...prevStatus, [service_ID]: true }));
       const response = await api.post('/cart/addService', service_ID); // Corrected the payload
       console.log('Added successfully!', response.data);
     } catch (error) {
@@ -53,6 +71,7 @@ function Cart() {
       // Handle error (e.g., display error message)
     }
   };
+ 
   const handleClose = (event, reason) => {
     if (reason === 'clickaway') {
       return;
@@ -72,20 +91,21 @@ function Cart() {
    )
   return (
     <div style={{ fontFamily: 'Times New Roman, Times, serif' }}>
+      <h1 style={{ color: 'black', justifyContent: 'center', marginTop: '75px' }}> Services Offered</h1>
+      <p style={{ textAlign: 'center', fontSize: 'x-large', color: 'black', justifyContent: 'center', marginTop: '75px' }}>
+      From Oil Changes to Brake Repairs – We’ve Got You Covered.
+      </p>
       <br></br>
-      <br></br>
-      <Typography variant="h4" align="center" gutterBottom sx={{ fontFamily: 'Times New Roman, Times, serif' }}>
-        Services Offered
-      </Typography>
-      <Grid container spacing={1}>
+      <Grid container Spacing={2}>
         {carddata.map((item) => (
-          <Grid item xs={11} sm={6} key={item.service_ID}>
-            <Card sx={{ m: 2, marginLeft: 15, width: 550, height: 250,backgroundColor: '#d7dce2',fontFamily:'Times New Roman, Times, serif' }}>
+          <Grid item xs={11} sm={6} key={item.service_ID} >
+            <Card sx={{borderRadius:15,p:2,px:5,mb:5, marginLeft: 6, width: 550, height: 250,backgroundColor:'#F2F3F4',fontFamily:'Times New Roman, Times, serif' }}>
               <CardContent>
-                <Typography variant="h5" component="div"style={{fontFamily:'Times New Roman, Times, serif'}}>
+                <br></br>
+                <Typography variant="h5" component="div"style={{fontWeight:'bolder',fontFamily:'Times New Roman, Times, serif'}}>
                   {item.service_Name}
                 </Typography>
-                <Typography color="text.secondary" style={{fontFamily:'Times New Roman, Times, serif',color:'black',fontSize:'x-large',textAlign:'right',fontFamily:'Times New Roman, Times, serif'}}>
+                <Typography color="text.secondary" style={{fontWeight:'bolder',fontFamily:'Times New Roman, Times, serif',color:'black',fontSize:'x-large',textAlign:'right',fontFamily:'Times New Roman, Times, serif'}}>
                   ₹{item.service_Amount}
                 </Typography>
                 <br></br>
@@ -94,9 +114,15 @@ function Cart() {
                 </Typography>
               </CardContent>
               <CardActions style={{ justifyContent: 'center' }}>
-                <Button size="small" variant='contained' style={{ backgroundColor: '#000080',fontFamily:'Times New Roman, Times, serif' }} onClick={() => handleAddToCart(item.service_ID)}>
-                  <ShoppingCartIcon /> Add To Cart
-                </Button>
+              <Button
+                disabled={disabledStatus[item.service_ID]}
+                size="small"
+                variant='contained'
+                style={{ backgroundColor: disabledStatus[item.service_ID] ? '#D3D3D3' : '#000080', fontFamily:'Times New Roman, Times, serif', color: disabledStatus[item.service_ID] ? '#000000' : '#ffffff' }}
+                onClick={() => handleAddToCart(item.service_ID)}
+              >
+                <ShoppingCartIcon /> {addedStatus[item.service_ID] ? 'Added to Cart' : 'Add to Cart'}
+              </Button>
               </CardActions>
             </Card>
           </Grid>
@@ -113,15 +139,15 @@ function Cart() {
       </Grid>
       <br></br>
       <CardActions style={{ justifyContent: 'center' }}>
-        <Button size="large" variant='contained' style={{ backgroundColor: '#000080',fontFamily:'Times New Roman, Times, serif' }} onClick={handleProceedToInvoice}>
-         Confirm Booking
+        <Button size="large" variant='contained' style={{  color:'black',backgroundColor: '#00ced1',fontFamily:'Times New Roman, Times, serif' }} onClick={handleProceedToInvoice}>
+        View Cart
         </Button>
         <Snackbar
         severity="success"
         open={openConfirmBooking}
         autoHideDuration={2000}
         onClose={handleClose}
-        message="Your Booking is Confirmed"
+        message="View the items in your cart"
         action={action}
       />
       </CardActions>

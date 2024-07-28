@@ -1,14 +1,24 @@
 import { Grid,Box,Button, Card, CardActions, CardContent, CardMedia,Typography} from "@mui/material";
 import { useNavigate } from "react-router-dom";
+import AnimatedCard from "./AnimatedCard.js";
+import AnimatedText from "./AnimatedText.js";
 function About()
 {    
   const navigate = useNavigate();
   const handlebutton = () =>{
     navigate('/service')
   } 
+  const benefits = [
+    "Outstanding Quality",
+    "Broad-based and Comprehensive",
+    "Fair and Reasonable",
+    "Personal and Committed"
+  ];
+
     return (
       <div>
-        <Card sx={{ backgroundColor:'#d7dce2',borderRadius:10,display: 'flex',fontFamily:'Times New Roman, Times, serif', maxWidth: 1100,marginLeft:23,marginTop:12 }}>
+        <AnimatedCard index={0}>
+        <Card sx={{ backgroundColor:'#F2F3F4',borderRadius:10,display: 'flex',fontFamily:'Times New Roman, Times, serif', maxWidth: 1100,marginLeft:23,marginTop:12 }}>
   <CardMedia
     sx={{ width: 1000, height: 500 }}
     image={'https://www.autokonig.com/wp-content/uploads/2020/02/Untitled.jpg'}
@@ -25,17 +35,19 @@ function About()
     </CardContent>
     <CardActions>
       <Button size="large" sx={{
-    backgroundColor: '#000080',color:'white',fontFamily:'Times New Roman, Times, serif'
+    backgroundColor: '#008b8b',color:'white',fontFamily:'Times New Roman, Times, serif'
     ,'&:hover': {
       bgcolor: '#b0c4de',
     }}}onClick={handlebutton}>Book A service</Button>
     </CardActions>
   </Box>
   </Card>
+  </AnimatedCard>
   <br></br>
   <br></br>
   <br></br>
-  <Card sx={{ fontFamily:'Times New Roman, Times, serif',backgroundColor:'#d7dce2',borderRadius:10,marginLeft:10,display: 'flex', flexDirection: 'row', fontFamily: 'Times New Roman, Times, serif', width: 1300,height:700 }}>
+  <AnimatedCard index={1}>
+  <Card sx={{ fontFamily:'Times New Roman, Times, serif',backgroundColor:'#F2F3F4',borderRadius:10,marginLeft:23,display: 'flex', flexDirection: 'row', fontFamily: 'Times New Roman, Times, serif', width: 1100,height:570 }}>
   <Grid container>
           <Grid item xs={12} md={6}>
             <CardContent>
@@ -45,21 +57,21 @@ function About()
   <br></br>
   <Typography variant="h6" component='div' style={{fontFamily:'Times New Roman, Times, serif',justifyContent:'center'}}>Our network comprises select garages that not only meet but often surpass the rigorous standards set by SF Car Care. These establishments are fueled by a fervent love for automobiles and a commitment to delivering top-notch service. The founding ethos of SF Car Care, rooted in unwavering quality and customer-centricity, has ensured that these high standards permeate every facet of our operations.</Typography>
   <br></br>
-  <Typography variant="h6" component='div'style={{fontFamily:'Times New Roman, Times, serif',justifyContent:'center'}}>Each of our garages operates under the stewardship of passionate and ambitious individuals, who consistently uphold and advance the quality benchmarks established by SF Car Care.</Typography>
-  <br></br>
   </CardContent>
   </Grid>
   <Grid item xs={12} md={6}>
-  <CardMedia sx={{ width: 700, height: 700 }}
+  <CardMedia sx={{ marginRight:40,padding:-20,width: 800, height: 600 }}
     image={'https://tse4.mm.bing.net/th/id/OIP.9SFkL2rMuOuZeA5sv8xClgHaE8?w=292&h=195&c=7&r=0&o=5&dpr=1.3&pid=1.7'}
     title="Car Repair">
   </CardMedia>
   </Grid>
   </Grid>
   </Card>
+  </AnimatedCard>
   <br></br>
   <br></br>
-  <Card sx={{fontFamily:'Times New Roman, Times, serif',backgroundColor:'#d7dce2',borderRadius:10,marginLeft:23,display: 'flex', flexDirection: 'row-reverse', fontFamily: 'Times New Roman, Times, serif', maxWidth: 1100, }}>
+  <AnimatedCard index={2}>
+  <Card sx={{fontFamily:'Times New Roman, Times, serif',backgroundColor:'#F2F3F4',borderRadius:10,marginLeft:23,display: 'flex', flexDirection: 'row-reverse', fontFamily: 'Times New Roman, Times, serif', maxWidth: 1100, }}>
   <Grid container>
   <Grid item xs={12} md={6}>
     <CardMedia
@@ -78,20 +90,9 @@ function About()
           </Grid>
         </Grid>
       </Card>
+      </AnimatedCard>
   <br></br>
   <br></br>
-  <Typography variant="h4" component='div'style={{justifyContent:'center',fontFamily:'Times New Roman, Times, serif',textAlign:'center'}}>
-  Enjoy the benefits of our world-class services
-  </Typography>
-  <ul>
-  <li><Typography variant="h5" style={{fontFamily:'Times New Roman, Times, serif',textAlign:'left'}}><Button style={{color:'black'}}></Button>Outstanding Quality</Typography></li>
-  <li><Typography variant="h5" style={{fontFamily:'Times New Roman, Times, serif',textAlign:'left'}}><Button style={{color:'black'}}></Button>Broad-based and Comprehensive</Typography></li>
-  <li><Typography variant="h5" style={{fontFamily:'Times New Roman, Times, serif',textAlign:'left'}}><Button style={{color:'black'}}></Button>Fair and Reasonable</Typography></li>
-  <li><Typography variant="h5" style={{fontFamily:'Times New Roman, Times, serif',textAlign:'left'}}><Button style={{color:'black'}}></Button>Personal and Committed</Typography></li>
-  </ul>
-  <br></br>
-      <br></br>
-      <br></br>
       </div>
     );
   }

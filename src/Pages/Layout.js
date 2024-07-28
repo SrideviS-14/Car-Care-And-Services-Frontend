@@ -1,11 +1,11 @@
 
-import { Outlet,Link} from "react-router-dom";
+import { Outlet,NavLink} from "react-router-dom";
 import './Login.js';
 import './Signup.js';
 import './Layout.css';
 import { Button } from "@mui/material";
 import { useAuth } from './AuthContext';
-import video from './images/WheelsUp.mp4';
+import logo from './images/WheelsUp-2--unscreen.gif';
 import Footer from './Footer.js'; 
 function Layout(){
  
@@ -19,105 +19,105 @@ function Layout(){
  
 return(
     <>
-     <video src={video} autoPlay loop muted style={{ width: '200px', height: '200px',fontFamily:'Times New Roman, Times, serif' }}></video>
+     <img src={logo}width='150px'height='150px'style={{marginTop:'10px',marginLeft:'15px'}}></img>
      {(role=='client' || role=='') ?
      <nav className="main-header">
-        <Link className="homepage" to="/">Home</Link>
-        <Link className="aboutpage" to="/About">About Us</Link>
-        <Link className="guidepage"to="/Cart">Services</Link>
-        <Link className="packagepage" to="/Package">Packages</Link>
-        <Link className="servicepage"to="/Service">Quick Book</Link>
-        {!!jwt ?
-                        <Link className="login" to="/">
-                        <Button onClick={handleLogout} style={{
-                            fontSize: 'medium',
-                            backgroundColor: '#000080',
-                            width: 100,
-                            height: 50,
-                            marginRight:1,
-                            color: 'white',
-                            borderRadius: 10,
-                            border: 'none',
-                            marginLeft: 20
-                          }}>Log out</Button>
-                        </Link>
-                        :
-        <>
-                <Link className="signup" to="/signup">
-                  <Button style={{
-                    fontSize: 'medium',
-                    backgroundColor: '#000080',
-                    width: 100,
-                    marginLeft:85,
-                    height: 50,
-                    color: 'white',
-                    borderRadius: 10,
-                    border: 'none'
-                  }}>Sign Up</Button>
-                </Link>
-                <Link className="login" to="/login">
-                <Button style={{
-                    fontSize: 'medium',
-                    backgroundColor: '#000080',
-                    width: 100,
-                    height: 50,
-                    marginRight:1,
-                    color: 'white',
-                    borderRadius: 10,
-                    border: 'none',
-                    marginLeft: 20
-                  }}>Log in</Button>
-                </Link>
-        </>
- 
-                }
-       
-    </nav>
-    :
-    <nav className="main-header">
-    <Link className="aboutpage" to="/dashboard">Dashboard</Link>
-    <Link className="bookingpage" to='/booking'>Booking</Link>
-    <Link className="servicepage" to='/services'>Services</Link>
-    <Link className="packagepage" to='/packages'>Packages</Link>
-    {!!jwt ?
-                    <Link className="login" to="/">
-                    <Button onClick={handleLogout} style={{
-                        fontSize: 'medium',
-                        backgroundColor: '#000080',
-                        width: 100,
-                        height: 50,
-                        marginRight:1,
-                        color: 'white',
-                        borderRadius: 10,
-                        border: 'none',
-                        marginLeft: 20
-                      }}>Log out</Button>
-                    </Link>
-                    :
-    <>
-            <Link className="login" to="/login">
-            <Button style={{
-                fontSize: 'medium',
-                backgroundColor: '#000080',
-                width: 100,
-                height: 50,
-                marginRight:1,
-                color: 'white',
-                borderRadius: 10,
-                border: 'none',
-                marginLeft: 20
-              }}>Log in</Button>
-            </Link>
-    </>
+     <NavLink className="homepage" activeClassName="active" to="/">Home</NavLink>
+     <NavLink className="aboutpage" activeClassName="active" to="/About">About Us</NavLink>
+     <NavLink className="guidepage" activeClassName="active" to="/Cart">Services</NavLink>
+     <NavLink className="packagepage" activeClassName="active" to="/Package">Packages</NavLink>
+     <NavLink className="servicepage" activeClassName="active" to="/Service">Quick Book</NavLink>
+     <NavLink className="statuspage" activeClassName="active" to="/StatusTrack">StatusTrack</NavLink>
+     {!!jwt ?
+                     <NavLink className="login" activeClassName="active" to="/">
+                     <Button onClick={handleLogout} style={{
+                         fontSize: 'medium',
+                         backgroundColor: '#008b8b',
+                         width: 100,
+                         height: 50,
+                         marginRight:1,
+                         color: 'white',
+                         borderRadius: 10,
+                         border: 'none',
+                         marginLeft: 20
+                       }}>Log out</Button>
+                     </NavLink>
+                     :
+     <>
+             <NavLink className="signup" activeClassName="active" to="/signup">
+               <Button style={{
+                 fontSize: 'medium',
+                 backgroundColor: '#008b8b',
+                 width: 100,
+                 marginLeft:85,
+                 height: 50,
+                 color: 'white',
+                 borderRadius: 10,
+                 border: 'none'
+               }}>Sign Up</Button>
+             </NavLink>
+             <NavLink className="login" activeClassName="active" to="/login">
+             <Button style={{
+                 fontSize: 'medium',
+                 backgroundColor: '#008b8b',
+                 width: 100,
+                 height: 50,
+                 marginRight:1,
+                 color: 'white',
+                 borderRadius: 10,
+                 border: 'none',
+                 marginLeft: 20
+               }}>Log in</Button>
+             </NavLink>
+     </>
 
-            }
-   
+             }
+    
+ </nav>
+ :
+ <nav className="main-header">
+ <NavLink className="aboutpage" activeClassName="active" to="/dashboard">Dashboard</NavLink>
+ <NavLink className="bookingpage" activeClassName="active" to='/booking'>Booking</NavLink>
+ <NavLink className="servicepage" activeClassName="active" to='/services'>Services</NavLink>
+ <NavLink className="packagepage" activeClassName="active" to='/packages'>Packages</NavLink>
+ {!!jwt ?
+                 <NavLink className="login" activeClassName="active" to="/">
+                 <Button onClick={handleLogout} style={{
+                     fontSize: 'medium',
+                     backgroundColor: '#008b8b',
+                     width: 100,
+                     height: 50,
+                     marginRight:1,
+                     color: 'white',
+                     borderRadius: 10,
+                     border: 'none',
+                     marginLeft: 20
+                   }}>Log out</Button>
+                 </NavLink>
+                 :
+ <>
+         <NavLink className="login" activeClassName="active" to="/login">
+         <Button style={{
+             fontSize: 'medium',
+             backgroundColor: '#008b8b',
+             width: 100,
+             height: 50,
+             marginRight:1,
+             color: 'white',
+             borderRadius: 10,
+             border: 'none',
+             marginLeft: 20
+           }}>Log in</Button>
+         </NavLink>
+ </>
+
+         }
+
 </nav>
 }
-    <Outlet />
-    <Footer />
-    </>
+ <Outlet />
+ <Footer />
+ </>
 )
 }
-export default Layout;
- 
+export default Layout; 

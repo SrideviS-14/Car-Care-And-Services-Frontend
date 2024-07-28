@@ -10,6 +10,7 @@ import CarCrashSharpIcon from '@mui/icons-material/CarCrashSharp';
 import HighlightIcon from '@mui/icons-material/Highlight';
 import axios from 'axios';
 import { useAuth } from './AuthContext';
+import Image from './images/output-onlinegiftools.gif'
 import { useNavigate } from 'react-router-dom';
  
 function Service() {
@@ -73,23 +74,28 @@ function Service() {
     }
   };
   return (
-<Box display="flex" justifyContent="center" alignItems="center" marginTop="50px" marginBottom="50px" fontFamily='Times New Roman, Times, serif'>
-      <Card sx={{ marginLeft:'20px',width: 500, height: 600, justifyContent: "center", borderRadius: 12, backgroundColor: '#d7dce2' }}>
-      <Typography gutterBottom variant="h5" component="div"style={{fontFamily:'Times New Roman, Times, serif',textAlign:'center',padding:5,marginTop:10}}>Book A Car Service In Just A Minute</Typography>
-      <Typography gutterBottom variant="h6" component="div"style={{fontFamily:'Times New Roman, Times, serif',textAlign:'center'}}>Experience An Exquisite On A Click </Typography><br></br>
+    
+<Box display="flex" justifyContent="center" alignItems="center" marginTop="50px" marginBottom="50px" marginRight='150px' fontFamily='Times New Roman, Times, serif'>
+      <div>
+      <h1 style={{justifyContent:"center" ,alignItems:"center" ,textAlign:'center',color:'black'}}>Book a Car Service Within A Minute</h1>     
+      <img src={Image} width='70%' style={{marginLeft:'17%',spacing:'nowrap'}}></img>
+      </div>
+      <Card sx={{ marginLeft:'20px',width: 500, height: 680, justifyContent: "center", borderRadius: 12, backgroundColor: '#F2F3F4' }}>
+      <Typography gutterBottom variant="h5" component="div"style={{fontFamily:'Times New Roman, Times, serif',textAlign:'center',marginTop:'10%'}}>Experience An Exquisite On A Click </Typography><br></br>
+        
         <Grid container spacing={2}>
           <Grid item xs={12} md={6} style={{  marginLeft:'40px',marginTop: 5,fontFamily:'Times New Roman, Times, serif' }}>
             <CardContent>
-              <FormLabel component="legend"sx={{fontSize:'large',fontFamily:'Times New Roman, Times, serif'}}>Select Your Services</FormLabel>
+              <FormLabel component="legend"sx={{ color:'black',fontWeight:'bolder',fontSize:'large',fontFamily:'Times New Roman, Times, serif'}}>Select Your Services</FormLabel>
+              <br></br>
               <FormGroup sx={{fontFamily:'Times New Roman, Times, serif'}}>
               {carddata.map((item, index) => (
                 <FormControlLabel sx={{fontFamily:'Times New Roman, Times, serif'}}
                   key={item.service_ID}
                   control={<Checkbox onChange={(event) => handleServiceChange(event, item.service_ID)}/>}
                   label={
-                    <Box sx={{ whiteSpace: 'nowrap' ,fontSize:'large',fontFamily:'Times New Roman, Times, serif',display: 'flex', alignItems: 'center' }}>
-                      {React.createElement(cardsData[index].icon)}
-                        {item.service_Name}
+                    <Box sx={{ spacing:'5%',whiteSpace:'nowrap' ,padding:'5%',fontSize:'large',fontFamily:'Times New Roman, Times, serif',display: 'flex', alignItems: 'center' }}>
+                      {React.createElement(cardsData[index].icon)} {item.service_Name} -  ₹{item.service_Amount}
                     </Box>
                   }
                 />
@@ -97,8 +103,8 @@ function Service() {
               </FormGroup>
             </CardContent>
             <br></br>
-            <Box width="100%" display="flex" justifyContent="center" fontFamily='Times New Roman, Times, serif'>
-              <Button size="large" variant="contained" sx={{ justifyContent:"center",backgroundColor: '#000080' }} onClick={handleAddToCart}>
+            <Box sx={{alignContent:'center',alignItems:'center'}}width="100%" justifyContent="center" fontFamily='Times New Roman, Times, serif'>
+              <Button size="large" variant="contained" sx={{alignContent:'center',alignItems:'center', marginLeft:'37%',alignContent:'center',alignItems:'center', justifyContent:"center",backgroundColor: '#008b8b' }} onClick={handleAddToCart}>
                 Book Service
               </Button>
             </Box>

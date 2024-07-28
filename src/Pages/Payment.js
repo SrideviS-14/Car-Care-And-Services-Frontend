@@ -3,12 +3,21 @@ import QRCode from "react-qr-code";
 import { useAuth } from './AuthContext';
 import  { Grid, Button, Card,CardActions,CardContent, Typography,TextField,Box } from "@mui/material";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogContentText from '@mui/material/DialogContentText';
+import DialogTitle from '@mui/material/DialogTitle';
 import CloseIcon from '@mui/icons-material/Close';
 import IconButton from '@mui/material/IconButton';
 import Snackbar from '@mui/material/Snackbar';
 import { useLocation } from "react-router-dom";
+import Tick from './images/tickicon.gif'
+
 
 function Payment(){
+    const navigate = useNavigate();
     const { jwt} = useAuth();
     const location = useLocation();
     const bookingId = location.state ? location.state.bookingId : null;
@@ -28,19 +37,22 @@ function Payment(){
           "Content-Type": 'application/json'
         },  // Change this to your actual backend URL
     });
+    
+    const [openalert,setopenalert] = React.useState(false);
     const handlePayment = async (e) => {
       setOpen(true);
+      setopenalert(true);
         e.preventDefault();
         try {
             const response = await api.post('/payment/makePayment', formData);
             console.log('Registration successful:', response.data.token);
             // Handle success (e.g., redirect to login page)
         } catch (error) {
-            alert("Invalid User Name or Password!");
             console.error('Registration failed:');
             // Handle error (e.g., display error message)
         }
     };
+
     const [open, setOpen] = React.useState(false);
     const handleClose = (event, reason) => {
       if (reason === 'clickaway') {
@@ -73,7 +85,7 @@ return(
   />
  
     <Box  width="700px" display="flex" justifyContent="center" alignItems="center" fontFamily='Times New Roman, Times, serif'>
-    <Card sx={{ flexDirection: 'row', backgroundColor: '#d7dce2', height: 540, justifyContent: "center", borderRadius: 12,fontFamily:'Times New Roman, Times, serif' }}>
+    <Card sx={{ flexDirection: 'row', backgroundColor: '#F2F3F4', height: 540, justifyContent: "center", borderRadius: 12,fontFamily:'Times New Roman, Times, serif' }}>
         <CardContent>
         <h1 gutterBottom variant="h5" component="div"style={{textAlign:'center', color: "black",fontFamily:'Times New Roman, Times, serif'}}>Enter your Card Details for Payment</h1>
         <br></br>
@@ -121,7 +133,7 @@ return(
         </CardContent>
         <CardActions>
             <Box width="100%" display="flex" justifyContent="center">
-            <Button size="large" variant="contained"style={{backgroundColor:'#000080'}} onClick={(e) => handlePayment(e)}>Make Payment</Button>
+            <Button size="large" variant="contained"style={{backgroundColor:'#008b8b'}} onClick={(e) => handlePayment(e)}>Make Payment</Button>
             </Box>
         </CardActions>
         </Card>
@@ -135,6 +147,28 @@ return(
         action={action}
         anchorOrigin={{ vertical: 'top', horizontal: 'center' }} 
       />
+      <Dialog
+  open={openalert}
+  onClose={() => setopenalert(false)}
+  onExited={() => {
+    setTimeout(() => navigate('/'), 500);
+  }}
+  aria-labelledby="alert-dialog-title"
+  aria-describedby="alert-dialog-description"
+>
+  <DialogTitle id="alert-dialog-title">
+      <img src={Tick} style={{justifyContent:'center',alignItems:'center',textAlign:'center',marginLeft:'80px'}}></img>
+  </DialogTitle>
+  <DialogContent>
+    <DialogContentText id="alert-dialog-description">
+      Your Payment is Successful
+      Do visit us again 
+    </DialogContentText>
+  </DialogContent>
+  <DialogActions>
+  </DialogActions>
+</Dialog>
+
     </div>
     <br></br>
     <br></br>

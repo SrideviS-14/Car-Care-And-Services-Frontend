@@ -105,7 +105,7 @@ const handledelete = async () => {
 <Grid container spacing={1}>
         {carddata.map((item) => (
           <Grid item xs={11} sm={6} key={item.service_ID}>
-            <Card sx={{ m: 2, marginLeft: 15, width: 550, height: 250,backgroundColor: '#F2F3F4',fontFamily:'Times New Roman, Times, serif' }}>
+            <Card sx={{borderRadius:15,p:2,px:5,mb:5,marginLeft: 5, width: 550, height: 250,backgroundColor: '#F2F3F4',fontFamily:'Times New Roman, Times, serif' }}>
               <CardContent>
                 <Typography variant="h5" component="div"style={{fontFamily:'Times New Roman, Times, serif'}}>
                   {item.service_Name}

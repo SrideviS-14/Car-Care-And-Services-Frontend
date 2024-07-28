@@ -5,10 +5,14 @@ import Chart from 'chart.js/auto';
 import myChart from 'chart.js/auto'
 import {Card,Grid, Typography,Box} from '@mui/material';
 import LinearProgress from '@mui/material/LinearProgress';
+
 const AdminDashboard = () => {
     const [data, setData] = useState({});
     const lineChartRef = useRef(null);
-const barChartRef = useRef(null);
+    const lineChartRef1 =useRef(null);
+    const scatterChartRef = useRef(null);
+    const barChartRef = useRef(null);
+    const piechartref = useRef(null);
     const {jwt, setJwt } = useAuth();
     axios.defaults.headers.common['Access-Control-Allow-Origin'] = '*';
     axios.defaults.headers.common['Access-Control-Allow-Headers'] = 'Origin, X-Requested-With, Content-Type, Accept';
@@ -19,10 +23,64 @@ const barChartRef = useRef(null);
             "Content-Type": 'application/json'
         },
     });
+    
+    const chartdata3 = {
+    labels: ['January','February','March','April','May','June','July','August','Septmeber','October','November','December'],
+    datasets: [{
+    label: 'My First Dataset',
+    data: [65, 59, 80, 81, 56, 55, 40,80,90,73],
+    fill: false,
+    borderColor: 'rgb(75, 192, 192)',
+    tension: 0.1
+    }]
+    };
+    
+    const lineChartConfig = {
+    type: 'line',
+    data: chartdata3,
+    };
+    
+    useEffect(() => {
+    const ctx = document.getElementById('chart4');
+    if (lineChartRef1.current) {
+        lineChartRef1.current.destroy();  // Destroy the previous chart
+    }
+    lineChartRef1.current = new Chart(ctx, lineChartConfig);
+    }, [data]);
+    
+    const chartdata2 = {
+        labels: [
+          'Orders Pending',
+          'Orders Completed',
+        ],
+        datasets: [{
+          label: 'My First Dataset',
+          data: [150,350],
+          backgroundColor: [
+            'rgb(255, 99, 132)',
+            'rgb(54, 162, 235)',
+            'rgb(255, 205, 86)'
+          ],
+          hoverOffset: 4
+        }]
+      };
+    const pieChartConfig = {
+        type: 'pie',
+        data: chartdata2,
+    };
+    
+    useEffect(() => {
+        const ctx = document.getElementById('chart3');
+        if (piechartref.current) {
+            piechartref.current.destroy();  // Destroy the previous chart
+        }
+        piechartref.current = new Chart(ctx, pieChartConfig);
+    }, [data]);
+
     const labels = ["Standard Package","Classic Package","Premium Package"];
-const chartData = {
-  labels: labels,
-  datasets: [{
+    const chartData = {
+    labels: labels,
+    datasets: [{
     label: 'My First Dataset',
     data: [65, 59, 80, 81, 56, 55, 40],
     backgroundColor: [
@@ -39,7 +97,7 @@ const chartData = {
     borderWidth: 1
   }]
 };
-const config = {
+    const barchartConfig = {
     type: 'bar',
     data: chartData,
     options: {
@@ -49,10 +107,10 @@ const config = {
         }
       }
     },
-  };
+    };
   
 
-useEffect(() => {
+    useEffect(() => {
     api.get('/booking/getAllBookings')
     .then(response => {
         const responseData = response.data;
@@ -75,9 +133,9 @@ useEffect(() => {
             });
         }
     });
-}, []);
+    }, []);
 
-useEffect(() => {
+    useEffect(() => {
     const ctx = document.getElementById('chart1');
     if (lineChartRef.current) {
         lineChartRef.current.destroy();  // Destroy the previous chart
@@ -86,15 +144,15 @@ useEffect(() => {
         type: 'line',
         data: data
     });
-}, [data]);
+    }, [data]);
 
-useEffect(() => {
+    useEffect(() => {
     const ctx = document.getElementById('chart2');
     if (barChartRef.current) {
         barChartRef.current.destroy();  // Destroy the previous chart
     }
-    barChartRef.current = new Chart(ctx, config);  // Use the config object here
-}, [data]);
+    barChartRef.current = new Chart(ctx, barchartConfig);  // Use the config object here
+    }, [data]);
 
 
     const [progress, setProgress] = React.useState(0);
@@ -114,48 +172,73 @@ useEffect(() => {
         clearInterval(timer);
       };
     }, []);
+    
+    const scatterdata1 = {
+        labels: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
+        datasets: [{
+            label: 'Scatter Dataset',
+            data: [15, 10, 25, 30, 35, 5, 10],
+            backgroundColor: 'rgb(255, 99, 132)',
+            showLine: false // This will give a scatter-like appearance
+        }]
+    };
+    
+    const scatterconfig = {
+        type: 'line', // Change this to 'line'
+        data: scatterdata1,
+    };
+    
+    
+    useEffect(() => {
+        const ctx = document.getElementById('chart5');
+        if (scatterChartRef.current) {
+            scatterChartRef.current.destroy();  // Destroy the previous chart
+        }
+        scatterChartRef.current = new Chart(ctx, scatterconfig);  // Use the config object here
+    }, [data]);
+    
 
     return (
         <div>
             <br></br>
             <br></br>
-           <Grid container spacing={3}>
-            <Grid item xs={4}>
-                <Card sx={{width:'450px',height:'250px'}}>
-                    <Typography variant='h4' sx={{fontFamily: 'Times New Roman, Times, serif',marginTop:'10%',marginLeft:'15%'}}>Total Income</Typography>
+           <Grid container spacing={10} sx={{marginleft:'5px'}}>
+            <Grid item xs={4} sx={{marginleft:'5px'}}>
+                <Card sx={{width:'490px',height:'300px',textAlign:'center'}}>
+                    <Typography variant='body' sx={{textAlign:'center',marginTop:"15%"}}>Monthly Number Of People Opted For Service</Typography>
                     <br></br>
-                    <Typography variant='h4' sx={{fontFamily: 'Times New Roman, Times, serif',marginLeft:'15%'}}>$7.8M</Typography>
                     <br></br>
-                    <Box sx={{ width: '100%' }}>
-      <LinearProgress variant="determinate" value={progress} sx={{  borderRadius:'5px',justifyContent:'center',marginLeft:'15%',alignContent:'center',height:'10px',width:'300px'}} />
-    </Box>
+                    <canvas id='chart4'></canvas>
                 </Card>
                 <br></br>
-                <Card sx={{width:'450px',height:'250px'}}>
-                <Typography variant='h5' sx={{fontFamily: 'Times New Roman, Times, serif',marginTop:'5%',marginLeft:'15%'}}>Orders Completed</Typography>
-                    <Typography variant='h6' sx={{fontFamily: 'Times New Roman, Times, serif',marginLeft:'15%'}}>1500</Typography>
-                    <br></br>
-                    <Box sx={{ width: '100%' }}>
-      <LinearProgress variant="determinate" value={progress} sx={{  borderRadius:'5px',justifyContent:'center',marginLeft:'15%',alignContent:'center',height:'10px',width:'300px'}} />
-    </Box>
-                    <Typography variant='h5' sx={{fontFamily: 'Times New Roman, Times, serif',marginTop:'3%',marginLeft:'15%'}}>Orders Pending</Typography>
-                    <Typography variant='h6' sx={{fontFamily: 'Times New Roman, Times, serif',marginLeft:'15%'}}>150</Typography>
-                    <br></br>
-                    <Box sx={{ width: '100%' }}>
-      <LinearProgress variant="determinate" value={progress} sx={{  borderRadius:'5px',justifyContent:'center',marginLeft:'15%',alignContent:'center',height:'10px',width:'300px'}} />
-    </Box>
+                <Card sx={{width:'490px',height:'300px',textAlign:'center'}}>
+                <Typography variant='body' sx={{textAlign:'center',marginTop:"15%"}}>Weekly Number Of People Opted For Service</Typography>
+                <br></br>
+                <br></br>
+                    <canvas id='chart5'></canvas>
                 </Card>
             </Grid>
-            <Grid item xs={4} justifyContent="center" alignItems="center">
-                <canvas id="chart1" style={{width:'400px', height:'300px',marginLeft:'5%'}}></canvas>
-            </Grid>
             <Grid item xs={4}>
-                <Card id="card3" sx={{width:'450px',height:'250px'}}>
+                <Card id="card3"sx={{width:'490px',height:'300px',textAlign:'center'}}>
+                <Typography variant='body'sx={{textAlign:'center',marginTop:"15%"}}>Maxmium Opted For Packages</Typography>    
+                <br></br>
+                <br></br>
                 <canvas id="chart2" ></canvas>
                 </Card>
                 <br></br>
-                <Card sx={{width:'450px',height:'250px'}}>
-                    <h1>Card 4</h1>
+                <Card sx={{width:'490px',height:'300px',textAlign:'center'}}>
+                <Typography variant='body'sx={{textAlign:'center',marginTop:"5%"}}>Relationship between the booking and Amount</Typography> 
+                <br></br>
+                <br></br>
+                <canvas id="chart1" ></canvas>
+                </Card>
+            </Grid>
+            <Grid item xs={4}>
+            <Card sx={{width:'430px',height:'618px'}}>
+                <br></br>
+                <Typography variant='h5' sx={{fontFamily: 'Times New Roman, Times, serif',marginTop:'5%',marginLeft:'15%'}}>Orders Completed</Typography>
+                <canvas id="chart3" style={{width:'100%', height:'100%'}}></canvas>
+                    <br></br>
                 </Card>
             </Grid>
         </Grid>

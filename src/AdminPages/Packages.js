@@ -36,7 +36,7 @@ function Packages() {
       <Grid container spacing={4} style={{ marginTop: '180px', justifyContent: 'center'}}>
         {packagedata.map((item) => (
           <Grid item key={item.service_ID} style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
-            <Card style={{backgroundColor:'#dcdcdc',width:'400px',height:'400px',fontFamily:'Times New Roman, Times, serif',fontSize:'large',color:'black',borderColor:'#d4af37',borderRadius:'15px',border:'5px 5px 5px 5px'}}>
+            <Card style={{backgroundColor:'#F2F3F4',width:'400px',height:'400px',fontFamily:'Times New Roman, Times, serif',fontSize:'large',color:'black',borderColor:'#d4af37',borderRadius:'15px',border:'5px 5px 5px 5px'}}>
               <CardContent>
                 <div style={{textAlign:'left'}}>{item.service_Name}</div><br></br>
                 <div style={{textAlign:'left'}}>₹{item.service_Amount}</div>

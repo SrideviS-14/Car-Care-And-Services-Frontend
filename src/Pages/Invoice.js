@@ -52,7 +52,19 @@ function Invoice() {
     });
     const [finaldata, setfinaldata] = useState(0);
     const [services, setServices] = useState([]);
+    const [userdetails,setuserdetails] = useState([]);
     const [userID, setUserID] = useState(0);
+
+  useEffect(()=>{
+    api.get('account/getallUsers',{userID})
+    .then((response)=>{
+      const userdetails = response.data;
+    })
+    .catch((error)=>{
+      console.error('Error fetching data:', error);
+    })
+  },[]);
+   
   useEffect(() => {
     api.get('/cart/getServices')
       .then((response) => {
@@ -134,6 +146,8 @@ function Invoice() {
     const handleBackToCart = () => {
       navigate('/confirmbooking');
     }
+    const gst = finaldata*20/100;
+    const totalamount = finaldata + gst;
     return (
       <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center',fontFamily:'Times New Roman, Times, serif' }}>
  
@@ -143,6 +157,11 @@ function Invoice() {
                                     </div>
                                     <div className="col-md-8 text-right bbc">
                                         <h4 style={{ color: '#325aa8',fontFamily:'Times New Roman, Times, serif' }}><strong>Wheels Up Company</strong></h4>
+                                        <p style={{fontFamily:'Times New Roman, Times, serif'}}>(+91) 9475765201</p>
+                                        <p style={{fontFamily:'Times New Roman, Times, serif'}}>wheelsup.carservices@gmail.com</p>
+                                    </div>
+                                    <div className='col-md-8 text-left bbc>'>
+                                    <h4 style={{ color: '#325aa8',fontFamily:'Times New Roman, Times, serif' }}><strong>Wheels Up Company</strong></h4>
                                         <p style={{fontFamily:'Times New Roman, Times, serif'}}>(+91) 9475765201</p>
                                         <p style={{fontFamily:'Times New Roman, Times, serif'}}>wheelsup.carservices@gmail.com</p>
                                     </div>
@@ -170,13 +189,13 @@ function Invoice() {
                   <TableCell component="th" scope="row" style={{ fontWeight: 'bold',fontFamily:'Times New Roman, Times, serif' }}>
                     GST
                   </TableCell>
-                  <TableCell align="right" style={{ fontWeight: 'bold',fontFamily:'Times New Roman, Times, serif' }}>₹155</TableCell>
+                  <TableCell align="right" style={{ fontWeight: 'bold',fontFamily:'Times New Roman, Times, serif' }}>{gst}</TableCell>
                 </TableRow>
                 <TableRow>
                   <TableCell component="th" scope="row" style={{ fontWeight: 'bold',fontFamily:'Times New Roman, Times, serif' }}>
                     Total
                   </TableCell>
-                  <TableCell align="right" style={{ fontWeight: 'bold',fontFamily:'Times New Roman, Times, serif' }}>₹{finaldata + 155}</TableCell>
+                  <TableCell align="right" style={{ fontWeight: 'bold',fontFamily:'Times New Roman, Times, serif' }}>₹{totalamount}</TableCell>
                 </TableRow>
               </TableBody>
             </Table>

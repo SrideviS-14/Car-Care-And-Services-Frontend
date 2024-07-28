@@ -16,6 +16,7 @@ import ConfirmBooking from './Pages/ConfirmBooking.js';
 import Services from './AdminPages/Services.js';
 import Booking from './AdminPages/Booking.js';
 import Packages from './AdminPages/Packages.js';
+import StatusTrack from './Pages/StatusTrack.js';
 function App() {
   return (
     <div className="App">
@@ -38,6 +39,7 @@ function App() {
         <Route path='services' element={<Services />}></Route>
         <Route path='packages' element={<Packages />}></Route>
         <Route path='dashboard' element={<Dashboard />}></Route>
+        <Route path='statustrack' element={<StatusTrack />}></Route>
         </Route>
       </Routes>
       </BrowserRouter>

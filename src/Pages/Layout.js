@@ -27,6 +27,7 @@ return(
      <NavLink className="guidepage" activeClassName="active" to="/Cart">Services</NavLink>
      <NavLink className="packagepage" activeClassName="active" to="/Package">Packages</NavLink>
      <NavLink className="servicepage" activeClassName="active" to="/Service">Quick Book</NavLink>
+     <NavLink className="statuspage" activeClassName="active" to="/StatusTrack">StatusTrack</NavLink>
      {!!jwt ?
                      <NavLink className="login" activeClassName="active" to="/">
                      <Button onClick={handleLogout} style={{
@@ -119,4 +120,4 @@ return(
  </>
 )
 }
-export default Layout;
+export default Layout; 

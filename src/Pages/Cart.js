@@ -91,15 +91,10 @@ function Cart() {
    )
   return (
     <div style={{ fontFamily: 'Times New Roman, Times, serif' }}>
-      <br></br>
-      <br></br>
-      <Typography variant="h4" align="center" gutterBottom sx={{ fontFamily: 'Times New Roman, Times, serif' }}>
-        Services Offered
-      </Typography>
-      <br></br>
-      <Typography variant="h5" align="center" gutterBottom sx={{ fontFamily: 'Times New Roman, Times, serif' }}>
+      <h1 style={{ color: 'black', justifyContent: 'center', marginTop: '75px' }}> Services Offered</h1>
+      <p style={{ textAlign: 'center', fontSize: 'x-large', color: 'black', justifyContent: 'center', marginTop: '75px' }}>
       From Oil Changes to Brake Repairs – We’ve Got You Covered.
-      </Typography>
+      </p>
       <br></br>
       <Grid container Spacing={2}>
         {carddata.map((item) => (
@@ -119,9 +114,15 @@ function Cart() {
                 </Typography>
               </CardContent>
               <CardActions style={{ justifyContent: 'center' }}>
-                <Button size="small" variant='contained' style={{ color:'black', backgroundColor: '#00ced1',fontFamily:'Times New Roman, Times, serif' }} onClick={() => handleAddToCart(item.service_ID)}>
-                  <ShoppingCartIcon /> Add To Cart
-                </Button>
+              <Button
+                disabled={disabledStatus[item.service_ID]}
+                size="small"
+                variant='contained'
+                style={{ backgroundColor: disabledStatus[item.service_ID] ? '#D3D3D3' : '#000080', fontFamily:'Times New Roman, Times, serif', color: disabledStatus[item.service_ID] ? '#000000' : '#ffffff' }}
+                onClick={() => handleAddToCart(item.service_ID)}
+              >
+                <ShoppingCartIcon /> {addedStatus[item.service_ID] ? 'Added to Cart' : 'Add to Cart'}
+              </Button>
               </CardActions>
             </Card>
           </Grid>
@@ -139,14 +140,14 @@ function Cart() {
       <br></br>
       <CardActions style={{ justifyContent: 'center' }}>
         <Button size="large" variant='contained' style={{  color:'black',backgroundColor: '#00ced1',fontFamily:'Times New Roman, Times, serif' }} onClick={handleProceedToInvoice}>
-         Confirm Booking
+        View Cart
         </Button>
         <Snackbar
         severity="success"
         open={openConfirmBooking}
         autoHideDuration={2000}
         onClose={handleClose}
-        message="Your Booking is Confirmed"
+        message="View the items in your cart"
         action={action}
       />
       </CardActions>

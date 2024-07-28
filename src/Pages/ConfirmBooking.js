@@ -84,9 +84,10 @@ function ConfirmBooking() {
     <div>
       <br />
       <br />
-      <Typography style={{ fontSize: 'xx-large', justifyContent: 'center', textAlign: 'center' ,fontFamily:'Times New Roman, Times, serif'}}>
-        Service Selected
-      </Typography>
+      <h1 style={{ color: 'black', justifyContent: 'center', marginTop: '50px' }}> Services Selected</h1>
+      <p style={{ textAlign: 'center', fontSize: 'x-large', color: 'black', justifyContent: 'center', marginTop: '55px' }}>
+      View the Services you have selected
+      </p>
       <br />
       <br />
       {carddata.map((item) => (

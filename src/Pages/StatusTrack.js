@@ -53,7 +53,7 @@ const StatusTrack = () => {
                                         <Step key={label}>
                                             <StepLabel StepIconProps={{
                                                 style: {
-                                                    color: label === 'confirmed' ? 'red' : label === 'pending' ? 'orange' : 'green',
+                                                    color: index === activeStep ? (label === 'confirmed' ? 'red' : label === 'pending' ? 'orange' : 'green') : 'grey',
                                                 },
                                             }}>{label}</StepLabel>
                                         </Step>
@@ -69,4 +69,3 @@ const StatusTrack = () => {
 };
  
 export default StatusTrack;
- 

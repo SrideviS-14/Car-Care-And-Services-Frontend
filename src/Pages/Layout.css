@@ -2,15 +2,26 @@ h1{
     text-align: center;
     color: white;
 }
+
+.main-header {
+    display: flex;
+    justify-content: space-around; /* Centers items on the line and distribute space evenly */
+    font-size: large; /* Makes font size bigger */
+}
+
 button{
-    background-color: #126cfc;
+    height: 30px;
+  font-size: 0.8rem;
 }
 nav{
-    margin-left: 400px;
+
+    margin-left: 200px;
     margin-top: -120px;
     align-items: center;
 }
+
 .homepage{
+
     text-decoration: none;
     margin-left: 15px;
     font-size:x-large;
@@ -18,6 +29,7 @@ nav{
 }
 .addbookingpage
 {
+    font-size: medium;
     text-decoration: none;
     margin-left: 15px;
     font-size:x-large;
@@ -25,31 +37,35 @@ nav{
 }
 .packagespage
 {
+
     text-decoration: none;
     margin-left: 15px;
     font-size:x-large;
     color: black; 
 }
 .servicespage{
+   
     text-decoration: none;
     margin-left: 15px;
     font-size:x-large;
     color: black; 
 }
 .dashboardpage{
+    
     text-decoration: none;
     margin-left: 15px;
     font-size:x-large;
     color: black; 
 }
 .packagepage{
-
+   
     text-decoration: none;
     margin-left: 15px;
     font-size:x-large;
     color: black;
 }
 .bookingpage{
+
     margin-left: 15px;
     text-decoration: none;
     margin-left: 15px;
@@ -57,6 +73,7 @@ nav{
     color: black;
 }
 .aboutpage{
+    
     margin-left: 15px;
     text-decoration: none;
     margin-left: 15px;
@@ -71,13 +88,14 @@ nav{
     color: black;
 }
 .servicepage{
-
+ 
     text-decoration: none;
     margin-left: 15px;
     font-size:x-large;
     color: black;
 }
 .statuspage{
+  
     text-decoration: none;
     margin-left: 15px;
     font-size:x-large;

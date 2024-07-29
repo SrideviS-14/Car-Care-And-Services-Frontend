@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { useRef,useState, useEffect } from "react";
-import { Button, Typography, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, CardActions } from '@mui/material';
+import { Button, Typography, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, CardActions, Card } from '@mui/material';
 import axios from 'axios';
 import { useReactToPrint } from "react-to-print";
 import Barcode from 'react-barcode';
@@ -32,7 +32,7 @@ function Invoice() {
 });
   const [open, setOpen] = React.useState(false);
   const [openalert,setopenalert] = React.useState(false);
-
+ 
   const handleClose = () => {
     setOpen(false);
   };
@@ -56,7 +56,7 @@ function Invoice() {
     const [services, setServices] = useState([]);
     const [userdetails,setuserdetails] = useState([]);
     const [userID, setUserID] = useState(0);
-
+ 
   useEffect(()=>{
     api.get('account/getallUsers',{userID})
     .then((response)=>{
@@ -98,7 +98,7 @@ function Invoice() {
         console.log(response.data);
         setBookingId(response.data);
         console.log(bookingId)
-        setTimeout(() => navigate('/payment', { state: { bookingId: response.data } }), 2);
+        setTimeout(() => navigate('/payment', { state: { bookingId: response.data, amount: totalamount } }), 2);
         // Handle success (e.g., redirect to login page)
     } catch (error) {
         alert("Invalid User Name or Password!");
@@ -110,7 +110,7 @@ function Invoice() {
     setopenalert(false);
     navigate('/');// Wait 2 seconds before navigating
   }
-  
+ 
   const handleInPersonPay = async(e) => {
     e.preventDefault();
     try {
@@ -151,19 +151,14 @@ function Invoice() {
     const gst = finaldata*20/100;
     const totalamount = finaldata + gst;
     return (
-      <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center',fontFamily:'Times New Roman, Times, serif' }}>
+      <div style={{  justifyContent: 'center', alignItems: 'center',fontFamily:'Times New Roman, Times, serif' }}>
  
-            <Paper elevation={3} style={{ marginTop:'50px',marginBottom:'50px',padding: '20px', width: '600px', maxWidth: '100%',fontFamily:'Times New Roman, Times, serif' }} ref={componentRef}>
+            <Paper elevation={3} style={{ marginLeft:'400px',marginTop:'50px',marginBottom:'50px',padding: '20px', width: '600px', maxWidth: '100%',fontFamily:'Times New Roman, Times, serif' }} ref={componentRef}>
            <div className="col-md-4 brcode">
                                         <Barcode value={totalamount} width={1} height={50} displayValue={false} />
                                     </div>
                                     <div className="col-md-8 text-right bbc">
                                         <h4 style={{ color: '#325aa8',fontFamily:'Times New Roman, Times, serif' }}><strong>Wheels Up Company</strong></h4>
-                                        <p style={{fontFamily:'Times New Roman, Times, serif'}}>(+91) 9475765201</p>
-                                        <p style={{fontFamily:'Times New Roman, Times, serif'}}>wheelsup.carservices@gmail.com</p>
-                                    </div>
-                                    <div className='col-md-8 text-left bbc>'>
-                                    <h4 style={{ color: '#325aa8',fontFamily:'Times New Roman, Times, serif' }}><strong>Wheels Up Company</strong></h4>
                                         <p style={{fontFamily:'Times New Roman, Times, serif'}}>(+91) 9475765201</p>
                                         <p style={{fontFamily:'Times New Roman, Times, serif'}}>wheelsup.carservices@gmail.com</p>
                                     </div>
@@ -202,20 +197,18 @@ function Invoice() {
               </TableBody>
             </Table>
           </TableContainer>
-          <div style={{ display: 'flex', justifyContent: 'center', margin: '20px' }}>
-          <CardActions style={{alignContent:'center',justifyContent:'center'}}>
-            <Button size='medium' variant='contained' style={{alignContent:'center',justifyContent:'center',backgroundColor: '#008b8b' }}
-                  onClick={handlePrint} >Download Invoice</Button>
-          <Button size='medium' variant='contained' style={{alignContent:'center',justifyContent:'center',backgroundColor: '#008b8b' }}
-                  onClick={() => handleBackToCart()} >Back To Cart</Button>
-           <Button size='medium' variant='contained' style={{alignContent:'center',justifyContent:'center',backgroundColor: '#008b8b' }}
-                  onClick={() => handlePayment()} >Proceed To Pay</Button>
-        </CardActions>
-          </div>
- <br></br>
- <br></br>
- 
-        </Paper>
+ </Paper>
+ <div style={{ display: 'flex', justifyContent: 'space-between', width: '600px', margin: '20px auto' }}>
+  <Button size='medium' variant='contained' style={{ backgroundColor: '#008b8b' }}
+    onClick={handlePrint}>Download Invoice</Button>
+  <Button size='medium' variant='contained' style={{ backgroundColor: '#008b8b' }}
+    onClick={() => handleBackToCart()}>Back To Cart</Button>
+  <Button size='medium' variant='contained' style={{ backgroundColor: '#008b8b' }}
+    onClick={() => handlePayment()}>Proceed To Pay</Button>
+</div>
+
+      <br></br>
+      <br></br>
         <Dialog
   open={openalert}
   onClose={handleClosealert}
@@ -228,7 +221,7 @@ function Invoice() {
   <DialogContent>
     <DialogContentText id="alert-dialog-description">
       Your Booking is Confirmed
-      Do visit us again 
+      Do visit us again
     </DialogContentText>
   </DialogContent>
   <DialogActions>
@@ -237,7 +230,7 @@ function Invoice() {
     </Button>
   </DialogActions>
 </Dialog>
-
+ 
         <Dialog
         open={open}
         TransitionComponent={Transition}
@@ -251,7 +244,7 @@ function Invoice() {
             Do you want to make an online payment or in-person payment?
           </DialogContentText>
         </DialogContent>
-        <DialogActions>
+        <DialogActions >
         <Button onClick={handleClose}>Cancel</Button>
           <Button onClick={(e) => handleInPersonPay(e)}>In-Person</Button>
           <Button onClick={(e) => handleOnlinePay(e)}>Online</Button>

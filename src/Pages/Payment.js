@@ -1,7 +1,7 @@
-import React,{useState} from "react";
+import React, { useState } from "react";
 import QRCode from "react-qr-code";
 import { useAuth } from './AuthContext';
-import  { Grid, Button, Card,CardActions,CardContent, Typography,TextField,Box } from "@mui/material";
+import { Grid, Button, Card, CardActions, CardContent, Typography, TextField, Box, Tabs, Tab, Container } from "@mui/material";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import Dialog from '@mui/material/Dialog';
@@ -14,13 +14,13 @@ import IconButton from '@mui/material/IconButton';
 import Snackbar from '@mui/material/Snackbar';
 import { useLocation } from "react-router-dom";
 import Tick from './images/tickicon.gif'
-
-
+ 
 function Payment(){
     const navigate = useNavigate();
     const { jwt} = useAuth();
     const location = useLocation();
     const bookingId = location.state ? location.state.bookingId : null;
+    const amount = location.state ? location.state.amount : null;
     const [formData, setFormData] = useState({
       Booking_ID: bookingId,
       Payment_Type: 'Online',
@@ -37,8 +37,12 @@ function Payment(){
           "Content-Type": 'application/json'
         },  // Change this to your actual backend URL
     });
-    
+   
     const [openalert,setopenalert] = React.useState(false);
+    const handleClosealert = () => {
+      setopenalert(false);
+      navigate('/');// Wait 2 seconds before navigating
+    }
     const handlePayment = async (e) => {
       setOpen(true);
       setopenalert(true);
@@ -52,7 +56,8 @@ function Payment(){
             // Handle error (e.g., display error message)
         }
     };
-
+ 
+    console.log(amount);
     const [open, setOpen] = React.useState(false);
     const handleClose = (event, reason) => {
       if (reason === 'clickaway') {
@@ -70,21 +75,44 @@ function Payment(){
             <CloseIcon fontSize="small" />
           </IconButton>
      )
-return(
-<>
-<Grid style={{fontFamily:'Times New Roman, Times, serif'}}>
-<h1 style={{ fontFamily:'Times New Roman, Times, serif',color: "black",textAlign:'center'}}>Payment</h1><br></br>
-<h1 style={{color: "black",textAlign:'center',fontFamily:'Times New Roman, Times, serif'}}>Scan this QR code or enter your card details to make payment!</h1>
-<br></br>
-<br></br>
-<div style={{ display: 'flex', justifyContent: 'center' ,fontFamily:'Times New Roman, Times, serif'}}>
-  <QRCode
-    style={{ width:'500px',height:'400px',marginTop:'50',fontFamily:'Times New Roman, Times, serif' }}
-    value="upi://pay?pa=sridevi.srsv@oksbi&pn=Sridevi%20Srsv&aid=uGICAgMCymIPzZA"
-    viewBox={`0 0 256 256`}
-  />
+     const [tabValue, setTabValue] = useState(0);
  
-    <Box  width="700px" display="flex" justifyContent="center" alignItems="center" fontFamily='Times New Roman, Times, serif'>
+  const handleTabChange = (event, newValue) => {
+    setTabValue(newValue);
+  };
+return(
+  <>
+  <Container maxWidth="md" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
+  <Grid style={{ fontFamily: 'Times New Roman, Times, serif' }}>
+      <Grid style={{ fontFamily: 'Times New Roman, Times, serif' }}>
+       
+        <h1 style={{ color: 'black', justifyContent: 'center', marginTop: '75px' }}>Payment</h1>
+      <p style={{ textAlign: 'center', fontSize: 'x-large', color: 'black', justifyContent: 'center', marginTop: '75px' }}>
+      Scan this QR code or enter your card details to make payment!
+      </p>
+      <br></br>
+        <br></br>
+        <Tabs value={tabValue} onChange={handleTabChange} centered>
+          <Tab label="QR Code" />
+          <Tab label="Card Details" />
+        </Tabs>
+        {tabValue === 0 && (
+          <div style={{ display: 'flex', justifyContent: 'center', fontFamily: 'Times New Roman, Times, serif' }}>
+<div style={{ border: '5px solid #000080', borderRadius: '10px', padding: '10px', backgroundColor: '#fff' }}>
+  <QRCode
+    style={{ width: '500px', height: '400px', marginTop: '50', marginBottom: '50', fontFamily: 'Times New Roman, Times, serif' }}
+    value={`upi://pay?pa=sridevi.srsv@oksbi&pn=Sridevi%20Srsv&aid=uGICAgMCymIPzZA&am=${amount}&cu=INR`}
+    viewBox={`0 0 256 256`}
+    bgColor="#ffffff"
+    fgColor="#000080"
+  />
+</div>
+ 
+          </div>
+        )}
+        {tabValue === 1 && (
+          <div>
+          <Box  width="700px" display="flex" justifyContent="center" alignItems="center" fontFamily='Times New Roman, Times, serif'>
     <Card sx={{ flexDirection: 'row', backgroundColor: '#F2F3F4', height: 540, justifyContent: "center", borderRadius: 12,fontFamily:'Times New Roman, Times, serif' }}>
         <CardContent>
         <h1 gutterBottom variant="h5" component="div"style={{textAlign:'center', color: "black",fontFamily:'Times New Roman, Times, serif'}}>Enter your Card Details for Payment</h1>
@@ -145,14 +173,11 @@ return(
         onClose={handleClose}
         message="Payment Successful"
         action={action}
-        anchorOrigin={{ vertical: 'top', horizontal: 'center' }} 
+        anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
       />
       <Dialog
   open={openalert}
-  onClose={() => setopenalert(false)}
-  onExited={() => {
-    setTimeout(() => navigate('/'), 500);
-  }}
+  onClose={handleClosealert}
   aria-labelledby="alert-dialog-title"
   aria-describedby="alert-dialog-description"
 >
@@ -162,20 +187,25 @@ return(
   <DialogContent>
     <DialogContentText id="alert-dialog-description">
       Your Payment is Successful
-      Do visit us again 
+      Do visit us again
     </DialogContentText>
   </DialogContent>
   <DialogActions>
+    <Button onClick={handleClosealert} autoFocus>
+      Thank You
+    </Button>
   </DialogActions>
 </Dialog>
-
-    </div>
-    <br></br>
-    <br></br>
-    <br></br>
-    <br></br>
-    </Grid>
-</>
+</div>
+        )}
+        <br></br>
+        <br></br>
+        <br></br>
+        <br></br>
+      </Grid>
+      </Grid>
+      </Container>
+    </>
  
 )
 }

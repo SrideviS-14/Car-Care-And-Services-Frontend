@@ -52,6 +52,13 @@ nav{
     font-size:x-large;
     color: black;
 }
+.statuspage{
+    margin-top: 50px;
+    text-decoration: none;
+    margin-left: 18px;
+    font-size:x-large;
+    color: black;
+}
 .homepage:hover{
     color:#0abab5 ;
 }
@@ -72,6 +79,9 @@ nav{
     
 }
 .bookingpage:hover{
+    border-color:#0abab5  
+}
+.statuspage:hover{
     border-color:#0abab5  
 }
 .active{

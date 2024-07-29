@@ -5,8 +5,12 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import { useAuth } from '../Pages/AuthContext';
 import {Grid,Card, CardActions,Button} from '@mui/material';
 import { useNavigate } from 'react-router-dom';
-import { CardContent,Snackbar, IconButton } from '@mui/material';
- 
+import { TextField,CardContent} from '@mui/material';
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogContentText from '@mui/material/DialogContentText';
+import DialogTitle from '@mui/material/DialogTitle';
 function Packages() {
   const navigate = useNavigate();
   const {jwt, setJwt } = useAuth();
@@ -30,7 +34,58 @@ function Packages() {
         console.error('Error fetching data:', error);
       });
   }, []);
- 
+  const [data, setData] = useState([]);
+  const [carddata, setcarddata] = useState([]);
+  const [open, setOpen] = React.useState(false);
+  
+  const handleClickOpen = (item) => {
+    
+    setData(item);
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+  const [deleteConfirmOpen, setDeleteConfirmOpen] = useState(false);
+  const [serviceToDelete, setServiceToDelete] = useState(null);
+  
+  const handleDeleteConfirmationOpen = (service_ID) => {
+    console.log(service_ID);
+    setServiceToDelete(service_ID);
+    setDeleteConfirmOpen(true);
+  };
+  
+  const handleDeleteConfirmationClose = () => {
+    setDeleteConfirmOpen(false);
+  };
+  const handledelete = async () => {
+    try {
+      const response = await api.delete(`/service/deleteService/${serviceToDelete}`);
+      console.log('Deleted successfully!', response.data);
+      setpackagedata(carddata.filter(item => item.service_ID !== serviceToDelete));
+      setDeleteConfirmOpen(false);
+    } catch (error) {
+      alert('Could not delete the service!');
+      console.error('Deletion failed:', error);
+    }
+  }
+    
+    const handleupdate = async () => {
+      try {
+        console.log(data);
+        const response = await api.put(`/service/updateService`, data);
+        console.log('Updates successfully!', response.data);
+        api.get('/service/getAllPackages')
+        .then((response) => {
+          setpackagedata(response.data);
+        })
+        setOpen(false);
+      } catch (error) {
+        alert('Could not update the service!');
+        console.error('Update failed:', error);
+      }
+    }
     return (
       <div>
       <Grid container spacing={4} style={{ marginTop: '180px', justifyContent: 'center'}}>
@@ -48,14 +103,83 @@ function Packages() {
                            </CardContent>
                            <div className="button-container" style={{ display:'flex',justifyContent:'center'}}>
                 <CardActions>
-                <Button size='medium' variant='contained' sx={{backgroundColor:'#008b8b'}}><EditIcon /></Button>
-                <Button size='medium' variant='contained' sx={{backgroundColor:'#008b8b'}}><DeleteIcon /></Button>
+                <Button size='medium' variant='contained' sx={{backgroundColor:'#008b8b'}} onClick={() => handleClickOpen(item)}><EditIcon /></Button>
+                <Button size='medium' variant='contained' sx={{backgroundColor:'#008b8b'}} onClick={() => handleDeleteConfirmationOpen(item.service_ID)}><DeleteIcon /></Button>
                 </CardActions>
               </div>
             </Card>
           </Grid>
         ))}
       </Grid>
+      <Dialog
+  open={deleteConfirmOpen}
+  onClose={handleDeleteConfirmationClose}
+>
+  <DialogTitle>{"Confirm Deletion"}</DialogTitle>
+  <DialogContent>
+    <DialogContentText>
+      {"Are you sure you want to delete this service?"}
+    </DialogContentText>
+  </DialogContent>
+  <DialogActions>
+    <Button onClick={handleDeleteConfirmationClose}>Cancel</Button>
+    <Button onClick={handledelete}>Delete</Button>
+  </DialogActions>
+</Dialog>
+
+      <br></br>
+      <Dialog
+        open={open}
+        onClose={handleClose}
+
+      >
+        <DialogTitle>Edit Here</DialogTitle>
+        <DialogContent>
+          <TextField
+            required
+            margin="dense"
+            id="name"
+            name="email"
+            label="Service Name"
+            type="text"
+            fullWidth
+            variant="standard"
+            value={data.service_Name}
+            defaultValue={data.service_Name}
+            onChange={(e) => setData({ ...data, service_Name: e.target.value })}
+          />
+          <TextField
+            required
+            margin="dense"
+            id="name"
+            name="email"
+            label="Service Description"
+            type="text"
+            fullWidth
+            variant="standard"
+            value={data.description}
+            defaultValue={data.description}
+            onChange={(e) => setData({ ...data, description: e.target.value })}
+          />
+          <TextField
+            required
+            margin="dense"
+            id="name"
+            name="email"
+            label="Service Price"
+            type="number"
+            fullWidth
+            variant="standard"
+            value={data.service_Amount}
+            defaultValue={data.service_Amount}
+            onChange={(e) => setData({ ...data, service_Amount: e.target.value })}
+          />
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleClose}>Cancel</Button>
+          <Button type="submit" onClick={handleupdate}>Save</Button>
+        </DialogActions>
+      </Dialog>
       <br></br>
         <br></br>
           <br></br>

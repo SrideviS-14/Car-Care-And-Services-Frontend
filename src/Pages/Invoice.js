@@ -13,20 +13,22 @@ import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import Slide from '@mui/material/Slide';
 import Tick from './images/tickicon.gif'
+import { useLocation } from "react-router-dom";
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
  
 function Invoice() {
+  const location = useLocation();
   const [bookingId, setBookingId] = useState(null);
+  const selectedCar = location.state ? location.state.selectedCar : null;
+  const userId = location.state ? location.state.userId : null;
   const [formData, setFormData] = useState({
-      Service_Type: "Custom",
       Service_List: "",
       Package_Amount: 0.00,
       Time_Period_In_Days: 7,
       User_ID: 0,
       Paid: false,
-      IsActive: true
 });
   const [open, setOpen] = React.useState(false);
   const [openalert,setopenalert] = React.useState(false);
@@ -153,7 +155,7 @@ function Invoice() {
  
             <Paper elevation={3} style={{ marginTop:'50px',marginBottom:'50px',padding: '20px', width: '600px', maxWidth: '100%',fontFamily:'Times New Roman, Times, serif' }} ref={componentRef}>
            <div className="col-md-4 brcode">
-                                        <Barcode value={finaldata} width={1} height={50} displayValue={false} />
+                                        <Barcode value={totalamount} width={1} height={50} displayValue={false} />
                                     </div>
                                     <div className="col-md-8 text-right bbc">
                                         <h4 style={{ color: '#325aa8',fontFamily:'Times New Roman, Times, serif' }}><strong>Wheels Up Company</strong></h4>

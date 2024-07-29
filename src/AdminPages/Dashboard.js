@@ -2,9 +2,8 @@ import React, { useEffect, useState, useRef } from 'react';
 import { useAuth } from '../Pages/AuthContext';
 import axios from 'axios';
 import Chart from 'chart.js/auto';
-import myChart from 'chart.js/auto'
 import {Card,Grid, Typography,Box} from '@mui/material';
-import LinearProgress from '@mui/material/LinearProgress';
+import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
 
 const AdminDashboard = () => {
     const [data, setData] = useState({});
@@ -13,7 +12,12 @@ const AdminDashboard = () => {
     const scatterChartRef = useRef(null);
     const barChartRef = useRef(null);
     const piechartref = useRef(null);
+    const [statusData, setStatusData] = useState({});
+    const [packageData, setPackageData] = useState({});
+    const [monthData, setMonthData] = useState({});
     const {jwt, setJwt } = useAuth();
+    const [salesData, setSalesData] = useState('');  // New state variable for sales data
+    const salesChartRef = useRef(null);
     axios.defaults.headers.common['Access-Control-Allow-Origin'] = '*';
     axios.defaults.headers.common['Access-Control-Allow-Headers'] = 'Origin, X-Requested-With, Content-Type, Accept';
     const api = axios.create({
@@ -28,7 +32,7 @@ const AdminDashboard = () => {
     labels: ['January','February','March','April','May','June','July','August','Septmeber','October','November','December'],
     datasets: [{
     label: 'My First Dataset',
-    data: [65, 59, 80, 81, 56, 55, 40,80,90,73],
+    data: [monthData.January, monthData.February, monthData.March, monthData.April, monthData.May, monthData.June, monthData.July, monthData.August, monthData.Septmeber, monthData.October, monthData.November, monthData.December],
     fill: false,
     borderColor: 'rgb(75, 192, 192)',
     tension: 0.1
@@ -51,11 +55,12 @@ const AdminDashboard = () => {
     const chartdata2 = {
         labels: [
           'Orders Pending',
+          'Orders Confirmed',
           'Orders Completed',
         ],
         datasets: [{
           label: 'My First Dataset',
-          data: [150,350],
+          data: [statusData.Pending, statusData.Confirmed, statusData.Completed],
           backgroundColor: [
             'rgb(255, 99, 132)',
             'rgb(54, 162, 235)',
@@ -82,7 +87,7 @@ const AdminDashboard = () => {
     labels: labels,
     datasets: [{
     label: 'My First Dataset',
-    data: [65, 59, 80, 81, 56, 55, 40],
+    data: [packageData.Standard, packageData.Classic, packageData.Premium],
     backgroundColor: [
       'rgba(75, 192, 192, 0.2)',
       'rgba(54, 162, 235, 0.2)',
@@ -109,7 +114,23 @@ const AdminDashboard = () => {
     },
     };
   
-
+    useEffect(() => {
+      api.get('/dashboard/getCountOfStatus')
+      .then(response => {
+        console.log(response.data);
+        setStatusData(response.data)
+      });
+      api.get('/dashboard/getPackageStatus')
+      .then(response => {
+        console.log(response.data);
+        setPackageData(response.data)
+      });
+      api.get('/dashboard/getMonthlyOrders')
+      .then(response => {
+        console.log(response.data);
+        setMonthData(response.data)
+      });
+      }, []);
     useEffect(() => {
     api.get('/booking/getAllBookings')
     .then(response => {
@@ -196,13 +217,20 @@ const AdminDashboard = () => {
         }
         scatterChartRef.current = new Chart(ctx, scatterconfig);  // Use the config object here
     }, [data]);
-    
-
+    useEffect(() => {
+      api.get('/dashboard/getTotalSales')  // Assuming this endpoint returns total sales data
+      .then(response => {
+          console.log(response.data);
+          setSalesData(response.data)  // Set the fetched sales data
+      });
+  }, []);
     return (
         <div>
-            <br></br>
-            <br></br>
-           <Grid container spacing={10} sx={{marginleft:'5px'}}>
+            <h1 style={{ color: 'black', justifyContent: 'center', marginTop: '75px' }}>Welcome to our Admin Dashboard</h1>
+            <p style={{ textAlign: 'center', fontSize: 'x-large', color: 'white', justifyContent: 'center', marginTop: '75px'}}>
+              View the statistics of the WheelsUp sales performance!
+            </p>
+           <Grid container spacing={8} sx={{marginleft:'5px', backgroundColor:'#000080'}} >
             <Grid item xs={4} sx={{marginleft:'5px'}}>
                 <Card sx={{width:'490px',height:'300px',textAlign:'center'}}>
                     <Typography variant='body' sx={{textAlign:'center',marginTop:"15%"}}>Monthly Number Of People Opted For Service</Typography>
@@ -212,11 +240,14 @@ const AdminDashboard = () => {
                 </Card>
                 <br></br>
                 <Card sx={{width:'490px',height:'300px',textAlign:'center'}}>
-                <Typography variant='body' sx={{textAlign:'center',marginTop:"15%"}}>Weekly Number Of People Opted For Service</Typography>
-                <br></br>
-                <br></br>
-                    <canvas id='chart5'></canvas>
-                </Card>
+                    <Typography variant='body' sx={{textAlign:'center',marginTop:"15%"}}>Total Sales of the Company</Typography>
+                    <br></br>
+                    <br></br>
+                    <div style={{ fontSize: '2em', alignContent: 'center', justifyContent:'center'}}>
+                        <AttachMoneyIcon />  {/* Add the money icon here */}<br></br>
+                        {salesData}
+                    </div>
+            </Card>
             </Grid>
             <Grid item xs={4}>
                 <Card id="card3"sx={{width:'490px',height:'300px',textAlign:'center'}}>
@@ -234,12 +265,13 @@ const AdminDashboard = () => {
                 </Card>
             </Grid>
             <Grid item xs={4}>
-            <Card sx={{width:'430px',height:'618px'}}>
+                    <Card sx={{width:'430px',height:'618px'}}>
                 <br></br>
                 <Typography variant='h5' sx={{fontFamily: 'Times New Roman, Times, serif',marginTop:'5%',marginLeft:'15%'}}>Orders Completed</Typography>
                 <canvas id="chart3" style={{width:'100%', height:'100%'}}></canvas>
                     <br></br>
                 </Card>
+                <br></br><br></br>
             </Grid>
         </Grid>
         <br></br>

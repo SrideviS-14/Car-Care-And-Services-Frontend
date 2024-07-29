@@ -35,6 +35,9 @@ const [pendingCheck, setPendingCheck] = useState(null);
   const handleClose = () => {
     setOpen(false);
   };
+  const [pendingStatus, setPendingStatus] = useState(null);
+const [statusConfirmOpen, setStatusConfirmOpen] = useState(false);
+
  
     useEffect(() => {
       api.get('/booking/getAllBookings')
@@ -116,8 +119,29 @@ const [pendingCheck, setPendingCheck] = useState(null);
               }}
             />
           ),
-        }      
-         
+        },
+        {
+          field: 'status',
+          headerName: 'Status',
+          width: 150,
+          editable: true,
+          renderCell: (params) => (
+            <select
+              value={params.value}
+              onChange={(event) => {
+                console.log(`Status changed for booking ID ${params.id}`);
+                console.log(`New status: ${event.target.value}`);
+                // Store the pending status change and open the confirmation dialog
+                setPendingStatus({ id: params.id, status: event.target.value });
+                setStatusConfirmOpen(true);
+              }}
+            >
+              <option value="confirmed">Confirmed</option>
+              <option value="pending">Pending</option>
+              <option value="completed">Completed</option>
+            </select>
+          ),
+        }         
       ];
       const userIdToUsername = {};
         userData.forEach(user => {
@@ -142,6 +166,7 @@ const [pendingCheck, setPendingCheck] = useState(null);
         service_Type: item.service_Type,
         service_List: splitString(item.service_List).join(', '),
         package_Amount: item.package_Amount,
+        status: item.status
       }));
      
       const handleConfirm = () => {
@@ -159,7 +184,18 @@ const [pendingCheck, setPendingCheck] = useState(null);
           });
         setConfirmOpen(false);
       };
-     
+      const handleStatusConfirm = () => {
+        const { id, status } = pendingStatus;
+        api.put(`/booking/updateBookingStatus/${id}`, status)
+          .then((response) => {
+            console.log(`Updated status for booking ID ${id}:`, response.data);
+          })
+          .catch((error) => {
+            console.error(`Error updating status for booking ID ${id}:`, error);
+          });
+        setStatusConfirmOpen(false);
+      };
+      
       return(
         <div>
             <br></br>
@@ -215,6 +251,19 @@ const [pendingCheck, setPendingCheck] = useState(null);
     <Button onClick={handleConfirm}>Yes</Button>
   </DialogActions>
 </Dialog>
+<Dialog open={statusConfirmOpen} onClose={() => setStatusConfirmOpen(false)}>
+  <DialogTitle>Confirm Change</DialogTitle>
+  <DialogContent>
+    <DialogContentText>
+      Are you sure you want to change the status?
+    </DialogContentText>
+  </DialogContent>
+  <DialogActions>
+    <Button onClick={() => setStatusConfirmOpen(false)}>No</Button>
+    <Button onClick={handleStatusConfirm}>Yes</Button>
+  </DialogActions>
+</Dialog>
+
     <br></br>
     <br></br>
     <br></br>

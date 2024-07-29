@@ -88,7 +88,7 @@ function Home() {
     { title: 'Car Bulb Check', icon: HighlightIcon, description: "See and be seen! Our technicians verify and replace bulbs (headlights, taillights, etc.) as needed. Proper lighting enhances visibility and safety on the road." }
   ];
   const handlebutton = () => {
-    navigate('/service')
+    navigate('/cart')
   }
   const handlebutton1 = () => {
     navigate('/about')

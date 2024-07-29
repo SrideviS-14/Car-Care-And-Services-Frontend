@@ -4,9 +4,6 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import { TextField,Button, Card, CardActions, CardContent, Grid, Typography } from '@mui/material';
 import axios from 'axios';
 import Dialog from '@mui/material/Dialog';
-import CloseIcon from '@mui/icons-material/Close';
-import IconButton from '@mui/material/IconButton';
-import Snackbar from '@mui/material/Snackbar';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
@@ -57,20 +54,19 @@ function Services(){
       });
   }, []);
   const [deleteConfirmOpen, setDeleteConfirmOpen] = useState(false);
-const [serviceToDelete, setServiceToDelete] = useState(null);
+const [serviceToDelete, setServiceToDelete] = useState(0);
 
 const handleDeleteConfirmationOpen = (service_ID) => {
+  console.log(service_ID);
   setServiceToDelete(service_ID);
+  console.log(serviceToDelete);
   setDeleteConfirmOpen(true);
-};
-
-const handleDeleteConfirmationClose = () => {
-  setDeleteConfirmOpen(false);
 };
 
 const handledelete = async () => {
   try {
-    const response = await api.delete(`/service/deleteService/${serviceToDelete}`);
+    console.log(serviceToDelete);
+    const response = await api.delete("/service/deleteService", { data: { service_id: serviceToDelete } } );
     console.log('Deleted successfully!', response.data);
     setcarddata(carddata.filter(item => item.service_ID !== serviceToDelete));
     setDeleteConfirmOpen(false);
@@ -79,6 +75,11 @@ const handledelete = async () => {
     console.error('Deletion failed:', error);
   }
 }
+
+const handleDeleteConfirmationClose = () => {
+  setDeleteConfirmOpen(false);
+};
+
   
   const handleupdate = async () => {
     try {

@@ -60,7 +60,7 @@ function ConfirmBooking() {
   const handleInvoice = async () => {
     setOpenInvoice(true);
     setTimeout(() => {
-        navigate('/invoice');
+        navigate('/cardetails');
       }, 1000);
   }
   const handleClose = (event, reason) => {
@@ -116,7 +116,7 @@ function ConfirmBooking() {
         <Button size='medium' variant='contained' style={{ backgroundColor: '#008b8b' }}
               onClick={() => handleAddService()} >Add Service</Button>
         <Button size='medium' variant='contained' style={{ backgroundColor: '#008b8b' }}
-              onClick={() => handleInvoice()} >Proceed To Invoice</Button>
+              onClick={() => handleInvoice()} >Proceed</Button>
 </CardActions>
 <Snackbar
 severity="error"

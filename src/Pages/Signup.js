@@ -106,7 +106,7 @@ function SignUp() {
         localStorage.setItem('jwt', jwt);
     
         setTimeout(() => {
-          navigate('/CarDetails', { state: { userID: response.data.user.id } });
+          navigate('/login', { state: { userID: response.data.user.id } });
         }, 1000);
       } catch (error) {
         // Handle registration error

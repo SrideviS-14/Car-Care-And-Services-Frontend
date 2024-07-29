@@ -79,8 +79,12 @@ function CarDetails(){
   
   return(
     <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+      <br></br>
+      <br></br>
+      <br></br>
+      <br></br>
 {carDetails.map((car, index) => (
-  <Card 
+  <Card sx={{width:"550px",height:'150px'}}
     key={index} 
     onClick={() => {
       setSelectedCar(car);
@@ -114,7 +118,7 @@ function CarDetails(){
   <Button onClick={handleProceed}>Proceed</Button>
   {showForm && (
     <Box sx={{justifyContent:"center"  ,marginTop:"20px",fontFamily:'Times New Roman, Times, serif'}}>
-            <Card sx={{marigntop:'50px',fontFamily:'Times New Roman, Times, serif',marginLeft:'500px',width:'470px', height:'700px',justifyContent: "center", borderRadius: 12, backgroundColor: '#d7dce2' }}>
+            <Card sx={{marigntop:'50px',fontFamily:'Times New Roman, Times, serif',marginLeft:'250px',width:'470px', height:'700px',justifyContent: "center", borderRadius: 12, backgroundColor: 'white' }}>
     <Grid spacing={2} sx={{fontFamily:'Times New Roman, Times, serif',marginLeft:'5px',marginTop:'30px'}}>
     <Grid  spacing={2}>
     <Typography variant='h6' sx={{textAlign:'center',fontWeight:'bolder',fontFamily:'Times New Roman, Times, serif'}}>Please Type Out Car Details</Typography>

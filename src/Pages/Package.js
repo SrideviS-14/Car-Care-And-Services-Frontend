@@ -31,7 +31,7 @@ function Package() {
       });
 
     const confettiAnimation = party.confetti(document.body, {
-      count: party.variation.range(60, 80),
+      count: party.variation.range( 100,150),
     });
 
   }, []);

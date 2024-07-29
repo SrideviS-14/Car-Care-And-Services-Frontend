@@ -4,7 +4,32 @@ import {  Checkbox, Dialog, DialogTitle, DialogContent, DialogContentText, Dialo
 import Box from '@mui/material/Box';
 import { DataGrid, GridToolbar } from '@mui/x-data-grid';
 import { useAuth } from '../Pages/AuthContext';
- 
+import { createTheme, ThemeProvider } from '@mui/material/styles';
+
+const theme = createTheme({
+  components: {
+    MuiDataGrid: {
+      styleOverrides: {
+        root: {
+          '& .MuiDataGrid-columnHeader': {
+            backgroundColor: '#5f9ea0',
+            color: 'white',
+          },
+  
+          '& .MuiDataGrid-toolbarContainer': {
+            backgroundColor: '#D7E4E3',
+            color: 'black', // Change this to the color you want for the text/icons
+          },
+          '& .MuiDataGrid-pagination': {
+            color: 'white', // Change this to the color you want for the text/icons
+          },
+        },
+      },
+    },
+  },
+});
+
+
 function Booking(){
     const {jwt, setJwt } = useAuth();
     axios.defaults.headers.common['Access-Control-Allow-Origin'] = '*';
@@ -37,7 +62,7 @@ const [pendingCheck, setPendingCheck] = useState(null);
   };
   const [pendingStatus, setPendingStatus] = useState(null);
 const [statusConfirmOpen, setStatusConfirmOpen] = useState(false);
-
+ 
  
     useEffect(() => {
       api.get('/booking/getAllBookings')
@@ -71,44 +96,46 @@ const [statusConfirmOpen, setStatusConfirmOpen] = useState(false);
       const columns = [
         {
             field: 'booking_ID',
-            headerName: 'Booking ID',
+            headerName: 'BOOKING_ID',
             type: 'number',
             width: 130,
-            editable: true,
+            editable: false,
           },
         {
             field: 'user_ID',
-            headerName: 'User Name',
+            headerName: 'USERNAME',
             width: 130,
-            editable: true,
+            editable: false,
           },
         {
           field: 'time_Period_In_Days',
-          headerName: 'Time Period (Days)',
+          headerName: 'TIME PERIOD (DAYS)',
           type: 'number',
           width: 180,
-          editable: true,
+          editable: false,
         },
         {
           field: 'service_List',
-          headerName: 'Services Bought',
+          headerName: 'SERVICES BOUGHT',
           width: 150,
-          editable: true,
+          editable: false,
         },
         {
           field: 'package_Amount',
-          headerName: 'Bill Amount',
+          headerName: 'BILL AMOUNT',
           type: 'number',
           width: 150,
-          editable: true,
+          editable: false,
         },
         {
           field: 'paid',
-          headerName: 'Paid',
+          headerName: 'PAID',
           width: 130,
+          
           editable: true,
           renderCell: (params) => (
             <Checkbox
+            defaultChecked color="default"
               checked={checkedStatus[params.id] || false}
               onChange={(event) => {
                 console.log(`Checkbox clicked for booking ID ${params.id}`);
@@ -122,11 +149,12 @@ const [statusConfirmOpen, setStatusConfirmOpen] = useState(false);
         },
         {
           field: 'status',
-          headerName: 'Status',
-          width: 150,
+          headerName: 'STATUS',
+          width: 294,
           editable: true,
           renderCell: (params) => (
             <select
+            style={{width:'90px',height:'35px'}}
               value={params.value}
               onChange={(event) => {
                 console.log(`Status changed for booking ID ${params.id}`);
@@ -136,12 +164,12 @@ const [statusConfirmOpen, setStatusConfirmOpen] = useState(false);
                 setStatusConfirmOpen(true);
               }}
             >
-              <option value="confirmed">Confirmed</option>
-              <option value="pending">Pending</option>
-              <option value="completed">Completed</option>
+              <option style={{width:'50px',borderRadius:'5px',height:'50px'}} value="confirmed">Confirmed</option>
+              <option style={{width:'50px',borderRadius:'5px',height:'50px'}} value="pending">Pending</option>
+              <option style={{width:'50px',borderRadius:'5px',height:'50px'}} value="completed">Completed</option>
             </select>
           ),
-        }         
+        }        
       ];
       const userIdToUsername = {};
         userData.forEach(user => {
@@ -186,43 +214,45 @@ const [statusConfirmOpen, setStatusConfirmOpen] = useState(false);
       };
       const handleStatusConfirm = () => {
         const { id, status } = pendingStatus;
-        api.put(`/booking/updateBookingStatus/${id}`, status)
+        console.log(status);
+        api.put(`/booking/updateBookingStatus/${id}`, JSON.stringify(status))
           .then((response) => {
+            window.location.reload();
             console.log(`Updated status for booking ID ${id}:`, response.data);
           })
           .catch((error) => {
             console.error(`Error updating status for booking ID ${id}:`, error);
           });
         setStatusConfirmOpen(false);
-      };
-      
+    };    
+     
       return(
-        <div>
+        <div >
             <br></br>
             <br></br>
             <br></br>
-          <Box sx={{ height: 700, width: '100%' }}>
-          <DataGrid
-  rows={rows}
-  columns={columns}
-  slots={{
-      toolbar: GridToolbar,
-  }}
-  initialState={{
-    pagination: {
-      paginationModel: {
-        pageSize: 10,
-      },
-    },
-  }}
- 
-  pageSizeOptions={[10]}
-  onCellClick={handleCellClick}
- 
-/>
- 
+          <Box sx={{height: 730, width: '80%',alignContent:'center',alignItems:'center',justifyContent:'center',marginLeft:'170px' }}>
+          <ThemeProvider theme={theme}>
+            <DataGrid
+              sx={{borderRadius:'15px',backgroundColor:'#5f9ea0  ',color:'white'}}
+              rows={rows}
+              columns={columns}
+              slots={{
+                  toolbar: GridToolbar,
+              }}
+              initialState={{
+                pagination: {
+                  paginationModel: {
+                    pageSize: 10,
+                  },
+                },
+              }}
+              pageSizeOptions={[10]}
+              onCellClick={handleCellClick}
+            />
+          </ThemeProvider>
     </Box>  
-    <Dialog open={open} onClose={handleClose} maxWidth={'xl'} >
+    <Dialog open={open} onClose={handleClose} maxWidth={'xl'} sx={{backgroundColor:'#F2F3F4'}}>
         <DialogTitle>User Details</DialogTitle>
         <DialogContent>
           <DialogContentText>
@@ -263,15 +293,14 @@ const [statusConfirmOpen, setStatusConfirmOpen] = useState(false);
     <Button onClick={handleStatusConfirm}>Yes</Button>
   </DialogActions>
 </Dialog>
+ 
+    <br></br>
+    <br></br>
+    <br></br>
+    <br></br>
+    <br></br>
+    <br></br>
 
-    <br></br>
-    <br></br>
-    <br></br>
-    <br></br>
-    <br></br>
-    <br></br>
-    <br></br>
-    <br></br>
         </div>
     );
 }

@@ -7,7 +7,7 @@ import { useNavigate } from 'react-router-dom';
 import CloseIcon from '@mui/icons-material/Close';
 import IconButton from '@mui/material/IconButton';
 import Snackbar from '@mui/material/Snackbar';
-
+ 
 function Cart() {
   const navigate = useNavigate();
   const [openAddToCart, setOpenAddToCart] = React.useState(false);
@@ -25,7 +25,7 @@ function Cart() {
     }, // Change this to your actual backend URL
   });
   const [carddata, setcarddata] = useState([]);
-
+ 
   useEffect(() => {
     if (!jwt) {
       localStorage.removeItem(`disabledStatus-${jwt}`);
@@ -134,7 +134,7 @@ function Cart() {
         onClose={handleClose}
         message="Added To Cart Successfully"
         action={action}
-        anchorOrigin={{ vertical: 'top', horizontal: 'center' }} 
+        anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
       />
       </Grid>
       <br></br>
@@ -157,5 +157,5 @@ function Cart() {
     </div>
   );
 }
-
+ 
 export default Cart;

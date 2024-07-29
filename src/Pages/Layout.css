@@ -6,56 +6,80 @@ button{
     background-color: #126cfc;
 }
 nav{
-    margin-left: 500px;
-    margin-top: -100px;
+    margin-left: 400px;
+    margin-top: -120px;
     align-items: center;
 }
 .homepage{
-    margin-top: 50px;
     text-decoration: none;
-    margin-left: 18px;
+    margin-left: 15px;
     font-size:x-large;
     color: black;
 }
-.packagepage{
-    margin-top: 50px;
+.addbookingpage
+{
     text-decoration: none;
-    margin-left: 18px;
+    margin-left: 15px;
+    font-size:x-large;
+    color: black; 
+}
+.packagespage
+{
+    text-decoration: none;
+    margin-left: 15px;
+    font-size:x-large;
+    color: black; 
+}
+.servicespage{
+    text-decoration: none;
+    margin-left: 15px;
+    font-size:x-large;
+    color: black; 
+}
+.dashboardpage{
+    text-decoration: none;
+    margin-left: 15px;
+    font-size:x-large;
+    color: black; 
+}
+.packagepage{
+
+    text-decoration: none;
+    margin-left: 15px;
     font-size:x-large;
     color: black;
 }
 .bookingpage{
-    margin-top: 50px;
+    margin-left: 15px;
     text-decoration: none;
-    margin-left: 18px;
+    margin-left: 15px;
     font-size:x-large;
     color: black;
 }
 .aboutpage{
-    margin-top: 50px;
+    margin-left: 15px;
     text-decoration: none;
-    margin-left: 18px;
+    margin-left: 15px;
     font-size:x-large;
     color: black;
 }
 .guidepage{
-    margin-top: 50px;
+
     text-decoration: none;
-    margin-left: 18px;
+    margin-left: 15px;
     font-size:x-large;
     color: black;
 }
 .servicepage{
-    margin-top: 50px;
+
     text-decoration: none;
-    margin-left: 18px;
+    margin-left: 15px;
     font-size:x-large;
     color: black;
 }
 .statuspage{
-    margin-top: 50px;
     text-decoration: none;
-    margin-left: 18px;
+    margin-left: 15px;
     font-size:x-large;
     color: black;
 }
@@ -87,3 +111,33 @@ nav{
 .active{
     color:#ec9154 ;
 }
+.main-header {
+    display: flex;
+  }
+  .hamburger {
+    display: none;
+    position: absolute;
+    right: 0;
+  }
+  
+  @media (max-width: 768px) {
+    .hamburger {
+      display: block;
+    }
+  
+    .navbar-container {
+      display: none;
+    }
+  }
+  
+  @media (min-width: 769px) {
+    .navbar-container {
+      display: block;
+    }
+  }
+  @media screen and (max-width: 768px) {
+    .main-header {
+      flex-direction: column;
+    }
+  }
+  

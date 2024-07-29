@@ -155,8 +155,7 @@ function Login() {
           </CardContent>
           <CardActions>
             <Box width="100%" display="flex" justifyContent="center">
-              <Button size="large" variant="contained" style={{ marginRight: 15, backgroundColor: '#008b8b' }}>Forgot Password</Button>
-              <Button size="large" variant="contained" style={{ backgroundColor: '#008b8b' }} onClick={handleSubmit}>Login In</Button>
+              <Button size="large" variant="contained" style={{ backgroundColor: '#008b8b' }} onClick={handleSubmit}>Lets Get Started</Button>
             </Box>
           </CardActions>
         </Card>

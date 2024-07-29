@@ -17,6 +17,8 @@ import Services from './AdminPages/Services.js';
 import Booking from './AdminPages/Booking.js';
 import Packages from './AdminPages/Packages.js';
 import StatusTrack from './Pages/StatusTrack.js';
+import AddBooking from './AdminPages/AddBooking.js';
+import Contact from './Pages/Contact.js';
 function App() {
   return (
     <div className="App">
@@ -40,6 +42,8 @@ function App() {
         <Route path='packages' element={<Packages />}></Route>
         <Route path='dashboard' element={<Dashboard />}></Route>
         <Route path='statustrack' element={<StatusTrack />}></Route>
+        <Route path='addbooking' element={<AddBooking />}></Route>
+        <Route path='contact' element={<Contact />}></Route>
         </Route>
       </Routes>
       </BrowserRouter>

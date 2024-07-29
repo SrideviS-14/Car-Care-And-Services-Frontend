@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { useAuth } from './AuthContext';
 import axios from 'axios';
-import LinearProgress from '@mui/material/LinearProgress';
+import { Stepper, Step, StepLabel, Card, CardContent, Typography, Box, Container } from '@mui/material';
+ 
+const steps = ['confirmed', 'pending', 'completed'];
  
 const StatusTrack = () => {
     const [data, setdata] = useState([]);
@@ -19,26 +21,52 @@ const StatusTrack = () => {
         api.get('/booking/getBookingsOfUser')
         .then((response) => {
           setdata(response.data);
-          console.log(data);
         })
         .catch((error) => {
           console.error('Error fetching data:', error);
         });
-        }, []);
+    }, []);
     return (
-        <div>
-            <h2>Status Track Page</h2>
-            {data.map((item) => {
-                return (
-                    <div key={item.booking_ID}>
-                        <h2>{item.booking_ID}</h2>
-                        <label>Status: {item.status}</label>
-                        <LinearProgress variant="determinate" value={item.status === 'completed' ? 100 : item.status === 'pending' ? 50 : item.status === 'confirmed' ? 25 : 0} />
-                    </div>
-                )
-            })}
-        </div>
+        <Container maxWidth="md">
+            <Box sx={{ my: 4 }}>
+            <h1 style={{ color: 'black', justifyContent: 'center', marginTop: '75px' }}>Track Booking Status</h1>
+            <p style={{ textAlign: 'center', fontSize: 'x-large', color: 'black', justifyContent: 'center', marginTop: '75px' }}>
+              Here you can find the list of bookings you have done and its status!
+            </p>
+                {data.map((item) => {
+                    const activeStep = steps.indexOf(item.status);
+                    return (
+                        <Card key={item.booking_ID} sx={{ minWidth: 275, marginBottom: 2, mt: 3 }}>
+                            <CardContent>
+                                <Typography variant="h5" component="div" color="primary">
+                                    Booking ID: {item.booking_ID}
+                                </Typography>
+                                <Typography variant="body2" color="text.secondary">
+                                    Date of Booking: {item.dateOfBooking}<br/>
+                                    Package Amount: {item.package_Amount}<br/>
+                                    Paid: {item.paid ? 'Yes' : 'No'}<br/>
+                                    Service List: {item.service_List}<br/>
+                                    Time Period (in days): {item.time_Period_In_Days}<br/>
+                                </Typography>
+                                <Stepper activeStep={activeStep} sx={{ mt: 2 }}>
+                                    {steps.map((label, index) => (
+                                        <Step key={label}>
+                                            <StepLabel StepIconProps={{
+                                                style: {
+                                                    color: label === 'confirmed' ? 'red' : label === 'pending' ? 'orange' : 'green',
+                                                },
+                                            }}>{label}</StepLabel>
+                                        </Step>
+                                    ))}
+                                </Stepper>
+                            </CardContent>
+                        </Card>
+                    )
+                })}
+            </Box>
+        </Container>
     );
 };
  
 export default StatusTrack;
+ 

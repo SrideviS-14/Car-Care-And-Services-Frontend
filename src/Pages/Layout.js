@@ -7,8 +7,13 @@ import { Button } from "@mui/material";
 import { useAuth } from './AuthContext';
 import logo from './images/WheelsUp-2--unscreen.gif';
 import Footer from './Footer.js'; 
-function Layout(){
- 
+import HomeIcon from '@mui/icons-material/Home';
+import InfoIcon from '@mui/icons-material/Info';
+import MiscellaneousServicesIcon from '@mui/icons-material/MiscellaneousServices';
+import InventoryIcon from '@mui/icons-material/Inventory';
+
+
+function Layout() {
   const { jwt, setJwt , role} = useAuth();
 
   const handleLogout = () => {
@@ -20,14 +25,16 @@ function Layout(){
 return(
     <>
      <img src={logo}width='150px'height='150px'style={{marginTop:'10px',marginLeft:'15px'}}></img>
+     <div className="navbar-container">
      {(role=='client' || role=='') ?
      <nav className="main-header">
-     <NavLink className="homepage" activeClassName="active" to="/">Home</NavLink>
-     <NavLink className="aboutpage" activeClassName="active" to="/About">About Us</NavLink>
-     <NavLink className="guidepage" activeClassName="active" to="/Cart">Services</NavLink>
-     <NavLink className="packagepage" activeClassName="active" to="/Package">Packages</NavLink>
+     <NavLink className="homepage" activeClassName="active" to="/"><HomeIcon />Home</NavLink>
+     <NavLink className="aboutpage" activeClassName="active" to="/About"><InfoIcon />About Us</NavLink>
+     <NavLink className="guidepage" activeClassName="active" to="/Cart"><MiscellaneousServicesIcon />Services</NavLink>
+     <NavLink className="packagepage" activeClassName="active" to="/Package"><InventoryIcon />Packages</NavLink>
      <NavLink className="servicepage" activeClassName="active" to="/Service">Quick Book</NavLink>
      <NavLink className="statuspage" activeClassName="active" to="/StatusTrack">StatusTrack</NavLink>
+     <NavLink className="packagepage" activeClassName="active" to="/contact">Contact</NavLink>
      {!!jwt ?
                      <NavLink className="login" activeClassName="active" to="/">
                      <Button onClick={handleLogout} style={{
@@ -39,7 +46,7 @@ return(
                          color: 'white',
                          borderRadius: 10,
                          border: 'none',
-                         marginLeft: 20
+                         marginLeft: 180
                        }}>Log out</Button>
                      </NavLink>
                      :
@@ -76,10 +83,11 @@ return(
  </nav>
  :
  <nav className="main-header">
- <NavLink className="aboutpage" activeClassName="active" to="/dashboard">Dashboard</NavLink>
+ <NavLink className="dashboardpage" activeClassName="active" to="/dashboard">Dashboard</NavLink>
  <NavLink className="bookingpage" activeClassName="active" to='/booking'>Booking</NavLink>
- <NavLink className="servicepage" activeClassName="active" to='/services'>Services</NavLink>
- <NavLink className="packagepage" activeClassName="active" to='/packages'>Packages</NavLink>
+ <NavLink className="servicespage" activeClassName="active" to='/services'>Services</NavLink>
+ <NavLink className="packagespage" activeClassName="active" to='/packages'>Packages</NavLink>
+ <NavLink className="addbookingpage" activeClassName="active" to='/addbooking'>Add Booking</NavLink>
  {!!jwt ?
                  <NavLink className="login" activeClassName="active" to="/">
                  <Button onClick={handleLogout} style={{
@@ -91,7 +99,7 @@ return(
                      color: 'white',
                      borderRadius: 10,
                      border: 'none',
-                     marginLeft: 20
+                     marginLeft: 350
                    }}>Log out</Button>
                  </NavLink>
                  :
@@ -106,7 +114,7 @@ return(
              color: 'white',
              borderRadius: 10,
              border: 'none',
-             marginLeft: 20
+             marginLeft: 350
            }}>Log in</Button>
          </NavLink>
  </>
@@ -115,6 +123,7 @@ return(
 
 </nav>
 }
+</div>
  <Outlet />
  <Footer />
  </>

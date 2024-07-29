@@ -52,7 +52,7 @@ function Package() {
   return (
     <div>
       <h1 style={{ color: 'black', justifyContent: 'center', marginTop: '75px' }}>Welcome to our Package Selection</h1>
-      <p style={{ textAlign: 'center', fontSize: 'x-large', color: 'black', justifyContent: 'center', marginTop: '75px' }}>
+      <p style={{ textAlign: 'center', fontSize: 'x-large', color: 'black', justifyContent: 'center', marginTop: '65px' }}>
         Here you can find a variety of packages tailored to your needs. Browse through the options and select the one that suits you best.
       </p>
       <Grid container spacing={4} style={{ marginTop: '20px', justifyContent: 'center' }}>

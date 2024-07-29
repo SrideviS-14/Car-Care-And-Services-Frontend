@@ -2,7 +2,6 @@ import {Grid,Card,CardContent,Typography,Box,TextField, CardActions, Button} fro
 import { useNavigate} from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { useAuth } from './AuthContext';
-import { useLocation } from "react-router-dom";
 import axios from 'axios';
 
 function CarDetails(){
@@ -11,7 +10,6 @@ function CarDetails(){
   const [selectedCar, setSelectedCar] = useState(null);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
-  const [showForm, setShowForm] = useState(false);
   const [userId, setUserId] = useState(0);
   const api = axios.create({
     baseURL: 'http://localhost:8080',
@@ -60,7 +58,17 @@ function CarDetails(){
   const handlesubmit = async () => {
     try {
       const response = await api.post('/car/addCarDetails',formData);
-      navigate('/invoice')
+      setCarDetails([...carDetails, formData]);
+      setFormData({
+        car_Number:'',
+        car_Type:'',
+        car_Model:'',
+        car_Color:'',
+        car_Company:'',
+        appUser: {
+          id: userId
+        }
+      });
     } catch (error) {
       alert('Could not add!');
     }
@@ -78,48 +86,45 @@ function CarDetails(){
   }  
   
   return(
-    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+    <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'space-around' }}>
+    <div>
+      {carDetails.map((car, index) => (
+        <Card sx={{width:"550px",height:'150px',borderRadius:'15px'}}
+          key={index} 
+          onClick={() => {
+            setSelectedCar(car);
+          }} 
+          style={{ margin: '10px', cursor: 'pointer' }}
+        >
+          <CardContent>
+            <Typography variant="h5" component="div">
+              <Box fontWeight="fontWeightBold">
+                {car.car_Company} {car.car_Model}
+              </Box>
+            </Typography>
+            <Typography color="text.secondary">
+              Car Number: {car.car_Number}
+            </Typography>
+            <Typography color="text.secondary">
+              Car Type: {car.car_Type}
+            </Typography>
+            <Typography color="text.secondary">
+              Car Color: {car.car_Color}
+            </Typography>
+          </CardContent>
+        </Card>
+      ))}
       <br></br>
       <br></br>
+      <Button onClick={handleProceed} variant='contained'style={{marginLeft:'230px',backgroundColor: '#000080'}}>Proceed</Button>
       <br></br>
       <br></br>
-{carDetails.map((car, index) => (
-  <Card sx={{width:"550px",height:'150px'}}
-    key={index} 
-    onClick={() => {
-      setSelectedCar(car);
-      setShowForm(false);
-    }} 
-    style={{ margin: '10px', cursor: 'pointer' }}
-  >
-    <CardContent>
-      <Typography variant="h5" component="div">
-        <Box fontWeight="fontWeightBold">
-          {car.car_Company} {car.car_Model}
-        </Box>
-      </Typography>
-      <Typography color="text.secondary">
-        Car Number: {car.car_Number}
-      </Typography>
-      <Typography color="text.secondary">
-        Car Type: {car.car_Type}
-      </Typography>
-      <Typography color="text.secondary">
-        Car Color: {car.car_Color}
-      </Typography>
-    </CardContent>
-  </Card>
-))}
-
-
-  {selectedCar && <div>Selected Car: {selectedCar.car_Company} {selectedCar.car_Model}</div>}
-
-  <Button onClick={() => setShowForm(true)}>Add Car Details</Button>
-  <Button onClick={handleProceed}>Proceed</Button>
-  {showForm && (
-    <Box sx={{justifyContent:"center"  ,marginTop:"20px",fontFamily:'Times New Roman, Times, serif'}}>
-            <Card sx={{marigntop:'50px',fontFamily:'Times New Roman, Times, serif',marginLeft:'250px',width:'470px', height:'700px',justifyContent: "center", borderRadius: 12, backgroundColor: 'white' }}>
-    <Grid spacing={2} sx={{fontFamily:'Times New Roman, Times, serif',marginLeft:'5px',marginTop:'30px'}}>
+      {selectedCar && <div style={{fontSize:'x-large',marginLeft:'160px'}}>Selected Car: {selectedCar.car_Company} {selectedCar.car_Model}</div>}
+    </div>
+    <div>
+      <Box sx={{justifyContent:"center"  ,marginTop:"50px",fontFamily:'Times New Roman, Times, serif'}}>
+            <Card sx={{marigntop:'70px',fontFamily:'Times New Roman, Times, serif',marginLeft:'-10px',width:'470px', height:'700px',justifyContent: "center", borderRadius: 12, backgroundColor: 'white' }}>
+    <Grid spacing={2} sx={{fontFamily:'Times New Roman, Times, serif',marginLeft:'1px',marginTop:'30px'}}>
     <Grid  spacing={2}>
     <Typography variant='h6' sx={{textAlign:'center',fontWeight:'bolder',fontFamily:'Times New Roman, Times, serif'}}>Please Type Out Car Details</Typography>
     <CardContent>
@@ -200,10 +205,8 @@ function CarDetails(){
     </Grid>
     </Card>
     </Box>
-  )}
-      <br></br>
     <br></br>
-    <br></br>
+    </div>
 </div>
 
 );

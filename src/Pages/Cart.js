@@ -92,7 +92,7 @@ function Cart() {
   return (
     <div style={{ fontFamily: 'Times New Roman, Times, serif' }}>
       <h1 style={{ color: 'black', justifyContent: 'center', marginTop: '75px' }}> Services Offered</h1>
-      <p style={{ textAlign: 'center', fontSize: 'x-large', color: 'black', justifyContent: 'center', marginTop: '75px' }}>
+      <p style={{ textAlign: 'center', fontSize: 'x-large', color: 'black', justifyContent: 'center', marginTop: '65px' }}>
       From Oil Changes to Brake Repairs – We’ve Got You Covered.
       </p>
       <br></br>

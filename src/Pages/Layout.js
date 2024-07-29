@@ -20,6 +20,7 @@ import DashboardIcon from '@mui/icons-material/Dashboard';
 import ContentPasteSearchIcon from '@mui/icons-material/ContentPasteSearch';
 import SettingsIcon from '@mui/icons-material/Settings';
 import AddBoxIcon from '@mui/icons-material/AddBox';
+import AccountCircleOutlinedIcon from '@mui/icons-material/AccountCircleOutlined';
 
 function Layout(){
  
@@ -36,16 +37,17 @@ return(
      <img src={logo}width='150px'height='150px'style={{marginTop:'10px',marginLeft:'15px'}}></img>
      {(role=='client' || role=='') ?
      <nav className="main-header">
-     <NavLink className="homepage" activeClassName="active" to="/"style={{fontSize:'20px'}}><HomeIcon />Home</NavLink>
-     <NavLink className="aboutpage" activeClassName="active" to="/About" style={{fontSize:'20px'}}><InfoIcon />About Us</NavLink>
-     <NavLink className="guidepage" activeClassName="active" to="/Cart" style={{fontSize:'20px'}}><MiscellaneousServicesIcon />Services</NavLink>
-     <NavLink className="packagepage" activeClassName="active" to="/Package"style={{fontSize:'20px'}}><InventoryIcon />Packages</NavLink>
-     <NavLink className="servicepage" activeClassName="active" to="/Service"style={{fontSize:'20px'}}><AllInboxIcon />Quick Book</NavLink>
-     <NavLink className="statuspage" activeClassName="active" to="/StatusTrack"style={{fontSize:'20px'}}><TimelineIcon />StatusTrack</NavLink>
-     <NavLink className="packagepage" activeClassName="active" to="/contact"style={{fontSize:'20px'}}><CallIcon />Contact</NavLink>
+     <NavLink className="homepage" activeClassName="active" to="/"style={{fontSize:'20px'}}><HomeIcon style={{ height:'25px',marginRight: '8px' }} />Home</NavLink>
+     <NavLink className="aboutpage" activeClassName="active" to="/About" style={{fontSize:'20px'}}><InfoIcon style={{marginRight: '8px' }} />About Us</NavLink>
+     <NavLink className="guidepage" activeClassName="active" to="/Cart" style={{fontSize:'20px'}}><MiscellaneousServicesIcon style={{ marginRight: '8px' }} />Services</NavLink>
+     <NavLink className="packagepage" activeClassName="active" to="/Package"style={{fontSize:'20px'}}><InventoryIcon style={{ marginRight: '8px' }} />Packages</NavLink>
+     <NavLink className="servicepage" activeClassName="active" to="/Service"style={{fontSize:'20px'}}><AllInboxIcon  style={{ marginRight: '8px' }}/>Quick Book</NavLink>
+     <NavLink className="statuspage" activeClassName="active" to="/StatusTrack"style={{fontSize:'20px'}}><TimelineIcon style={{ marginRight: '8px' }} />StatusTrack</NavLink>
+     <NavLink className="packagepage" activeClassName="active" to="/contact"style={{fontSize:'20px'}}><CallIcon style={{ marginRight: '8px' }} />Contact</NavLink>
      {!!jwt ?
                      <NavLink className="login" activeClassName="active" to="/">
                      <Button onClick={handleLogout} style={{
+                        marginRight: '8px', 
                          fontSize: 'medium',
                          backgroundColor: '#008b8b',
                          width: 150,
@@ -69,7 +71,7 @@ return(
                  color: 'white',
                  borderRadius: 10,
                  border: 'none'
-               }}><FormatAlignJustifyIcon />Sign Up</Button>
+               }}><AccountCircleOutlinedIcon  />Sign Up</Button>
              </NavLink>
              <NavLink className="login" activeClassName="active" to="/login">
              <Button style={{
@@ -77,7 +79,7 @@ return(
                  backgroundColor: '#008b8b',
                  width: 100,
                  height: 50,
-                 marginRight:1,
+                 marginRight:2,
                  color: 'white',
                  borderRadius: 10,
                  border: 'none',
@@ -91,11 +93,11 @@ return(
  </nav>
  :
  <nav className="main-header">
- <NavLink className="dashboardpage" activeClassName="active" to="/dashboard" style={{fontSize:'20px'}}><DashboardIcon />Dashboard</NavLink>
- <NavLink className="bookingpage" activeClassName="active" to='/booking' style={{fontSize:'20px'}}><ContentPasteSearchIcon />Booking</NavLink>
- <NavLink className="servicespage" activeClassName="active" to='/services' style={{fontSize:'20px'}}><SettingsIcon />Services</NavLink>
- <NavLink className="packagespage" activeClassName="active" to='/packages' style={{fontSize:'20px'}}><InventoryIcon />Packages</NavLink>
- <NavLink className="addbookingpage" activeClassName="active" to='/addbooking'style={{fontSize:'20px'}}><AddBoxIcon />Add Booking</NavLink>
+ <NavLink className="dashboardpage" activeClassName="active" to="/dashboard" style={{fontSize:'20px'}}><DashboardIcon style={{marginRight: '8px' }} />Dashboard</NavLink>
+ <NavLink className="bookingpage" activeClassName="active" to='/booking' style={{fontSize:'20px'}}><ContentPasteSearchIcon style={{marginRight: '8px' }} />Booking</NavLink>
+ <NavLink className="servicespage" activeClassName="active" to='/services' style={{fontSize:'20px'}}><SettingsIcon style={{marginRight: '8px' }} />Services</NavLink>
+ <NavLink className="packagespage" activeClassName="active" to='/packages' style={{fontSize:'20px'}}><InventoryIcon style={{marginRight: '8px' }} />Packages</NavLink>
+ <NavLink className="addbookingpage" activeClassName="active" to='/addbooking'style={{fontSize:'20px'}}><AddBoxIcon  style={{marginRight: '8px' }}/>Add Booking</NavLink>
  {!!jwt ?
                  <NavLink className="login" activeClassName="active" to="/">
                  <Button onClick={handleLogout} style={{

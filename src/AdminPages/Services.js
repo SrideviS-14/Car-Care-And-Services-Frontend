@@ -10,6 +10,7 @@ import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import { useAuth } from '../Pages/AuthContext.js';
 import { useNavigate } from 'react-router-dom';
+import AddIcon from '@mui/icons-material/Add';
 function Services(){
   const navigate = useNavigate();
   const {jwt, setJwt } = useAuth();
@@ -25,24 +26,24 @@ function Services(){
   });
   const [carddata, setcarddata] = useState([]);
   const [open, setOpen] = React.useState(false);
-  
+ 
   const handleClickOpen = (item) => {
-    
+   
     setData(item);
     setOpen(true);
   };
-
+ 
   const handleClose = () => {
     setOpen(false);
   };
   const [opendelete, setOpendelete] = React.useState(false);
-
  
-
+ 
+ 
   const handleClosedelete = () => {
     setOpen(false);
   };
-  
+ 
   useEffect(() => {
     api.get('/service/getAllServices')
       .then((response) => {
@@ -55,18 +56,18 @@ function Services(){
   }, []);
   const [deleteConfirmOpen, setDeleteConfirmOpen] = useState(false);
 const [serviceToDelete, setServiceToDelete] = useState(0);
-
+ 
 const handleDeleteConfirmationOpen = (service_ID) => {
   console.log(service_ID);
   setServiceToDelete(service_ID);
   console.log(serviceToDelete);
   setDeleteConfirmOpen(true);
 };
-
+ 
 const handledelete = async () => {
   try {
     console.log(serviceToDelete);
-    const response = await api.delete("/service/deleteService", { data: { service_id: serviceToDelete } } );
+    const response = await api.delete(`/service/deleteService/${serviceToDelete}`);
     console.log('Deleted successfully!', response.data);
     setcarddata(carddata.filter(item => item.service_ID !== serviceToDelete));
     setDeleteConfirmOpen(false);
@@ -75,12 +76,12 @@ const handledelete = async () => {
     console.error('Deletion failed:', error);
   }
 }
-
+ 
 const handleDeleteConfirmationClose = () => {
   setDeleteConfirmOpen(false);
 };
-
-  
+ 
+ 
   const handleupdate = async () => {
     try {
       console.log(data);
@@ -96,13 +97,81 @@ const handleDeleteConfirmationClose = () => {
       console.error('Update failed:', error);
     }
   }
-  
+ 
+  const [addOpen, setAddOpen] = useState(false);
+  const [newService, setNewService] = useState({service_Name: '', description: '', service_Amount: '', service: true});
+ 
+  const handleAddOpen = () => {
+    setAddOpen(true);
+  };
+ 
+  const handleAddClose = () => {
+    setAddOpen(false);
+  };
+ 
+  const handleAdd = async () => {
+    try {
+      const response = await api.post('/service/addService', newService);
+      console.log('Added successfully!', response.data);
+      setcarddata([...carddata, newService]);
+      window.location.reload();
+      setAddOpen(false);
+    } catch (error) {
+      alert('Could not add the service!');
+      console.error('Add failed:', error);
+    }
+  }
     return(
         <div>
-            <br></br>
-            <br></br>
-            <br></br>
-            <br></br>
+           <h1 style={{ color: 'black', justifyContent: 'center', marginTop: '50px' }}>Services Updation</h1>
+      <p style={{ textAlign: 'center', fontSize: 'x-large', color: 'black', justifyContent: 'center', marginTop: '25px' }}>
+        Add, Update or Delete Services!
+      </p>
+            <div>
+            <Button style={{ color:'#000080'}} variant="contained" color="primary" startIcon={<AddIcon />} onClick={handleAddOpen}>
+              Add Service
+            </Button>
+            </div>
+<br></br><br></br>
+      <Dialog open={addOpen} onClose={handleAddClose}>
+        <DialogTitle>Add New Service</DialogTitle>
+        <DialogContent>
+          <TextField
+            required
+            margin="dense"
+            id="name"
+            label="Service Name"
+            type="text"
+            fullWidth
+            variant="standard"
+            onChange={(e) => setNewService({ ...newService, service_Name: e.target.value })}
+          />
+          <TextField
+            required
+            margin="dense"
+            id="description"
+            label="Service Description"
+            type="text"
+            fullWidth
+            variant="standard"
+            onChange={(e) => setNewService({ ...newService, description: e.target.value })}
+          />
+          <TextField
+            required
+            margin="dense"
+            id="price"
+            label="Service Price"
+            type="number"
+            fullWidth
+            variant="standard"
+            onChange={(e) => setNewService({ ...newService, service_Amount: e.target.value })}
+          />
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleAddClose}>Cancel</Button>
+          <Button onClick={handleAdd}>Add</Button>
+        </DialogActions>
+      </Dialog>
 <Grid container spacing={1}>
         {carddata.map((item) => (
           <Grid item xs={11} sm={6} key={item.service_ID}>
@@ -142,12 +211,12 @@ const handleDeleteConfirmationClose = () => {
     <Button onClick={handledelete}>Delete</Button>
   </DialogActions>
 </Dialog>
-
+ 
       <br></br>
       <Dialog
         open={open}
         onClose={handleClose}
-
+ 
       >
         <DialogTitle>Edit Here</DialogTitle>
         <DialogContent>
@@ -196,7 +265,7 @@ const handleDeleteConfirmationClose = () => {
           <Button type="submit" onClick={handleupdate}>Save</Button>
         </DialogActions>
       </Dialog>
-    
+   
         </div>
     );
 }

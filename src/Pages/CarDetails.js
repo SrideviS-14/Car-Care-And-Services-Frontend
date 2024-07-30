@@ -78,25 +78,37 @@ function CarDetails(){
   if (error) return <div>Error: {error.message}</div>;
 
   const handleProceed = () => {
-    if (selectedCar) {
-      navigate('/invoice', { state: {selectedCar: selectedCar, userId: selectedCar.appUser.userName}})
-    } else {
-      navigate('/invoice', { state: {selectedCar: formData, userId: selectedCar.appUser.userName}})
+    if(selectedCar!=null)
+    {
+      if (selectedCar) {
+        navigate('/invoice', { state: {selectedCar: selectedCar, userId: selectedCar.appUser.userName}})
+      } else {
+        navigate('/invoice', { state: {selectedCar: formData, userId: selectedCar.appUser.userName}})
+      }
+    }
+    else{
+      alert("Please select a car or fill out the details to add a new car");
     }
   }  
   
   return(
     <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'space-around' }}>
-    <div>
+    <div style={{marginTop:'100px'}}>
       {carDetails.map((car, index) => (
         <Card sx={{width:"550px",height:'150px',borderRadius:'15px'}}
           key={index} 
           onClick={() => {
             setSelectedCar(car);
           }} 
-          style={{ margin: '10px', cursor: 'pointer' }}
+          style={{ 
+            marginTop:'50px',
+            marginBottom:'50px',
+            margin: '10px', 
+            cursor: 'pointer',
+            backgroundColor: selectedCar === car ? '#008b8b' : 'white' 
+          }}
         >
-          <CardContent>
+          <CardContent >
             <Typography variant="h5" component="div">
               <Box fontWeight="fontWeightBold">
                 {car.car_Company} {car.car_Model}
@@ -116,10 +128,14 @@ function CarDetails(){
       ))}
       <br></br>
       <br></br>
-      <Button onClick={handleProceed} variant='contained'style={{marginLeft:'230px',backgroundColor: '#000080'}}>Proceed</Button>
+      <Button onClick={handleProceed} variant='contained'style={{
+          height:'35px',
+          width:"171px",
+          marginLeft:'200px',
+          backgroundColor: selectedCar ? '#008b8b' : '#000080'
+        }}>Proceed</Button>
       <br></br>
       <br></br>
-      {selectedCar && <div style={{fontSize:'x-large',marginLeft:'160px'}}>Selected Car: {selectedCar.car_Company} {selectedCar.car_Model}</div>}
     </div>
     <div>
       <Box sx={{justifyContent:"center"  ,marginTop:"50px",fontFamily:'Times New Roman, Times, serif'}}>
@@ -199,7 +215,7 @@ function CarDetails(){
     </Box>
     </CardContent>
     <CardActions sx={{justifyContent:'center',fontFamily:'Times New Roman, Times, serif'}}>
-    <Button size='large' variant='contained'onClick={handlesubmit} style={{alignContent:'center',backgroundColor: '#000080',fontFamily:'Times New Roman, Times, serif'}}>Submit</Button>
+    <Button size='large' variant='contained'onClick={handlesubmit} style={{ height:'35px',width:"171px",alignContent:'center',backgroundColor: '#000080',fontFamily:'Times New Roman, Times, serif'}}>Submit</Button>
     </CardActions>
     </Grid>
     </Grid>

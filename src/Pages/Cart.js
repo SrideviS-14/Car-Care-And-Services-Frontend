@@ -92,7 +92,7 @@ function Cart() {
   return (
     <div style={{ fontFamily: 'Times New Roman, Times, serif' }}>
       <h1 style={{ color: 'black', justifyContent: 'center', marginTop: '75px' }}> Services Offered</h1>
-      <p style={{ textAlign: 'center', fontSize: 'x-large', color: 'black', justifyContent: 'center', marginTop: '65px' }}>
+      <p style={{ textAlign: 'center', fontSize: 'x-large', color: 'black', justifyContent: 'center', marginTop: '50px' }}>
       From Oil Changes to Brake Repairs – We’ve Got You Covered.
       </p>
       <br></br>
@@ -118,10 +118,10 @@ function Cart() {
                 disabled={disabledStatus[item.service_ID]}
                 size="small"
                 variant='contained'
-                style={{ backgroundColor: disabledStatus[item.service_ID] ? '#D3D3D3' : '#000080', fontFamily:'Times New Roman, Times, serif', color: disabledStatus[item.service_ID] ? '#000000' : '#ffffff' }}
+                style={{height:'35px',width:"171px", backgroundColor: disabledStatus[item.service_ID] ? '#D3D3D3' : '#000080', fontFamily:'Times New Roman, Times, serif', color: disabledStatus[item.service_ID] ? '#000000' : '#ffffff' }}
                 onClick={() => handleAddToCart(item.service_ID)}
               >
-                <ShoppingCartIcon /> {addedStatus[item.service_ID] ? 'Added to Cart' : 'Add to Cart'}
+                <ShoppingCartIcon /> {disabledStatus[item.service_ID] ? 'Added to Cart' : 'Add to Cart'}
               </Button>
               </CardActions>
             </Card>
@@ -139,7 +139,7 @@ function Cart() {
       </Grid>
       <br></br>
       <CardActions style={{ justifyContent: 'center' }}>
-        <Button size="large" variant='contained' style={{  color:'black',backgroundColor: '#00ced1',fontFamily:'Times New Roman, Times, serif' }} onClick={handleProceedToInvoice}>
+        <Button size="large" variant='contained' style={{ height:'35px',width:"171px", color:'white',backgroundColor: '#008b8b',fontFamily:'Times New Roman, Times, serif' }} onClick={handleProceedToInvoice}>
         View Cart
         </Button>
         <Snackbar

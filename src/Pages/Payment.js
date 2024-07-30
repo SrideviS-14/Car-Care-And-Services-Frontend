@@ -44,11 +44,15 @@ function Payment(){
       navigate('/');// Wait 2 seconds before navigating
     }
     const handlePayment = async (e) => {
-      setOpen(true);
-      setopenalert(true);
         e.preventDefault();
+        if(formData == null)
+        {
+          alert("Please enter valid details");
+        }
         try {
             const response = await api.post('/payment/makePayment', formData);
+            setopenalert(true);
+            setOpen(true);
             console.log('Registration successful:', response.data.token);
             // Handle success (e.g., redirect to login page)
         } catch (error) {
@@ -90,8 +94,6 @@ return(
       <p style={{ textAlign: 'center', fontSize: 'x-large', color: 'black', justifyContent: 'center', marginTop: '75px' }}>
       Scan this QR code or enter your card details to make payment!
       </p>
-      <br></br>
-        <br></br>
         <Tabs value={tabValue} onChange={handleTabChange} centered>
           <Tab label="QR Code" />
           <Tab label="Card Details" />
@@ -151,8 +153,7 @@ return(
             <TextField
               required
               id="outlined-password-input"
-              label="Enter your card expiry date"
-              type="password"
+              type="date"
               fullWidth
               value={formData.Expiration_Date}
               onChange={(e) => setFormData({ ...formData, Expiration_Date: e.target.value })}
@@ -166,15 +167,6 @@ return(
         </CardActions>
         </Card>
         </Box>
-        <Snackbar
-        severity="success"
-        open={open}
-        autoHideDuration={2000}
-        onClose={handleClose}
-        message="Payment Successful"
-        action={action}
-        anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
-      />
       <Dialog
   open={openalert}
   onClose={handleClosealert}

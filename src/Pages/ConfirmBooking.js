@@ -113,9 +113,9 @@ function ConfirmBooking() {
 ))}
 <br></br>
         <CardActions style={{alignContent:'center',justifyContent:'center',fontFamily:'Times New Roman, Times, serif'}}>
-        <Button size='medium' variant='contained' style={{ backgroundColor: '#008b8b' }}
+        <Button size='medium' variant='contained' style={{height:'35px',width:"171px", backgroundColor: '#008b8b' }}
               onClick={() => handleAddService()} >Add Service</Button>
-        <Button size='medium' variant='contained' style={{ backgroundColor: '#008b8b' }}
+        <Button size='medium' variant='contained' style={{height:'35px',width:"171px", backgroundColor: '#008b8b' }}
               onClick={() => handleInvoice()} >Proceed</Button>
 </CardActions>
 <Snackbar
@@ -132,7 +132,7 @@ severity="success"
         open={openInvoice}
         autoHideDuration={2000}
         onClose={handleClose}
-        message="Proceeding To Invoice"
+        message="Proceeding To Car Details"
         action={action}
         anchorOrigin={{ vertical: 'top', horizontal: 'center' }} 
       />

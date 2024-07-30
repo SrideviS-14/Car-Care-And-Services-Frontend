@@ -14,6 +14,8 @@ import DialogTitle from '@mui/material/DialogTitle';
 import Slide from '@mui/material/Slide';
 import Tick from './images/tickicon.gif'
 import { useLocation } from "react-router-dom";
+
+
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
@@ -143,6 +145,7 @@ function Invoice() {
             });
     }, []);
     const handlePayment = () => {
+      localStorage.removeItem(`disabledStatus-${jwt}`);
       setOpen(true);
     }
     const handleBackToCart = () => {
@@ -197,13 +200,15 @@ function Invoice() {
               </TableBody>
             </Table>
           </TableContainer>
+ <br></br>
+ <br></br>
  </Paper>
  <div style={{ display: 'flex', justifyContent: 'space-between', width: '600px', margin: '20px auto' }}>
-  <Button size='medium' variant='contained' style={{ backgroundColor: '#008b8b' }}
+  <Button size='medium' variant='contained' style={{ height:'35px',width:"179px",backgroundColor: '#008b8b' }}
     onClick={handlePrint}>Download Invoice</Button>
-  <Button size='medium' variant='contained' style={{ backgroundColor: '#008b8b' }}
+  <Button size='medium' variant='contained' style={{height:'35px',width:"171px", backgroundColor: '#008b8b' }}
     onClick={() => handleBackToCart()}>Back To Cart</Button>
-  <Button size='medium' variant='contained' style={{ backgroundColor: '#008b8b' }}
+  <Button size='medium' variant='contained' style={{ height:'35px',width:"171px",backgroundColor: '#008b8b' }}
     onClick={() => handlePayment()}>Proceed To Pay</Button>
 </div>
 
@@ -250,6 +255,7 @@ function Invoice() {
           <Button onClick={(e) => handleOnlinePay(e)}>Online</Button>
         </DialogActions>
       </Dialog>
+
         </div>
     );
 }

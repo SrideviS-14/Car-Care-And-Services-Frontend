@@ -30,7 +30,7 @@ const StatusTrack = () => {
         <Container maxWidth="md">
             <Box sx={{ my: 4 }}>
             <h1 style={{ color: 'black', justifyContent: 'center', marginTop: '75px' }}>Track Booking Status</h1>
-            <p style={{ textAlign: 'center', fontSize: 'x-large', color: 'black', justifyContent: 'center', marginTop: '75px' }}>
+            <p style={{ textAlign: 'center', fontSize: 'x-large', color: 'black', justifyContent: 'center', marginTop: '55px' }}>
               Here you can find the list of bookings you have done and its status!
             </p>
                 {data.map((item) => {

@@ -5,7 +5,9 @@ import Box from '@mui/material/Box';
 import { DataGrid, GridToolbar } from '@mui/x-data-grid';
 import { useAuth } from '../Pages/AuthContext';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-
+import IconButton from '@mui/material/IconButton';
+import InfoIcon from '@mui/icons-material/Info';
+ 
 const theme = createTheme({
   components: {
     MuiDataGrid: {
@@ -15,7 +17,7 @@ const theme = createTheme({
             backgroundColor: '#5f9ea0',
             color: 'white',
           },
-  
+ 
           '& .MuiDataGrid-toolbarContainer': {
             backgroundColor: '#D7E4E3',
             color: 'black', // Change this to the color you want for the text/icons
@@ -28,8 +30,8 @@ const theme = createTheme({
     },
   },
 });
-
-
+ 
+ 
 function Booking(){
     const {jwt, setJwt } = useAuth();
     axios.defaults.headers.common['Access-Control-Allow-Origin'] = '*';
@@ -131,7 +133,7 @@ const [statusConfirmOpen, setStatusConfirmOpen] = useState(false);
           field: 'paid',
           headerName: 'PAID',
           width: 130,
-          
+         
           editable: true,
           renderCell: (params) => (
             <Checkbox
@@ -150,7 +152,7 @@ const [statusConfirmOpen, setStatusConfirmOpen] = useState(false);
         {
           field: 'status',
           headerName: 'STATUS',
-          width: 294,
+          width: 150,
           editable: true,
           renderCell: (params) => (
             <select
@@ -169,7 +171,24 @@ const [statusConfirmOpen, setStatusConfirmOpen] = useState(false);
               <option style={{width:'50px',borderRadius:'5px',height:'50px'}} value="completed">Completed</option>
             </select>
           ),
-        }        
+        } ,
+        {
+          field: 'details',
+          headerName: 'DETAILS',
+          width: 150,
+          renderCell: (params) => (
+            <IconButton
+              onClick={() => {
+                const user = userData.find((user) => user.userName === params.row.user_ID);
+                setSelectedUser(user);
+                setOpen(true);
+              }}
+              title="Customer Details"
+            >
+              <InfoIcon />
+            </IconButton>
+          ),
+        }      
       ];
       const userIdToUsername = {};
         userData.forEach(user => {
@@ -228,9 +247,11 @@ const [statusConfirmOpen, setStatusConfirmOpen] = useState(false);
      
       return(
         <div >
-            <br></br>
-            <br></br>
-            <br></br>
+                     <h1 style={{ color: 'black', justifyContent: 'center', marginTop: '50px' }}>Orders Log</h1>
+      <p style={{ textAlign: 'center', fontSize: 'x-large', color: 'black', justifyContent: 'center', marginTop: '25px' }}>
+        Update Bookings Of Users
+      </p>
+ 
           <Box sx={{height: 730, width: '80%',alignContent:'center',alignItems:'center',justifyContent:'center',marginLeft:'170px' }}>
           <ThemeProvider theme={theme}>
             <DataGrid
@@ -243,16 +264,16 @@ const [statusConfirmOpen, setStatusConfirmOpen] = useState(false);
               initialState={{
                 pagination: {
                   paginationModel: {
-                    pageSize: 10,
+                    pageSize: 11,
                   },
                 },
               }}
-              pageSizeOptions={[10]}
+              pageSizeOptions={[11]}
               onCellClick={handleCellClick}
             />
           </ThemeProvider>
     </Box>  
-    <Dialog open={open} onClose={handleClose} maxWidth={'xl'} sx={{backgroundColor:'#F2F3F4'}}>
+    <Dialog open={open} onClose={handleClose} maxWidth={'xl'} >
         <DialogTitle>User Details</DialogTitle>
         <DialogContent>
           <DialogContentText>
@@ -300,8 +321,9 @@ const [statusConfirmOpen, setStatusConfirmOpen] = useState(false);
     <br></br>
     <br></br>
     <br></br>
-
+ 
         </div>
     );
 }
 export default Booking;
+ 

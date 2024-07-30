@@ -31,7 +31,7 @@ function Package() {
       });
 
     const confettiAnimation = party.confetti(document.body, {
-      count: party.variation.range( 100,150),
+      count: party.variation.range( 80,100),
     });
 
   }, []);
@@ -39,7 +39,7 @@ function Package() {
   const handleBuyPackage = async (package_ID) => {
     try {
       const response = await api.post('/package/buyPackage', package_ID);
-      navigate('/invoice');
+      navigate('/carDetails');
       console.log('Registration successful:', response.data);
       // Handle success (e.g., redirect to login page)
     } catch (error) {
@@ -94,7 +94,7 @@ function Package() {
                 }}
               >
                 <CardActions>
-                  <Button size="medium" variant="contained" style={{ backgroundColor: '#008b8b' }} onClick={() => handleBuyPackage(item.service_ID)}>
+                  <Button size="medium" variant="contained" style={{  height:'35px',width:"179px",backgroundColor: '#008b8b' }} onClick={() => handleBuyPackage(item.service_ID)}>
                     Buy Now
                   </Button>
                 </CardActions>

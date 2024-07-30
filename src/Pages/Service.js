@@ -66,7 +66,7 @@ function Service() {
     try {
       const response = await api.post('/cart/addQuickService', selectedServices); // Corrected the payload
       console.log('Added successfully!', response.data);
-      navigate('/invoice');
+      navigate('/carDetails');
     } catch (error) {
       alert('Could not add!');
       console.error('Registration failed:', error);
@@ -104,7 +104,7 @@ function Service() {
             </CardContent>
             <br></br>
             <Box sx={{alignContent:'center',alignItems:'center'}}width="100%" justifyContent="center" fontFamily='Times New Roman, Times, serif'>
-              <Button size="large" variant="contained" sx={{alignContent:'center',alignItems:'center', marginLeft:'37%',alignContent:'center',alignItems:'center', justifyContent:"center",backgroundColor: '#008b8b' }} onClick={handleAddToCart}>
+              <Button size="large" variant="contained" sx={{height:'35px',width:"171px",alignContent:'center',alignItems:'center', marginLeft:'37%',alignContent:'center',alignItems:'center', justifyContent:"center",backgroundColor: '#008b8b' }} onClick={handleAddToCart}>
                 Book Service
               </Button>
             </Box>

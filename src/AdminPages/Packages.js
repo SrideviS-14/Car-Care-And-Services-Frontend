@@ -37,25 +37,25 @@ function Packages() {
   const [data, setData] = useState([]);
   const [carddata, setcarddata] = useState([]);
   const [open, setOpen] = React.useState(false);
-  
+ 
   const handleClickOpen = (item) => {
-    
+   
     setData(item);
     setOpen(true);
   };
-
+ 
   const handleClose = () => {
     setOpen(false);
   };
   const [deleteConfirmOpen, setDeleteConfirmOpen] = useState(false);
   const [serviceToDelete, setServiceToDelete] = useState(null);
-  
+ 
   const handleDeleteConfirmationOpen = (service_ID) => {
     console.log(service_ID);
     setServiceToDelete(service_ID);
     setDeleteConfirmOpen(true);
   };
-  
+ 
   const handleDeleteConfirmationClose = () => {
     setDeleteConfirmOpen(false);
   };
@@ -64,13 +64,14 @@ function Packages() {
       const response = await api.delete(`/service/deleteService/${serviceToDelete}`);
       console.log('Deleted successfully!', response.data);
       setpackagedata(carddata.filter(item => item.service_ID !== serviceToDelete));
+      window.location.reload();
       setDeleteConfirmOpen(false);
     } catch (error) {
       alert('Could not delete the service!');
       console.error('Deletion failed:', error);
     }
   }
-    
+   
     const handleupdate = async () => {
       try {
         console.log(data);
@@ -88,7 +89,11 @@ function Packages() {
     }
     return (
       <div>
-      <Grid container spacing={4} style={{ marginTop: '180px', justifyContent: 'center'}}>
+              <h1 style={{ color: 'black', justifyContent: 'center', marginTop: '50px' }}>Package Updation</h1>
+      <p style={{ textAlign: 'center', fontSize: 'x-large', color: 'black', justifyContent: 'center', marginTop: '25px' }}>
+        Update or Delete Packages!
+      </p>
+      <Grid container spacing={4} style={{ marginTop: '10px', justifyContent: 'center'}}>
         {packagedata.map((item) => (
           <Grid item key={item.service_ID} style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
             <Card style={{backgroundColor:'#F2F3F4',width:'400px',height:'400px',fontFamily:'Times New Roman, Times, serif',fontSize:'large',color:'black',borderColor:'#d4af37',borderRadius:'15px',border:'5px 5px 5px 5px'}}>
@@ -126,12 +131,12 @@ function Packages() {
     <Button onClick={handledelete}>Delete</Button>
   </DialogActions>
 </Dialog>
-
+ 
       <br></br>
       <Dialog
         open={open}
         onClose={handleClose}
-
+ 
       >
         <DialogTitle>Edit Here</DialogTitle>
         <DialogContent>

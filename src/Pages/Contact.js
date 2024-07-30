@@ -41,11 +41,11 @@ function Contact() {
                             id="outlined-required"
                             multiline
                             rows={4}
-                            sx={{width:'470px'}}
+                            sx={{width:'566px'}}
                         />
                     </Box>
                     <br></br>
-                    <Button variant="contained" sx={{alignContent:'center',alignItems:'center',justifyContent:'center',backgroundColor:'#008b8b'}} color="primary">
+                    <Button variant="contained" sx={{width:'100px',height:'40px',alignContent:'center',alignItems:'center',justifyContent:'center',backgroundColor:'#008b8b'}} color="primary">
                         Submit
                     </Button>
                 </CardContent>

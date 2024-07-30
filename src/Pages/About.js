@@ -34,7 +34,7 @@ function About()
       </Typography>
     </CardContent>
     <CardActions>
-      <Button size="large" sx={{
+      <Button size="large" sx={{height:'35px',width:"171px",
     backgroundColor: '#008b8b',color:'white',fontFamily:'Times New Roman, Times, serif'
     ,'&:hover': {
       bgcolor: '#b0c4de',

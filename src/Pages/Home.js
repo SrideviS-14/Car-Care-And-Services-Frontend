@@ -139,8 +139,8 @@ function Home() {
             </Typography>
           </CardContent>
           <CardActions>
-            <Button size="medium" variant='contained' sx={{ fontFamily:'Times New Roman, Times, serif', borderColor:'#008b8b', backgroundColor:'#008b8b', '&:hover': { bgcolor: '#b0c4de' }}} onClick={handlebutton}>Book A service</Button>
-            <Button size="medium" variant='contained' sx={{ fontFamily:'Times New Roman, Times, serif', borderColor:'#008b8b', backgroundColor:'#008b8b', '&:hover': { bgcolor: '#b0c4de' }}} onClick={handlebutton1}>Learn More</Button>
+            <Button size="medium" variant='contained' sx={{ height:'35px',width:"171px", fontFamily:'Times New Roman, Times, serif', borderColor:'#008b8b', backgroundColor:'#008b8b', '&:hover': { bgcolor: '#b0c4de' }}} onClick={handlebutton}>Book A service</Button>
+            <Button size="medium" variant='contained' sx={{ height:'35px',width:"171px",fontFamily:'Times New Roman, Times, serif', borderColor:'#008b8b', backgroundColor:'#008b8b', '&:hover': { bgcolor: '#b0c4de' }}} onClick={handlebutton1}>Learn More</Button>
           </CardActions>
         </Box>
       </Card>

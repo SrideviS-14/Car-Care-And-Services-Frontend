@@ -5,8 +5,14 @@ h1{
 
 .main-header {
     display: flex;
-    justify-content: space-around; /* Centers items on the line and distribute space evenly */
+    justify-content: space-evenly; 
     font-size: large; /* Makes font size bigger */
+}
+.main-header1{
+    display: flex;
+   justify-content: space-evenly;
+   /* Centers items on the line and distribute space evenly */
+    font-size: large;
 }
 
 button{
@@ -43,6 +49,22 @@ nav{
     font-size:x-large;
     color: black; 
 }
+.navlink {
+    display: flex;
+    align-items: center;
+    justify-content: start;
+  }
+  
+  .navlink svg {
+    height: 15px;
+    width: 25px;
+    margin-right: 1px;
+  }
+  
+  .navlink span {
+    font-size: 20px;
+  }
+  
 .servicespage{
    
     text-decoration: none;
@@ -127,7 +149,7 @@ nav{
     border-color:#0abab5  
 }
 .active{
-    color:#ec9154 ;
+   text-decoration: underline;
 }
 .main-header {
     display: flex;

@@ -118,7 +118,7 @@ function Login() {
       <Box fontFamily='Times New Roman, Times, serif' height="90vh" display="flex" justifyContent="center" alignItems="center">
         <Card sx={{ fontFamily:'Times New Roman, Times, serif',width: 500, backgroundColor: '#F2F3F4', height: 450, justifyContent: "center", borderRadius: 12 }}>
           <CardContent>
-            <Typography gutterBottom variant="h5" component="div" style={{ fontFamily:'Times New Roman, Times, serif',textAlign: 'center' }}>Login In Here</Typography>
+            <Typography gutterBottom variant="h5" component="div" style={{fontWeight:'bolder', fontFamily:'Times New Roman, Times, serif',textAlign: 'center' }}>Login In Here</Typography>
             <Typography gutterBottom variant="h6" component="div" style={{ fontFamily:'Times New Roman, Times, serif',textAlign: 'center' }}>Book Your Service In A Click </Typography><br></br>
             <Box mb={2}>
               <Typography gutterBottom variant="subtitle1">
@@ -155,7 +155,7 @@ function Login() {
           </CardContent>
           <CardActions>
             <Box width="100%" display="flex" justifyContent="center">
-              <Button size="large" variant="contained" style={{ backgroundColor: '#008b8b' }} onClick={handleSubmit}>Lets Get Started</Button>
+              <Button size="large" variant="contained" style={{height:'39px',width:"190px", backgroundColor: '#008b8b' }} onClick={handleSubmit}>Lets Get Started</Button>
             </Box>
           </CardActions>
         </Card>

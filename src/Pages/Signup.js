@@ -95,12 +95,12 @@ function SignUp() {
       </IconButton>
  )
   const handleSubmit = async (e) => {
-    setOpen(true);
     e.preventDefault();
     if (validateForm()) {
       try {
         const response = await api.post('/account/register', formData);
-        // If the registration is successful, navigate to the CarDetails page
+        // If the registration is successful, navigate to the CarDetails page\      
+        setOpen(true);
         console.log(response.data.user.id);
         setJwt(response.data.token)
         localStorage.setItem('jwt', jwt);
@@ -120,7 +120,7 @@ function SignUp() {
     <Box fontFamily='Times New Roman, Times, serif' height="90vh" display="flex" justifyContent="center" alignItems="center" marginTop="100px" marginBottom="100px" >
       <Card sx={{fontFamily:'Times New Roman, Times, serif', width: 550, height: 760, justifyContent: "center", borderRadius: 12, backgroundColor: '#F2F3F4' }}>
         <CardContent sx={{fontFamily:'Times New Roman, Times, serif'}}>
-          <Typography gutterBottom variant="h5" component="div" style={{ textAlign: 'center', padding: 5, marginTop: 10,fontFamily:'Times New Roman, Times, serif' }}>Sign Up Here</Typography>
+          <Typography gutterBottom variant="h5" component="div" style={{fontWeight:'bolder', textAlign: 'center', padding: 5, marginTop: 10,fontFamily:'Times New Roman, Times, serif' }}>Sign Up Here</Typography>
           <Typography gutterBottom variant="h6" component="div" style={{ textAlign: 'center',fontFamily:'Times New Roman, Times, serif' }}>Experience An Exquisite Service On A Click </Typography><br></br>
           <Box md={2}>
             <Typography gutterBottom variant="subtitle1"sx={{fontFamily:'Times New Roman, Times, serif'}}>
@@ -189,16 +189,13 @@ function SignUp() {
         <CardActions>
           <Box width="100%" display="flex" justifyContent="center">
         <Typography gutterBottom variant="subtitle2" style={{ textAlign: 'center',fontFamily:'Times New Roman, Times, serif'}}>
-            <Button size="large" variant="contained" style={{ backgroundColor: '#008b8b' }} onClick={handleSubmit}>Sign Up</Button>
+            <Button size="large" variant="contained" style={{height:'39px',width:"171px", backgroundColor: '#008b8b' }} onClick={handleSubmit}>Sign Up</Button>
             </Typography>
           </Box>
         </CardActions>
         <Typography gutterBottom variant="subtitle2" style={{ textAlign: 'center', }}>
           By signing up you agree to our Terms Of Service and Privacy Policy
         </Typography>
-        <FormGroup>
-          <FormControlLabel control={<Checkbox />} style={{ justifyContent: 'center' }} label="Email me with offers and updates" />
-        </FormGroup>
       </Card>
       <Snackbar
         open={open}

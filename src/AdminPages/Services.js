@@ -128,7 +128,7 @@ const handleDeleteConfirmationClose = () => {
         Add, Update or Delete Services!
       </p>
             <div>
-            <Button style={{ color:'#000080'}} variant="contained" color="primary" startIcon={<AddIcon />} onClick={handleAddOpen}>
+            <Button style={{ color:'white',backgroundColor:'#008b8b',height:'35px',width:"171px",marginLeft:'650px'}} variant="contained" color="primary" startIcon={<AddIcon />} onClick={handleAddOpen}>
               Add Service
             </Button>
             </div>

@@ -45,7 +45,7 @@ function Contact() {
                         />
                     </Box>
                     <br></br>
-                    <Button variant="contained" sx={{width:'100px',height:'40px',alignContent:'center',alignItems:'center',justifyContent:'center',backgroundColor:'#008b8b'}} color="primary">
+                    <Button variant="contained" sx={{width:'100px',height:'40px',alignContent:'center',alignItems:'center',justifyContent:'center',backgroundColor:'#008b8b', marginLeft:'245px'}} color="primary">
                         Submit
                     </Button>
                 </CardContent>

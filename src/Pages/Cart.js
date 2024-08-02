@@ -118,7 +118,7 @@ function Cart() {
                 disabled={disabledStatus[item.service_ID]}
                 size="small"
                 variant='contained'
-                style={{height:'35px',width:"171px", backgroundColor: disabledStatus[item.service_ID] ? '#D3D3D3' : '#000080', fontFamily:'Times New Roman, Times, serif', color: disabledStatus[item.service_ID] ? '#000000' : '#ffffff' }}
+                style={{height:'35px',width:"171px", backgroundColor: disabledStatus[item.service_ID] ? '#D3D3D3' : '#bc0808', fontFamily:'Times New Roman, Times, serif', color: disabledStatus[item.service_ID] ? '#000000' : '#ffffff' }}
                 onClick={() => handleAddToCart(item.service_ID)}
               >
                 <ShoppingCartIcon /> {disabledStatus[item.service_ID] ? 'Added to Cart' : 'Add to Cart'}
@@ -139,7 +139,7 @@ function Cart() {
       </Grid>
       <br></br>
       <CardActions style={{ justifyContent: 'center' }}>
-        <Button size="large" variant='contained' style={{ height:'35px',width:"171px", color:'white',backgroundColor: '#008b8b',fontFamily:'Times New Roman, Times, serif' }} onClick={handleProceedToInvoice}>
+        <Button size="large" variant='contained' style={{ height:'35px',width:"171px", color:'white',backgroundColor: '#bc0808',fontFamily:'Times New Roman, Times, serif' }} onClick={handleProceedToInvoice}>
         View Cart
         </Button>
         <Snackbar

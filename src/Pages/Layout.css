@@ -6,18 +6,17 @@ h1{
 .main-header {
     display: flex;
     justify-content: space-evenly; 
-    font-size: large; /* Makes font size bigger */
+    font-size: x-large; 
 }
 .main-header1{
     display: flex;
    justify-content: space-evenly;
-   /* Centers items on the line and distribute space evenly */
-    font-size: large;
+    font-size: x-large;
 }
 
 button{
     height: 30px;
-  font-size: 0.8rem;
+    font-size: 0.9rem;
 }
 nav{
 
@@ -124,32 +123,32 @@ nav{
     color: black;
 }
 .homepage:hover{
-    color:#0abab5 ;
+    color:#bc0808;
 }
 .aboutpage:hover{
-    color:#0abab5 
+    color: #bc0808 
 
 }
 .guidepage:hover{
-    color:#0abab5 
+    color:#bc0808
   
 }
 .servicepage:hover{
-    color:#0abab5 
+    color:#bc0808
 
 }
 .packagepage:hover{
-    color:#0abab5 
+    color:#bc0808
     
 }
 .bookingpage:hover{
-    border-color:#0abab5  
+    border-color:#bc0808
 }
 .statuspage:hover{
-    border-color:#0abab5  
+    border-color:#bc0808
 }
 .active{
-   text-decoration: underline;
+   color: #bc0808
 }
 .main-header {
     display: flex;

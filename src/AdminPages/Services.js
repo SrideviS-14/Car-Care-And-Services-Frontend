@@ -128,7 +128,7 @@ const handleDeleteConfirmationClose = () => {
         Add, Update or Delete Services!
       </p>
             <div>
-            <Button style={{ color:'white',backgroundColor:'#008b8b',height:'35px',width:"171px",marginLeft:'650px'}} variant="contained" color="primary" startIcon={<AddIcon />} onClick={handleAddOpen}>
+            <Button style={{ color:'white',backgroundColor:'#bc0808',height:'35px',width:"171px",marginLeft:'650px'}} variant="contained" color="primary" startIcon={<AddIcon />} onClick={handleAddOpen}>
               Add Service
             </Button>
             </div>
@@ -189,8 +189,8 @@ const handleDeleteConfirmationClose = () => {
                 </Typography>
               </CardContent>
               <CardActions sx={{justifyContent:'center'}}>
-                <Button size='medium' variant='contained' sx={{backgroundColor:'#008b8b'}}onClick={() => handleClickOpen(item)}><EditIcon /></Button>
-                <Button size='medium' variant='contained' sx={{backgroundColor:'#008b8b'}} onClick={() => handleDeleteConfirmationOpen(item.service_ID)}><DeleteIcon /></Button>
+                <Button size='medium' variant='contained' sx={{backgroundColor:'#bc0808'}}onClick={() => handleClickOpen(item)}><EditIcon /></Button>
+                <Button size='medium' variant='contained' sx={{backgroundColor:'#bc0808'}} onClick={() => handleDeleteConfirmationOpen(item.service_ID)}><DeleteIcon /></Button>
               </CardActions>
             </Card>
           </Grid>

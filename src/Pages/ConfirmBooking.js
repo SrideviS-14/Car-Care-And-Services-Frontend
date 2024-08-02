@@ -101,7 +101,7 @@ function ConfirmBooking() {
         <div style={{ textAlign: 'left',fontFamily:'Times New Roman, Times, serif' }}>{item.description}</div>
         <br />
         <CardActions style={{ justifyContent: 'flex-end',fontFamily:'Times New Roman, Times, serif' }}>
-          <Button size='medium' variant='outlined' style={{ color:'#008b8b',borderColor: '#008b8b',margin: '5px',fontFamily:'Times New Roman, Times, serif' }}
+          <Button size='medium' variant='outlined' style={{ color:'#bc0808',borderColor: '#bc0808',margin: '5px',fontFamily:'Times New Roman, Times, serif' }}
             onClick={() => handleRemoveService(item.service_ID)}> <DeleteIcon />   Remove</Button>
         </CardActions>
       </CardContent>
@@ -113,9 +113,9 @@ function ConfirmBooking() {
 ))}
 <br></br>
         <CardActions style={{alignContent:'center',justifyContent:'center',fontFamily:'Times New Roman, Times, serif'}}>
-        <Button size='medium' variant='contained' style={{height:'35px',width:"171px", backgroundColor: '#008b8b' }}
+        <Button size='medium' variant='contained' style={{height:'35px',width:"171px", backgroundColor: '#bc0808' }}
               onClick={() => handleAddService()} >Add Service</Button>
-        <Button size='medium' variant='contained' style={{height:'35px',width:"171px", backgroundColor: '#008b8b' }}
+        <Button size='medium' variant='contained' style={{height:'35px',width:"171px", backgroundColor: '#bc0808' }}
               onClick={() => handleInvoice()} >Proceed</Button>
 </CardActions>
 <Snackbar

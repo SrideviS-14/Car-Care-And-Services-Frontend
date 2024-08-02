@@ -114,9 +114,15 @@ function Login() {
       </IconButton>
    )
   return (
-    <div>
-      <Box fontFamily='Times New Roman, Times, serif' height="90vh" display="flex" justifyContent="center" alignItems="center">
-        <Card sx={{ fontFamily:'Times New Roman, Times, serif',width: 500, backgroundColor: '#F2F3F4', height: 450, justifyContent: "center", borderRadius: 12 }}>
+    <div style={{
+      marginTop:'50px',
+      backgroundImage: `url("https://www.galaxytoyota.in/blog/wp-content/uploads/2020/08/Untitled-2.jpg")`,
+      backgroundPosition: 'center',
+      backgroundSize: 'cover',
+      backgroundRepeat: 'no-repeat'
+    }}>
+      <Box fontFamily='Times New Roman, Times, serif' height="90vh" display="flex">
+        <Card sx={{ fontFamily:'Times New Roman, Times, serif',width: 500,marginTop:"210px",marginLeft:'230px',backgroundColor: '#F2F3F4', height: 450,  borderRadius: 12 }}>
           <CardContent>
             <Typography gutterBottom variant="h5" component="div" style={{fontWeight:'bolder', fontFamily:'Times New Roman, Times, serif',textAlign: 'center' }}>Login In Here</Typography>
             <Typography gutterBottom variant="h6" component="div" style={{ fontFamily:'Times New Roman, Times, serif',textAlign: 'center' }}>Book Your Service In A Click </Typography><br></br>
@@ -155,7 +161,7 @@ function Login() {
           </CardContent>
           <CardActions>
             <Box width="100%" display="flex" justifyContent="center">
-              <Button size="large" variant="contained" style={{height:'39px',width:"190px", backgroundColor: '#008b8b' }} onClick={handleSubmit}>Lets Get Started</Button>
+              <Button size="large" variant="contained" style={{height:'39px',width:"190px", backgroundColor: '#bc0808' }} onClick={handleSubmit}>Lets Get Started</Button>
             </Box>
           </CardActions>
         </Card>

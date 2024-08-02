@@ -104,7 +104,7 @@ function Service() {
             </CardContent>
             <br></br>
             <Box sx={{alignContent:'center',alignItems:'center'}}width="100%" justifyContent="center" fontFamily='Times New Roman, Times, serif'>
-              <Button size="large" variant="contained" sx={{height:'35px',width:"171px",alignContent:'center',alignItems:'center', marginLeft:'37%',alignContent:'center',alignItems:'center', justifyContent:"center",backgroundColor: '#008b8b' }} onClick={handleAddToCart}>
+              <Button size="large" variant="contained" sx={{height:'35px',width:"171px",alignContent:'center',alignItems:'center', marginLeft:'37%',alignContent:'center',alignItems:'center', justifyContent:"center",backgroundColor: '#bc0808' }} onClick={handleAddToCart}>
                 Book Service
               </Button>
             </Box>

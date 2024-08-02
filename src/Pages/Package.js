@@ -94,7 +94,7 @@ function Package() {
                 }}
               >
                 <CardActions>
-                  <Button size="medium" variant="contained" style={{  height:'35px',width:"179px",backgroundColor: '#008b8b' }} onClick={() => handleBuyPackage(item.service_ID)}>
+                  <Button size="medium" variant="contained" style={{  height:'35px',width:"179px",backgroundColor: '#bc0808' }} onClick={() => handleBuyPackage(item.service_ID)}>
                     Buy Now
                   </Button>
                 </CardActions>

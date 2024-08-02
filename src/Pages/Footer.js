@@ -7,7 +7,7 @@ import PinterestIcon from '@mui/icons-material/Pinterest';
 
 function Footer() {
   return (
-    <footer className="footer" style={{backgroundColor:'#F2F3F4',alignContent:'center',justifyContent:'center',textAlign:'center',fontSize:'large'}}>
+    <footer className="footer" style={{ bottom: '0', width: '100%',backgroundColor:'#F2F3F4',alignContent:'center',justifyContent:'center',textAlign:'center',fontSize:'large'}}>
       <p style={{color:'#003366',fontFamily:'Times New Roman, Times, serif'}}>© 2024 WheelsUp Care And Services. All rights reserved.</p>
       <a href='https://www.instagram.com/accounts/login/'>
         <InstagramIcon sx={{marginRight:'10px',fontSize:30,color:'#003366'}} />

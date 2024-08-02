@@ -117,8 +117,15 @@ function SignUp() {
   };
  
   return (
-    <Box fontFamily='Times New Roman, Times, serif' height="90vh" display="flex" justifyContent="center" alignItems="center" marginTop="100px" marginBottom="100px" >
-      <Card sx={{fontFamily:'Times New Roman, Times, serif', width: 550, height: 760, justifyContent: "center", borderRadius: 12, backgroundColor: '#F2F3F4' }}>
+    <div style={{
+      marginTop:'50px',
+      backgroundImage: `url("https://www.galaxytoyota.in/blog/wp-content/uploads/2020/08/Untitled-2.jpg")`,
+      backgroundPosition: 'center',
+      backgroundSize: 'cover',
+      backgroundRepeat: 'no-repeat'
+    }}>
+ <Box fontFamily='Times New Roman, Times, serif' height="90vh" display="flex" justifyContent="center" alignItems="center" >
+      <Card sx={{fontFamily:'Times New Roman, Times, serif', width: 550, height: 760,marginTop:'50px',marginBottom:'50px', justifyContent: "center", borderRadius: 12, backgroundColor: '#F2F3F4' }}>
         <CardContent sx={{fontFamily:'Times New Roman, Times, serif'}}>
           <Typography gutterBottom variant="h5" component="div" style={{fontWeight:'bolder', textAlign: 'center', padding: 5, marginTop: 10,fontFamily:'Times New Roman, Times, serif' }}>Sign Up Here</Typography>
           <Typography gutterBottom variant="h6" component="div" style={{ textAlign: 'center',fontFamily:'Times New Roman, Times, serif' }}>Experience An Exquisite Service On A Click </Typography><br></br>
@@ -189,7 +196,7 @@ function SignUp() {
         <CardActions>
           <Box width="100%" display="flex" justifyContent="center">
         <Typography gutterBottom variant="subtitle2" style={{ textAlign: 'center',fontFamily:'Times New Roman, Times, serif'}}>
-            <Button size="large" variant="contained" style={{height:'39px',width:"171px", backgroundColor: '#008b8b' }} onClick={handleSubmit}>Sign Up</Button>
+            <Button size="large" variant="contained" style={{height:'39px',width:"171px", backgroundColor: '#bc0808' }} onClick={handleSubmit}>Sign Up</Button>
             </Typography>
           </Box>
         </CardActions>
@@ -213,7 +220,7 @@ function SignUp() {
       <br></br>
       <br></br>
     </Box>
-    
+    </div>
   );
 }
  

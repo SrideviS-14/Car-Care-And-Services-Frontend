@@ -204,11 +204,11 @@ function Invoice() {
  <br></br>
  </Paper>
  <div style={{ display: 'flex', justifyContent: 'space-between', width: '600px', margin: '20px auto' }}>
-  <Button size='medium' variant='contained' style={{ height:'35px',width:"179px",backgroundColor: '#008b8b' }}
+  <Button size='medium' variant='contained' style={{ height:'35px',width:"179px",backgroundColor: '#bc0808' }}
     onClick={handlePrint}>Download Invoice</Button>
-  <Button size='medium' variant='contained' style={{height:'35px',width:"171px", backgroundColor: '#008b8b' }}
+  <Button size='medium' variant='contained' style={{height:'35px',width:"171px", backgroundColor: '#bc0808' }}
     onClick={() => handleBackToCart()}>Back To Cart</Button>
-  <Button size='medium' variant='contained' style={{ height:'35px',width:"171px",backgroundColor: '#008b8b' }}
+  <Button size='medium' variant='contained' style={{ height:'35px',width:"171px",backgroundColor: '#bc0808' }}
     onClick={() => handlePayment()}>Proceed To Pay</Button>
 </div>
 
@@ -251,8 +251,8 @@ function Invoice() {
         </DialogContent>
         <DialogActions >
         <Button onClick={handleClose}>Cancel</Button>
-          <Button onClick={(e) => handleInPersonPay(e)}>In-Person</Button>
-          <Button onClick={(e) => handleOnlinePay(e)}>Online</Button>
+          <Button variant="contained" onClick={(e) => handleInPersonPay(e)}>In-Person</Button>
+          <Button variant="contained"  onClick={(e) => handleOnlinePay(e)}>Online</Button>
         </DialogActions>
       </Dialog>
 

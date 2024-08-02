@@ -105,7 +105,7 @@ function CarDetails(){
             marginBottom:'50px',
             margin: '10px', 
             cursor: 'pointer',
-            backgroundColor: selectedCar === car ? '#008b8b' : 'white' 
+            backgroundColor: selectedCar === car ? '#ce2029' : 'white' 
           }}
         >
           <CardContent >
@@ -132,7 +132,7 @@ function CarDetails(){
           height:'35px',
           width:"171px",
           marginLeft:'200px',
-          backgroundColor: selectedCar ? '#008b8b' : '#000080'
+          backgroundColor: selectedCar ? '#bc0808' : '#bc0808'
         }}>Proceed</Button>
       <br></br>
       <br></br>
@@ -215,7 +215,7 @@ function CarDetails(){
     </Box>
     </CardContent>
     <CardActions sx={{justifyContent:'center',fontFamily:'Times New Roman, Times, serif'}}>
-    <Button size='large' variant='contained'onClick={handlesubmit} style={{ height:'35px',width:"171px",alignContent:'center',backgroundColor: '#000080',fontFamily:'Times New Roman, Times, serif'}}>Submit</Button>
+    <Button size='large' variant='contained'onClick={handlesubmit} style={{ height:'35px',width:"171px",alignContent:'center',backgroundColor: '#bc0808',fontFamily:'Times New Roman, Times, serif'}}>Submit</Button>
     </CardActions>
     </Grid>
     </Grid>

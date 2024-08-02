@@ -108,8 +108,8 @@ function Packages() {
                            </CardContent>
                            <div className="button-container" style={{ display:'flex',justifyContent:'center'}}>
                 <CardActions>
-                <Button size='medium' variant='contained' sx={{backgroundColor:'#008b8b'}} onClick={() => handleClickOpen(item)}><EditIcon /></Button>
-                <Button size='medium' variant='contained' sx={{backgroundColor:'#008b8b'}} onClick={() => handleDeleteConfirmationOpen(item.service_ID)}><DeleteIcon /></Button>
+                <Button size='medium' variant='contained' sx={{backgroundColor:'#bc0808'}} onClick={() => handleClickOpen(item)}><EditIcon /></Button>
+                <Button size='medium' variant='contained' sx={{backgroundColor:'#bc0808'}} onClick={() => handleDeleteConfirmationOpen(item.service_ID)}><DeleteIcon /></Button>
                 </CardActions>
               </div>
             </Card>

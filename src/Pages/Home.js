@@ -37,7 +37,7 @@ class MyCard extends React.Component {
     render() {
         return (
             <ReactCardFlip isFlipped={this.state.isFlipped} flipDirection="vertical" flipSpeedBackToFront={1} flipSpeedFrontToBack={1} sx={{alignContent:'center', justifyContent: 'center'}}>
-                <Card onMouseEnter={this.handleHover} onMouseLeave={this.handleHoverLeave} sx={{ textAlign: 'center', fontFamily:'Times New Roman, Times, serif',alignContent:'center', justifyContent: 'center',width:320,height:310, borderRadius: 10, marginLeft:8, fontFamily:'Times New Roman, Times, serif', backgroundColor:'#F2F3F4','&:hover': { bgcolor:'#0abab5' } }}>
+                <Card onMouseEnter={this.handleHover} onMouseLeave={this.handleHoverLeave} sx={{ textAlign: 'center', fontFamily:'Times New Roman, Times, serif',alignContent:'center', justifyContent: 'center',width:320,height:310, borderRadius: 10, marginLeft:8, fontFamily:'Times New Roman, Times, serif', backgroundColor:'#F2F3F4','&:hover': { bgcolor:'#dc143c',color:'white' } }}>
                     <CardContent sx={{ alignContent:'center', justifyContent: 'center', display: 'flex' }}>
                         <this.props.icon style={{ fontSize: 60 }} onClick={this.props.onIconClick} />
                     </CardContent>
@@ -102,11 +102,10 @@ function Home() {
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor:'#008b8b',
         height: '55px',
         fontSize: 'x-large',
         fontWeight: 'bolder',
-        color: 'white'
+        color: '#bc0808'
       }}>
         <marquee>Call to this (+91) 9475765201 to book your service</marquee>
       </div>
@@ -139,8 +138,8 @@ function Home() {
             </Typography>
           </CardContent>
           <CardActions>
-            <Button size="medium" variant='contained' sx={{ height:'35px',width:"171px", fontFamily:'Times New Roman, Times, serif', borderColor:'#008b8b', backgroundColor:'#008b8b', '&:hover': { bgcolor: '#b0c4de' }}} onClick={handlebutton}>Book A service</Button>
-            <Button size="medium" variant='contained' sx={{ height:'35px',width:"171px",fontFamily:'Times New Roman, Times, serif', borderColor:'#008b8b', backgroundColor:'#008b8b', '&:hover': { bgcolor: '#b0c4de' }}} onClick={handlebutton1}>Learn More</Button>
+            <Button size="medium" variant='contained' sx={{ height:'35px',width:"171px", fontFamily:'Times New Roman, Times, serif', borderColor:'#bc0808', backgroundColor:'#bc0808', '&:hover': { bgcolor: '#b0c4de' }}} onClick={handlebutton}>Book A service</Button>
+            <Button size="medium" variant='contained' sx={{ height:'35px',width:"171px",fontFamily:'Times New Roman, Times, serif', borderColor:'#bc0808', backgroundColor:'#bc0808', '&:hover': { bgcolor: '#b0c4de' }}} onClick={handlebutton1}>Learn More</Button>
           </CardActions>
         </Box>
       </Card>

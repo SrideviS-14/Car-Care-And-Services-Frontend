@@ -11,32 +11,34 @@ import Snackbar from '@mui/material/Snackbar';
 function Cart() {
   const navigate = useNavigate();
   const [openAddToCart, setOpenAddToCart] = React.useState(false);
-  const [openConfirmBooking, setOpenConfirmBooking] = React.useState(false);
-  const {jwt, setJwt } = useAuth();
-  const [disabledStatus, setDisabledStatus] = useState({});
-  const [addedStatus, setAddedStatus] = useState({});
+  const {jwt, setJwt} = useAuth(); // Assuming currentUser is available in AuthContext
   axios.defaults.headers.common['Access-Control-Allow-Origin'] = '*';
   axios.defaults.headers.common['Access-Control-Allow-Headers'] = 'Origin, X-Requested-With, Content-Type, Accept';
+  const [data, setdata] = useState();
   const api = axios.create({
     baseURL: 'http://localhost:8080',
     headers: {
       Authorization: `Bearer ${jwt}`,
       "Content-Type": 'application/json'
-    }, // Change this to your actual backend URL
+    },
   });
+  const [addedStatus, setAddedStatus] = useState({});
+ 
+  useEffect(() => {
+    api.get('/account/profile')
+      .then((response) => {
+        console.log(response.data);
+        setdata(response.data.User);
+        setAddedStatus(JSON.parse(localStorage.getItem(jwt)) || {});
+      })
+      .catch((error) => {
+        console.error('Error fetching data:', error);
+      });
+  }, []);
+ 
   const [carddata, setcarddata] = useState([]);
  
   useEffect(() => {
-    if (!jwt) {
-      localStorage.removeItem(`disabledStatus-${jwt}`);
-      setDisabledStatus({});
-    } else {
-      const savedDisabledStatus = JSON.parse(localStorage.getItem(`disabledStatus-${jwt}`));
-      if (savedDisabledStatus) {
-        setDisabledStatus(savedDisabledStatus);
-      }
-    }
- 
     api.get('/service/getAllServices')
       .then((response) => {
         console.log(response.data);
@@ -47,28 +49,20 @@ function Cart() {
       });
   }, [jwt]);
  
-  const handleProceedToInvoice = async () => {
-    setOpenConfirmBooking(true);
-    setTimeout(() => {
-      navigate('/confirmbooking');
-    }, 500);
-  }
   const handleAddToCart = async (service_ID) => {
     try {
       setOpenAddToCart(true);
       console.log(service_ID);
-      setDisabledStatus(prevStatus => {
+      setAddedStatus(prevStatus => {
         const newStatus = { ...prevStatus, [service_ID]: true };
-        localStorage.setItem(`disabledStatus-${jwt}`, JSON.stringify(newStatus));
+        localStorage.setItem(jwt, JSON.stringify(newStatus));
         return newStatus;
       });
-      setAddedStatus(prevStatus => ({ ...prevStatus, [service_ID]: true }));
-      const response = await api.post('/cart/addService', service_ID); // Corrected the payload
+      const response = await api.post('/cart/addService', service_ID);
       console.log('Added successfully!', response.data);
     } catch (error) {
       alert('Could not add!');
       console.error('Registration failed:', error);
-      // Handle error (e.g., display error message)
     }
   };
  
@@ -77,7 +71,6 @@ function Cart() {
       return;
     }
     setOpenAddToCart(false);
-    setOpenConfirmBooking(false);
   };
   const action =(
     <IconButton
@@ -115,13 +108,12 @@ function Cart() {
               </CardContent>
               <CardActions style={{ justifyContent: 'center' }}>
               <Button
-                disabled={disabledStatus[item.service_ID]}
                 size="small"
                 variant='contained'
-                style={{height:'35px',width:"171px", backgroundColor: disabledStatus[item.service_ID] ? '#D3D3D3' : '#bc0808', fontFamily:'Times New Roman, Times, serif', color: disabledStatus[item.service_ID] ? '#000000' : '#ffffff' }}
-                onClick={() => handleAddToCart(item.service_ID)}
+                style={{height:'35px',width:"171px", backgroundColor: addedStatus[item.service_ID] ? '#008080' : '#bc0808', fontFamily:'Times New Roman, Times, serif', color:  '#ffffff' }}
+                onClick={() => addedStatus[item.service_ID] ? navigate('/confirmbooking') : handleAddToCart(item.service_ID)}
               >
-                <ShoppingCartIcon /> {disabledStatus[item.service_ID] ? 'Added to Cart' : 'Add to Cart'}
+                <ShoppingCartIcon /> {addedStatus[item.service_ID] ? 'View in Cart' : 'Add to Cart'}
               </Button>
               </CardActions>
             </Card>
@@ -137,20 +129,6 @@ function Cart() {
         anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
       />
       </Grid>
-      <br></br>
-      <CardActions style={{ justifyContent: 'center' }}>
-        <Button size="large" variant='contained' style={{ height:'35px',width:"171px", color:'white',backgroundColor: '#bc0808',fontFamily:'Times New Roman, Times, serif' }} onClick={handleProceedToInvoice}>
-        View Cart
-        </Button>
-        <Snackbar
-        severity="success"
-        open={openConfirmBooking}
-        autoHideDuration={2000}
-        onClose={handleClose}
-        message="View the items in your cart"
-        action={action}
-      />
-      </CardActions>
       <br></br>
       <br></br>
       <br></br>

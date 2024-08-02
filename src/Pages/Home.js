@@ -47,9 +47,9 @@ class MyCard extends React.Component {
                         </Typography>
                     </CardContent>
                 </Card>
-                <Card onMouseEnter={this.handleHover} onMouseLeave={this.handleHoverLeave} sx={{textAlign: 'center', fontFamily:'Times New Roman, Times, serif', width: 320, height: 310, borderRadius: 10, marginLeft:8, fontFamily:'Times New Roman, Times, serif', backgroundColor:'#F2F3F4' }}>
+                <Card onMouseEnter={this.handleHover} onMouseLeave={this.handleHoverLeave} sx={{justifyContent:'center',textAlign: 'center', fontFamily:'Times New Roman, Times, serif', width: 320, height: 310, borderRadius: 10, marginLeft:8, fontFamily:'Times New Roman, Times, serif', backgroundColor:'#F2F3F4' }}>
                     <CardContent sx={{ alignContent:'center', justifyContent: 'center' }}>
-                        <Typography gutterBottom variant="h6" component="h6" style={{ textAlign: 'center', fontFamily:'Times New Roman, Times, serif' }}>
+                        <Typography gutterBottom variant="h6" component="h6" style={{ alignContent:'justify',justifyContent:'center',textAlign: 'center', fontFamily:'Times New Roman, Times, serif' }}>
                             {this.props.description}
                         </Typography>
                     </CardContent>

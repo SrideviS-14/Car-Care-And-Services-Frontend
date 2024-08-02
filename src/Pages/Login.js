@@ -122,7 +122,7 @@ function Login() {
       backgroundRepeat: 'no-repeat'
     }}>
       <Box fontFamily='Times New Roman, Times, serif' height="90vh" display="flex">
-        <Card sx={{ fontFamily:'Times New Roman, Times, serif',width: 500,marginTop:"210px",marginLeft:'230px',backgroundColor: '#F2F3F4', height: 450,  borderRadius: 12 }}>
+        <Card sx={{ fontFamily:'Times New Roman, Times, serif',width: 500,marginTop:"190px",marginLeft:'180px',backgroundColor: '#F2F3F4', height: 450,  borderRadius: 12 }}>
           <CardContent>
             <Typography gutterBottom variant="h5" component="div" style={{fontWeight:'bolder', fontFamily:'Times New Roman, Times, serif',textAlign: 'center' }}>Login In Here</Typography>
             <Typography gutterBottom variant="h6" component="div" style={{ fontFamily:'Times New Roman, Times, serif',textAlign: 'center' }}>Book Your Service In A Click </Typography><br></br>

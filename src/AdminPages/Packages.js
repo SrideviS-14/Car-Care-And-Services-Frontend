@@ -162,6 +162,8 @@ function Packages() {
             type="text"
             fullWidth
             variant="standard"
+            multiline
+            maxRows={5}
             value={data.description}
             defaultValue={data.description}
             onChange={(e) => setData({ ...data, description: e.target.value })}

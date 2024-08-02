@@ -14,16 +14,17 @@ const theme = createTheme({
       styleOverrides: {
         root: {
           '& .MuiDataGrid-columnHeader': {
-            backgroundColor: '#5f9ea0',
-            color: 'white',
+            backgroundColor: '#F2F3F4',
+            color: 'black',
+            fontWeight:'bold',
           },
  
           '& .MuiDataGrid-toolbarContainer': {
-            backgroundColor: '#D7E4E3',
+            backgroundColor: '#F2F3F4',
             color: 'black', // Change this to the color you want for the text/icons
           },
           '& .MuiDataGrid-pagination': {
-            color: 'white', // Change this to the color you want for the text/icons
+            color: 'black', // Change this to the color you want for the text/icons
           },
         },
       },
@@ -255,7 +256,7 @@ const [statusConfirmOpen, setStatusConfirmOpen] = useState(false);
           <Box sx={{height: 730, width: '80%',alignContent:'center',alignItems:'center',justifyContent:'center',marginLeft:'170px' }}>
           <ThemeProvider theme={theme}>
             <DataGrid
-              sx={{borderRadius:'15px',backgroundColor:'#5f9ea0  ',color:'white'}}
+              sx={{borderRadius:'15px',backgroundColor:'#F2F3F4 ',color:'black'}}
               rows={rows}
               columns={columns}
               slots={{

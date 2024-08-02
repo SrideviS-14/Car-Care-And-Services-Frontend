@@ -33,24 +33,7 @@ function ConfirmBooking() {
         console.error('Error fetching data:', error);
       });
   }, []);
-  const handleRemoveService = async (serviceId) => {
-    try {
-      const response = await api.post('/cart/removeService', serviceId);
-      setcarddata(carddata.filter(item => item.service_ID !== serviceId));
-      console.log('Successful', response.data);
-      setOpenRemove(true);
  
-      // Enable the button for this service in localStorage
-      const savedDisabledStatus = JSON.parse(localStorage.getItem(`disabledStatus-${jwt}`));
-      if (savedDisabledStatus) {
-        savedDisabledStatus[serviceId] = false;
-        localStorage.setItem(`disabledStatus-${jwt}`, JSON.stringify(savedDisabledStatus));
-      }
-    } catch (error) {
-      alert("Cannot remove");
-      console.error('Failed');
-    }
-  };
  
  
   const navigate = useNavigate();
@@ -69,6 +52,24 @@ function ConfirmBooking() {
     }
     setOpenRemove(false);
     setOpenInvoice(false);
+  };
+  const handleRemoveService = async (serviceId) => {
+    try {
+      const response = await api.post('/cart/removeService', serviceId);
+      setcarddata(carddata.filter(item => item.service_ID !== serviceId));
+      console.log('Successful', response.data);
+      setOpenRemove(true);
+ 
+      // Enable the button for this service in localStorage
+      const savedDisabledStatus = JSON.parse(localStorage.getItem(jwt));
+      if (savedDisabledStatus) {
+        savedDisabledStatus[serviceId] = false;
+        localStorage.setItem(jwt, JSON.stringify(savedDisabledStatus));
+      }
+    } catch (error) {
+      alert("Cannot remove");
+      console.error('Failed');
+    }
   };
   const action =(
     <IconButton
@@ -90,27 +91,51 @@ function ConfirmBooking() {
       </p>
       <br />
       <br />
-      {carddata.map((item) => (
-        <>
-  <Grid  container spacing={3}item key={item.service_ID}>
-    <Card style={{ marginLeft:'320px',justifyContent: 'center', width: '900px', height: '290px', borderRadius: '5', backgroundColor: '#F2F3F4',fontFamily:'Times New Roman, Times, serif' }}>
-      <CardContent style={{ fontSize: 'x-Large', flexDirection: 'column',fontFamily:'Times New Roman, Times, serif' }}>
-        <div style={{ fontSize: 'xx-large', fontWeight: 'bold',fontFamily:'Times New Roman, Times, serif' }}>{item.service_Name}</div>
-        <div style={{ textAlign: 'right',fontFamily:'Times New Roman, Times, serif' }}>₹{item.service_Amount}</div>
-        <br />
-        <div style={{ textAlign: 'left',fontFamily:'Times New Roman, Times, serif' }}>{item.description}</div>
-        <br />
-        <CardActions style={{ justifyContent: 'flex-end',fontFamily:'Times New Roman, Times, serif' }}>
-          <Button size='medium' variant='outlined' style={{ color:'#bc0808',borderColor: '#bc0808',margin: '5px',fontFamily:'Times New Roman, Times, serif' }}
-            onClick={() => handleRemoveService(item.service_ID)}> <DeleteIcon />   Remove</Button>
-        </CardActions>
-      </CardContent>
-    </Card>
-  </Grid>
+      <table style={{ padding: '20px', backgroundColor: '#F2F3F4', marginLeft: '290px', width: '900px', fontFamily: 'Times New Roman, Times, serif' }}>
+  <thead style={{ boxShadow: 'black', borderColor: 'black' }}>
+    <tr>
+      <th style={{ fontSize: 'x-large', fontWeight: 'bold' }}>Service Name</th>
+      <th style={{ fontSize: 'x-large', textAlign: 'right' }}>Price</th>
+      <th></th> {/* Empty header for the actions column */}
+    </tr>
+  </thead>
+  {/* Partition 1 */}
+  <tbody style={{ borderBottom: '2px solid black' }}>
+    {carddata.slice(0, Math.ceil(carddata.length / 2)).map((item) => (
+      <tr key={item.service_ID}>
+        <td style={{ fontSize: 'large' }}>{item.service_Name}</td>
+        <td style={{ fontSize: 'large', textAlign: 'right' }}>₹{item.service_Amount}</td>
+        <td style={{ textAlign: 'right' }}>
+          <button
+            style={{ color: '#bc0808', borderColor: '#bc0808', margin: '5px' }}
+            onClick={() => handleRemoveService(item.service_ID)}
+          >
+            <DeleteIcon />
+          </button>
+        </td>
+      </tr>
+    ))}
+  </tbody>
+  {/* Partition 2 */}
+  <tbody>
+    {carddata.slice(Math.ceil(carddata.length / 2)).map((item) => (
+      <tr key={item.service_ID}>
+        <td style={{ fontSize: 'large' }}>{item.service_Name}</td>
+        <td style={{ fontSize: 'large', textAlign: 'right' }}>₹{item.service_Amount}</td>
+        <td style={{ textAlign: 'right' }}>
+          <button
+            style={{ color: '#bc0808', borderColor: '#bc0808', margin: '5px' }}
+            onClick={() => handleRemoveService(item.service_ID)}
+          >
+            <DeleteIcon />
+          </button>
+        </td>
+      </tr>
+    ))}
+  </tbody>
+</table>
   <br></br>
   <br></br>
-  </>
-))}
 <br></br>
         <CardActions style={{alignContent:'center',justifyContent:'center',fontFamily:'Times New Roman, Times, serif'}}>
         <Button size='medium' variant='contained' style={{height:'35px',width:"171px", backgroundColor: '#bc0808' }}

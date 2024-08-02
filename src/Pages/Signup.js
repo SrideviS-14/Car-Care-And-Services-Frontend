@@ -124,8 +124,8 @@ function SignUp() {
       backgroundSize: 'cover',
       backgroundRepeat: 'no-repeat'
     }}>
- <Box fontFamily='Times New Roman, Times, serif' height="90vh" display="flex" justifyContent="center" alignItems="center" >
-      <Card sx={{fontFamily:'Times New Roman, Times, serif', width: 550, height: 760,marginTop:'50px',marginBottom:'50px', justifyContent: "center", borderRadius: 12, backgroundColor: '#F2F3F4' }}>
+ <Box fontFamily='Times New Roman, Times, serif' height="90vh" display="flex"  >
+      <Card sx={{fontFamily:'Times New Roman, Times, serif', width: 550, height: 760,marginTop:'50px',marginLeft:'145px',marginBottom:'50px',  borderRadius: 12, backgroundColor: '#F2F3F4' }}>
         <CardContent sx={{fontFamily:'Times New Roman, Times, serif'}}>
           <Typography gutterBottom variant="h5" component="div" style={{fontWeight:'bolder', textAlign: 'center', padding: 5, marginTop: 10,fontFamily:'Times New Roman, Times, serif' }}>Sign Up Here</Typography>
           <Typography gutterBottom variant="h6" component="div" style={{ textAlign: 'center',fontFamily:'Times New Roman, Times, serif' }}>Experience An Exquisite Service On A Click </Typography><br></br>
@@ -212,14 +212,13 @@ function SignUp() {
         action={action}
         anchorOrigin={{ vertical: 'top', horizontal: 'center' }} 
       />
-      <br></br>
-      <br></br>
-      <br></br>
-      <br></br>
-      <br></br>
-      <br></br>
-      <br></br>
     </Box>
+    <br></br>
+      <br></br>
+      <br></br>
+      <br></br>
+      <br></br>
+      <br></br>
     </div>
   );
 }

@@ -85,8 +85,8 @@ function ConfirmBooking() {
     <div>
       <br />
       <br />
-      <h1 style={{ color: 'black', justifyContent: 'center', marginTop: '50px' }}> Services Selected</h1>
-      <p style={{ textAlign: 'center', fontSize: 'x-large', color: 'black', justifyContent: 'center', marginTop: '55px' }}>
+      <h1 style={{ color: 'black', justifyContent: 'center', marginTop: '50px' }}> View Cart</h1>
+      <p style={{ textAlign: 'center', fontSize: 'x-large', color: 'black', justifyContent: 'center', marginTop: '35px' }}>
       View the Services you have selected
       </p>
       <br />

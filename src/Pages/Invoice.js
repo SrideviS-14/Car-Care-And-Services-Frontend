@@ -92,7 +92,6 @@ function Invoice() {
         console.error('Error fetching data:', error);
       });
   }, []);
- 
   const handleOnlinePay = async(e) => {
     e.preventDefault();
     try {

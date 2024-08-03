@@ -84,15 +84,15 @@ function Cart() {
    )
   return (
     <div style={{ fontFamily: 'Times New Roman, Times, serif' }}>
-      <h1 style={{ color: 'black', justifyContent: 'center', marginTop: '75px' }}> Services Offered</h1>
-      <p style={{ textAlign: 'center', fontSize: 'x-large', color: 'black', justifyContent: 'center', marginTop: '50px' }}>
+      <h1 style={{ color: 'black', justifyContent: 'center', marginTop: '35px' }}> Services Offered</h1>
+      <p style={{ textAlign: 'center', fontSize: 'x-large', color: 'black', justifyContent: 'center', marginTop: '30px' }}>
       From Oil Changes to Brake Repairs – We’ve Got You Covered.
       </p>
       <br></br>
       <Grid container Spacing={2}>
         {carddata.map((item) => (
           <Grid item xs={11} sm={6} key={item.service_ID} >
-            <Card sx={{borderRadius:15,p:2,px:5,mb:5, marginLeft: 6, width: 550, height: 250,backgroundColor:'#F2F3F4',fontFamily:'Times New Roman, Times, serif' }}>
+            <Card sx={{borderRadius:15,p:2,px:5,mb:5, marginLeft: 7, width: 550, height: 250,backgroundColor:'#F2F3F4',fontFamily:'Times New Roman, Times, serif' }}>
               <CardContent>
                 <br></br>
                 <Typography variant="h5" component="div"style={{fontWeight:'bolder',fontFamily:'Times New Roman, Times, serif'}}>
@@ -110,7 +110,7 @@ function Cart() {
               <Button
                 size="small"
                 variant='contained'
-                style={{height:'35px',width:"171px", backgroundColor: addedStatus[item.service_ID] ? '#008080' : '#bc0808', fontFamily:'Times New Roman, Times, serif', color:  '#ffffff' }}
+                style={{height:'35px',width:"171px", backgroundColor: addedStatus[item.service_ID] ? '#801818 ' : '#bc0808', fontFamily:'Times New Roman, Times, serif', color:  '#ffffff' }}
                 onClick={() => addedStatus[item.service_ID] ? navigate('/confirmbooking') : handleAddToCart(item.service_ID)}
               >
                 <ShoppingCartIcon /> {addedStatus[item.service_ID] ? 'View in Cart' : 'Add to Cart'}

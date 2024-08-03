@@ -63,6 +63,10 @@ function Service() {
   }, [selectedServices]);
  
   const handleAddToCart = async () => {
+    if (selectedServices.length === 0) {
+      alert('Please select at least one service!');
+      return;
+    }
     try {
       const response = await api.post('/cart/addQuickService', selectedServices); // Corrected the payload
       console.log('Added successfully!', response.data);
@@ -72,17 +76,15 @@ function Service() {
       console.error('Registration failed:', error);
       // Handle error (e.g., display error message)
     }
-  };
+  };  
   return (
-    
-<Box display="flex" justifyContent="center" alignItems="center" marginTop="50px" marginBottom="50px" marginRight='150px' fontFamily='Times New Roman, Times, serif'>
+       <Box display="flex" justifyContent="center" alignItems="center" marginTop="85px" marginBottom="50px" marginRight='150px' fontFamily='Times New Roman, Times, serif'>
       <div>
       <h1 style={{justifyContent:"center" ,alignItems:"center" ,textAlign:'center',color:'black'}}>Book a Car Service Within A Minute</h1>     
       <img src={Image} width='70%' style={{marginLeft:'17%',spacing:'nowrap'}}></img>
       </div>
       <Card sx={{ marginLeft:'20px',width: 500, height: 680, justifyContent: "center", borderRadius: 12, backgroundColor: '#F2F3F4' }}>
       <Typography gutterBottom variant="h5" component="div"style={{fontFamily:'Times New Roman, Times, serif',textAlign:'center',marginTop:'10%'}}>Experience An Exquisite On A Click </Typography><br></br>
-        
         <Grid container spacing={2}>
           <Grid item xs={12} md={6} style={{  marginLeft:'40px',marginTop: 5,fontFamily:'Times New Roman, Times, serif' }}>
             <CardContent>

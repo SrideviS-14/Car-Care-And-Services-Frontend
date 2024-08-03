@@ -5,12 +5,20 @@ import { useAuth } from './AuthContext';
 import axios from 'axios';
 
 function CarDetails(){
+  
   const {jwt, setJwt } = useAuth();
   const [carDetails, setCarDetails] = useState([]);
   const [selectedCar, setSelectedCar] = useState(null);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
   const [userId, setUserId] = useState(0);
+  const [formErrors, setFormErrors] = useState({
+    car_Number: '',
+    car_Model: '',
+    car_Company: '',
+    car_Type: '',
+    car_Color: ''
+  });
   const api = axios.create({
     baseURL: 'http://localhost:8080',
     headers: {
@@ -53,9 +61,21 @@ function CarDetails(){
       id: userId
     }
   });
- 
+
+  const validateForm = () => {
+    let errors = {};
+    if (!formData.car_Number) errors.car_Number = "Car number is required";
+    if (!formData.car_Model) errors.car_Model = "Car model is required";
+    if (!formData.car_Company) errors.car_Company = "Car company is required";
+    if (!formData.car_Type) errors.car_Type = "Car type is required";
+    if (!formData.car_Color) errors.car_Color = "Car color is required";
+    setFormErrors(errors);
+    return Object.keys(errors).length === 0;
+  }
+
   const navigate = useNavigate();
   const handlesubmit = async () => {
+    if (!validateForm()) return;
     try {
       const response = await api.post('/car/addCarDetails',formData);
       setCarDetails([...carDetails, formData]);
@@ -77,69 +97,14 @@ function CarDetails(){
   if (loading) return <div>Loading...</div>;
   if (error) return <div>Error: {error.message}</div>;
 
-  const handleProceed = () => {
-    if(selectedCar!=null)
-    {
-      if (selectedCar) {
-        navigate('/invoice', { state: {selectedCar: selectedCar, userId: selectedCar.appUser.userName}})
-      } else {
-        navigate('/invoice', { state: {selectedCar: formData, userId: selectedCar.appUser.userName}})
-      }
-    }
-    else{
-      alert("Please select a car or fill out the details to add a new car");
-    }
-  }  
+  const handleProceed = (car) => {
+    navigate('/invoice', { state: { selectedCar: car, userId: car.appUser.id } });
+  };
   
-  return(
-    <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'space-around' }}>
-    <div style={{marginTop:'100px'}}>
-      {carDetails.map((car, index) => (
-        <Card sx={{width:"550px",height:'150px',borderRadius:'15px'}}
-          key={index} 
-          onClick={() => {
-            setSelectedCar(car);
-          }} 
-          style={{ 
-            marginTop:'50px',
-            marginBottom:'50px',
-            margin: '10px', 
-            cursor: 'pointer',
-            backgroundColor: selectedCar === car ? '#ce2029' : 'white' 
-          }}
-        >
-          <CardContent >
-            <Typography variant="h5" component="div">
-              <Box fontWeight="fontWeightBold">
-                {car.car_Company} {car.car_Model}
-              </Box>
-            </Typography>
-            <Typography color="text.secondary">
-              Car Number: {car.car_Number}
-            </Typography>
-            <Typography color="text.secondary">
-              Car Type: {car.car_Type}
-            </Typography>
-            <Typography color="text.secondary">
-              Car Color: {car.car_Color}
-            </Typography>
-          </CardContent>
-        </Card>
-      ))}
-      <br></br>
-      <br></br>
-      <Button onClick={handleProceed} variant='contained'style={{
-          height:'35px',
-          width:"171px",
-          marginLeft:'200px',
-          backgroundColor: selectedCar ? '#bc0808' : '#bc0808'
-        }}>Proceed</Button>
-      <br></br>
-      <br></br>
-    </div>
-    <div>
-      <Box sx={{justifyContent:"center"  ,marginTop:"50px",fontFamily:'Times New Roman, Times, serif'}}>
-            <Card sx={{marigntop:'70px',fontFamily:'Times New Roman, Times, serif',marginLeft:'-10px',width:'470px', height:'700px',justifyContent: "center", borderRadius: 12, backgroundColor: 'white' }}>
+  return (
+    <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', height: '100vh', padding: '50px' }}>
+      <Box sx={{width: '50%', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+      <Card sx={{backgroundColor:'#F2F3F4',marigntop:'70px',fontFamily:'Times New Roman, Times, serif',marginLeft:'-10px',width:'470px', minHeight:'700px',justifyContent: "center", borderRadius: 12 }}>
     <Grid spacing={2} sx={{fontFamily:'Times New Roman, Times, serif',marginLeft:'1px',marginTop:'30px'}}>
     <Grid  spacing={2}>
     <Typography variant='h6' sx={{textAlign:'center',fontWeight:'bolder',fontFamily:'Times New Roman, Times, serif'}}>Please Type Out Car Details</Typography>
@@ -149,6 +114,8 @@ function CarDetails(){
     Car Number
     </Typography>
     <TextField
+      error={!!formErrors.car_Number}
+      helperText={formErrors.car_Number}
       required
       id="outlined-required"
       label="Enter Your Car Number"
@@ -163,6 +130,8 @@ function CarDetails(){
     Car Model
     </Typography>
     <TextField
+      error={!!formErrors.car_Model}
+      helperText={formErrors.car_Model}
       required
       id="outlined-required"
       label="Enter Your Car Model"
@@ -177,6 +146,8 @@ function CarDetails(){
     Car Company
     </Typography>
     <TextField
+      error={!!formErrors.car_Company}
+      helperText={formErrors.car_Company}
       required
       id="outlined-required"
       label="Enter Your Car Company"
@@ -191,6 +162,8 @@ function CarDetails(){
     Car Type
     </Typography>
     <TextField
+      error={!!formErrors.car_Type}
+      helperText={formErrors.car_Type}
       required
       id="outlined-required"
       label="Enter Your Car Type"
@@ -205,6 +178,8 @@ function CarDetails(){
     Car Colour
     </Typography>
     <TextField
+      error={!!formErrors.car_Color}
+      helperText={formErrors.car_Color}
       required
       id="outlined-required"
       label="Enter Your Car Colour"
@@ -220,11 +195,33 @@ function CarDetails(){
     </Grid>
     </Grid>
     </Card>
-    </Box>
-    <br></br>
+      </Box>
+      <Box sx={{ width: '50%', display: 'flex', flexDirection: 'column', alignItems: 'center', height: '700px', overflow: 'auto' }}>
+  {carDetails.length > 0 ? (
+    carDetails.map((car, index) => (
+      <Card key={index} sx={{ backgroundColor:'#F2F3F4',width: '550px', minHeight: '190px', borderRadius: '15px', margin: '10px', cursor: 'pointer', backgroundColor: selectedCar === car ? '#ce2029' : '#F2F3F4' }}
+        onClick={() => setSelectedCar(car)}>
+        <CardContent>
+          <Typography variant="h5" component="div">
+            <Box fontWeight="fontWeightBold">
+              {car.car_Company} {car.car_Model}
+            </Box>
+          </Typography>
+          <Typography color="text.secondary">Car Number: {car.car_Number}</Typography>
+          <Typography color="text.secondary">Car Type: {car.car_Type}</Typography>
+          <Typography color="text.secondary">Car Color: {car.car_Color}</Typography>
+        </CardContent>
+        <CardActions>
+        <Button onClick={() => handleProceed(car)} variant='contained' sx={{ backgroundColor: '#bc0808', margin: 'auto' }}>Proceed</Button>
+        </CardActions>
+      </Card>
+    ))
+  ) : (
+    <Typography variant="h6">No car details available. Please add a car.</Typography>
+  )}
+</Box>
     </div>
-</div>
-
-);
+  );
 }
+
 export default CarDetails;

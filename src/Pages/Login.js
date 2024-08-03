@@ -7,6 +7,7 @@ import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
 import Snackbar from '@mui/material/Snackbar'; 
 
+
 function Login() {
   const navigate = useNavigate();
   const { setJwt, setRole, role } = useAuth();
@@ -115,7 +116,7 @@ function Login() {
    )
   return (
     <div style={{
-      marginTop:'50px',
+      marginTop:'1px',
       backgroundImage: `url("https://www.galaxytoyota.in/blog/wp-content/uploads/2020/08/Untitled-2.jpg")`,
       backgroundPosition: 'center',
       backgroundSize: 'cover',

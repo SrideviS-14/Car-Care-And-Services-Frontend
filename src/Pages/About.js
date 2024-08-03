@@ -17,6 +17,7 @@ function About()
 
     return (
       <div>
+         
         <AnimatedCard index={0}>
         <Card sx={{ backgroundColor:'#F2F3F4',borderRadius:10,display: 'flex',fontFamily:'Times New Roman, Times, serif', maxWidth: 1100,marginLeft:23,marginTop:12 }}>
   <CardMedia

@@ -3,15 +3,12 @@ h1{
     color: white;
 }
 
-.main-header {
+.main-header, .main-header1 {
     display: flex;
-    justify-content: space-evenly; 
-    font-size: x-large; 
-}
-.main-header1{
-    display: flex;
-   justify-content: space-evenly;
-    font-size: x-large;
+    justify-content: space-around; /* evenly distribute the space around the items */
+    align-items: center; /* vertically align the items in the center */
+    flex-wrap: wrap; /* allow the items to wrap onto multiple lines */
+    padding: 0 20px; /* add some padding on the left and right */
 }
 
 button{
@@ -19,9 +16,8 @@ button{
     font-size: 0.9rem;
 }
 nav{
-
-    margin-left: 200px;
-    margin-top: -120px;
+    background-color: whitesmoke;
+    margin-left: 100px;
     align-items: center;
 }
 
@@ -49,6 +45,7 @@ nav{
     color: black; 
 }
 .navlink {
+    margin: 0 10px;
     display: flex;
     align-items: center;
     justify-content: start;

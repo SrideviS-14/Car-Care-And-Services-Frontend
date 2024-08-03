@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState,useEffect }  from 'react';
 import EastIcon from '@mui/icons-material/East';
 import BuildIcon from '@mui/icons-material/Build';
 import SettingsIcon from '@mui/icons-material/Settings';
@@ -59,6 +59,7 @@ class MyCard extends React.Component {
     }
 }
 
+
 function Home() {
   const { jwt, setJwt } = useAuth();
   axios.defaults.headers.common['Access-Control-Allow-Origin'] = '*';
@@ -70,6 +71,18 @@ function Home() {
       "Content-Type": 'application/json'
     }, 
   });
+  const [data, setdata] = useState();
+useEffect(() => {
+  api.get('/account/profile')
+    .then((response) => {
+      console.log(response.data.User.userName);
+      setdata(response.data.User.userName);
+    })
+    .catch((error) => {
+      console.error('Error fetching data:', error);
+    });
+}, []);
+
   const navigate = useNavigate();
   const HandleClick = () => {
     {!!jwt ? navigate('/Cart') : navigate('/login')}
@@ -96,8 +109,8 @@ function Home() {
   const text = "World-Class Service for Your Car".split(" ");
   return (
     <div style={{ fontFamily:'Times New Roman, Times, serif' }}>
-      <br></br>
-      <br></br>
+        <br></br>
+        <br></br>
       <div style={{
         display: 'flex',
         justifyContent: 'center',
@@ -109,7 +122,8 @@ function Home() {
       }}>
         <marquee>Call to this (+91) 9475765201 to book your service</marquee>
       </div>
-      <Card sx={{ fontFamily:'Times New Roman, Times, serif', justifyContent:'center', height:'max', display: 'flex', maxWidth: 1100, marginLeft:23, marginTop:12, backgroundColor:'#F2F3F4', borderRadius:10, color:'black' }}>
+      <h1 style={{color:'black'}}>Welcome {data} !!</h1>
+      <Card sx={{ fontFamily:'Times New Roman, Times, serif', justifyContent:'center', height:'max', display: 'flex', maxWidth: 1100, marginLeft:23, marginTop:5, backgroundColor:'#F2F3F4', borderRadius:10, color:'black' }}>
         <CardMedia
           sx={{width: 1700, height: 500 }}
           image={'https://jmautorepair.com/wp-content/uploads/sites/3436/2023/03/932280slider4.jpg'}

@@ -118,7 +118,7 @@ function SignUp() {
  
   return (
     <div style={{
-      marginTop:'50px',
+      marginTop:'1px',
       backgroundImage: `url("https://www.galaxytoyota.in/blog/wp-content/uploads/2020/08/Untitled-2.jpg")`,
       backgroundPosition: 'center',
       backgroundSize: 'cover',

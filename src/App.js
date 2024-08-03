@@ -21,7 +21,7 @@ import AddBooking from './AdminPages/AddBooking.js';
 import Contact from './Pages/Contact.js';
 function App() {
   return (
-    <div className="App">
+    <div className="App" >
       <header className="App-header">
       <BrowserRouter>
       <Routes>

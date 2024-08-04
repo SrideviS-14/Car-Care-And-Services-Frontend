@@ -7,6 +7,9 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import CloseIcon from '@mui/icons-material/Close';
 import IconButton from '@mui/material/IconButton';
 import Snackbar from '@mui/material/Snackbar';
+import Collapse from '@mui/material/Collapse';
+import './confirmbooking.css';
+import { CSSTransition, TransitionGroup } from 'react-transition-group';
 
 function ConfirmBooking() {
   const {jwt, setJwt } = useAuth();
@@ -17,7 +20,7 @@ function ConfirmBooking() {
     headers: {
       Authorization: `Bearer ${jwt}`,
       "Content-Type": 'application/json'
-    }, // Change this to your actual backend URL
+    },
   });
   const [carddata, setcarddata] = useState([]);
   const [openRemove, setOpenRemove] = useState(false);
@@ -33,8 +36,6 @@ function ConfirmBooking() {
         console.error('Error fetching data:', error);
       });
   }, []);
- 
- 
  
   const navigate = useNavigate();
   const handleAddService = async () => {
@@ -56,11 +57,10 @@ function ConfirmBooking() {
   const handleRemoveService = async (serviceId) => {
     try {
       const response = await api.post('/cart/removeService', serviceId);
-      setcarddata(carddata.filter(item => item.service_ID !== serviceId));
+      setcarddata(prev => prev.filter(item => item.service_ID !== serviceId));
       console.log('Successful', response.data);
       setOpenRemove(true);
  
-      // Enable the button for this service in localStorage
       const savedDisabledStatus = JSON.parse(localStorage.getItem(jwt));
       if (savedDisabledStatus) {
         savedDisabledStatus[serviceId] = false;
@@ -91,48 +91,43 @@ function ConfirmBooking() {
       </p>
       <br />
       <br />
-      <table style={{ padding: '20px', backgroundColor: '#F2F3F4', marginLeft: '290px', width: '900px', fontFamily: 'Times New Roman, Times, serif' }}>
+<table style={{ padding: '20px', backgroundColor: '#F2F3F4', marginLeft: '290px', width: '900px', fontFamily: 'Times New Roman, Times, serif' }}>
   <thead style={{ boxShadow: 'black', borderColor: 'black' }}>
     <tr>
-      <th style={{ fontSize: 'x-large', fontWeight: 'bold' }}>Service Name</th>
+      <th style={{ fontSize: 'x-large', fontWeight: 'bold', textAlign: 'left' }}>Service Name</th>
       <th style={{ fontSize: 'x-large', textAlign: 'right' }}>Price</th>
       <th></th> {/* Empty header for the actions column */}
     </tr>
   </thead>
-  {/* Partition 1 */}
-  <tbody style={{ borderBottom: '2px solid black' }}>
-    {carddata.slice(0, Math.ceil(carddata.length / 2)).map((item) => (
-      <tr key={item.service_ID}>
-        <td style={{ fontSize: 'large' }}>{item.service_Name}</td>
-        <td style={{ fontSize: 'large', textAlign: 'right' }}>₹{item.service_Amount}</td>
+  <TransitionGroup component="tbody">
+  {carddata.map((item) => (
+    <CSSTransition
+      key={item.service_ID}
+      timeout={500}
+      classNames="item"
+    >
+      <tr>
+        <td style={{ fontSize: 'large'}}>
+          <div style={{ display: 'flex', flexDirection: 'column' }}>
+            {item.service_Name}
+          </div>
+        </td>
         <td style={{ textAlign: 'right' }}>
-          <button
+        <div style={{ fontSize: 'large', color: 'black'}}>₹{item.service_Amount}
+          </div>
+        </td>
+        <td style={{ textAlign: 'right' }}>
+        <button
             style={{ color: '#bc0808', borderColor: '#bc0808', margin: '5px' }}
             onClick={() => handleRemoveService(item.service_ID)}
           >
             <DeleteIcon />
           </button>
-        </td>
+          </td>
       </tr>
-    ))}
-  </tbody>
-  {/* Partition 2 */}
-  <tbody>
-    {carddata.slice(Math.ceil(carddata.length / 2)).map((item) => (
-      <tr key={item.service_ID}>
-        <td style={{ fontSize: 'large' }}>{item.service_Name}</td>
-        <td style={{ fontSize: 'large', textAlign: 'right' }}>₹{item.service_Amount}</td>
-        <td style={{ textAlign: 'right' }}>
-          <button
-            style={{ color: '#bc0808', borderColor: '#bc0808', margin: '5px' }}
-            onClick={() => handleRemoveService(item.service_ID)}
-          >
-            <DeleteIcon />
-          </button>
-        </td>
-      </tr>
-    ))}
-  </tbody>
+    </CSSTransition>
+  ))}
+</TransitionGroup>
 </table>
   <br></br>
   <br></br>

@@ -1,4 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import * as React from 'react';
+import Box from '@mui/material/Box';
+import Switch from '@mui/material/Switch';
+import Paper from '@mui/material/Paper';
+import Grow from '@mui/material/Grow';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import  { useState, useEffect } from 'react';
 import { Button, Card, CardActions, CardContent, Grid, Typography } from '@mui/material';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import axios from 'axios';
@@ -7,8 +13,14 @@ import { useNavigate } from 'react-router-dom';
 import CloseIcon from '@mui/icons-material/Close';
 import IconButton from '@mui/material/IconButton';
 import Snackbar from '@mui/material/Snackbar';
+import { motion } from 'framer-motion';
  
 function Cart() {
+  const [checked, setChecked] = React.useState(false);
+
+  const handleChange = () => {
+    setChecked((prev) => !prev);
+  };
   const navigate = useNavigate();
   const [openAddToCart, setOpenAddToCart] = React.useState(false);
   const {jwt, setJwt} = useAuth(); // Assuming currentUser is available in AuthContext
@@ -82,7 +94,7 @@ function Cart() {
           <CloseIcon fontSize="small" />
         </IconButton>
    )
-  return (
+   return (
     <div style={{ fontFamily: 'Times New Roman, Times, serif' }}>
       <h1 style={{ color: 'black', justifyContent: 'center', marginTop: '35px' }}> Services Offered</h1>
       <p style={{ textAlign: 'center', fontSize: 'x-large', color: 'black', justifyContent: 'center', marginTop: '30px' }}>
@@ -92,31 +104,37 @@ function Cart() {
       <Grid container Spacing={2}>
         {carddata.map((item) => (
           <Grid item xs={11} sm={6} key={item.service_ID} >
-            <Card sx={{borderRadius:15,p:2,px:5,mb:5, marginLeft: 7, width: 550, height: 250,backgroundColor:'#F2F3F4',fontFamily:'Times New Roman, Times, serif' }}>
-              <CardContent>
-                <br></br>
-                <Typography variant="h5" component="div"style={{fontWeight:'bolder',fontFamily:'Times New Roman, Times, serif'}}>
-                  {item.service_Name}
-                </Typography>
-                <Typography color="text.secondary" style={{fontWeight:'bolder',fontFamily:'Times New Roman, Times, serif',color:'black',fontSize:'x-large',textAlign:'right',fontFamily:'Times New Roman, Times, serif'}}>
-                  ₹{item.service_Amount}
-                </Typography>
-                <br></br>
-                <Typography variant="body2">
-                  {item.description}
-                </Typography>
-              </CardContent>
-              <CardActions style={{ justifyContent: 'center' }}>
-              <Button
-                size="small"
-                variant='contained'
-                style={{height:'35px',width:"171px", backgroundColor: addedStatus[item.service_ID] ? '#801818 ' : '#bc0808', fontFamily:'Times New Roman, Times, serif', color:  '#ffffff' }}
-                onClick={() => addedStatus[item.service_ID] ? navigate('/confirmbooking') : handleAddToCart(item.service_ID)}
-              >
-                <ShoppingCartIcon /> {addedStatus[item.service_ID] ? 'View in Cart' : 'Add to Cart'}
-              </Button>
-              </CardActions>
-            </Card>
+            <motion.div whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }}> 
+            <Grow in={true} timeout={1000}>
+              <Card sx={{borderRadius:15,p:2,px:5,mb:5, marginLeft: 7, width: 550, height: 250,backgroundColor:'#F2F3F4',fontFamily:'Times New Roman, Times, serif' }}>
+                <CardContent>
+                  <br></br>
+                  <Typography variant="h5" component="div"style={{fontWeight:'bolder',fontFamily:'Times New Roman, Times, serif'}}>
+                    {item.service_Name}
+                  </Typography>
+                  <Typography color="text.secondary" style={{fontWeight:'bolder',fontFamily:'Times New Roman, Times, serif',color:'black',fontSize:'x-large',textAlign:'right',fontFamily:'Times New Roman, Times, serif'}}>
+                    ₹{item.service_Amount}
+                  </Typography>
+                  <br></br>
+                  <Typography variant="body2">
+                    {item.description}
+                  </Typography>
+                </CardContent>
+                <CardActions style={{ justifyContent: 'center' }}>
+                
+                <Button
+                  size="small"
+                  variant='contained'
+                  style={{height:'35px',width:"171px", backgroundColor: addedStatus[item.service_ID] ? '#801818 ' : '#bc0808', fontFamily:'Times New Roman, Times, serif', color:  '#ffffff' }}
+                  onClick={() => addedStatus[item.service_ID] ? navigate('/confirmbooking') : handleAddToCart(item.service_ID)}
+                >
+                  <ShoppingCartIcon /> {addedStatus[item.service_ID] ? 'View in Cart' : 'Add to Cart'}
+                </Button>
+                
+                </CardActions>
+              </Card>
+            </Grow>
+            </motion.div> 
           </Grid>
         ))}
         <Snackbar
@@ -135,5 +153,4 @@ function Cart() {
     </div>
   );
 }
- 
 export default Cart;

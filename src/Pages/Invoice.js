@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { useRef,useState, useEffect } from "react";
-import { Button, Typography, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, CardActions, Card } from '@mui/material';
+import { CardContent,Button, Typography, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, CardActions, Card } from '@mui/material';
 import axios from 'axios';
 import { useReactToPrint } from "react-to-print";
 import Barcode from 'react-barcode';
@@ -14,7 +14,9 @@ import DialogTitle from '@mui/material/DialogTitle';
 import Slide from '@mui/material/Slide';
 import Tick from './images/tickicon.gif'
 import { useLocation } from "react-router-dom";
-
+import BookOnlineIcon from '@mui/icons-material/BookOnline';
+import PaymentsIcon from '@mui/icons-material/Payments';
+import CloseIcon from '@mui/icons-material/Close';
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
@@ -23,14 +25,32 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 function Invoice() {
   const location = useLocation();
   const [bookingId, setBookingId] = useState(null);
+  const data =[
+    { title: 'In-Person', icon: PaymentsIcon},
+    { title: 'Online', icon: BookOnlineIcon },
+  ];
+  const [selectedOption, setSelectedOption] = useState(null);
+
+  const handleOptionSelect = (option) => {
+    setSelectedOption(option);
+  }
+
+  const handleSubmit = (event) => {
+    if (selectedOption === 'In-Person') {
+      handleInPersonPay(event);
+    } else if (selectedOption === 'Online') {
+      handleOnlinePay(event);
+    }
+  }
   const selectedCar = location.state ? location.state.selectedCar : null;
-  const userId = location.state ? location.state.userId : null;
+  console.log(selectedCar);
   const [formData, setFormData] = useState({
       Service_List: "",
       Package_Amount: 0.00,
-      Time_Period_In_Days: 7,
+      Time_Period_In_Days: 0,
       User_ID: 0,
       Paid: false,
+      car_ID: selectedCar.car_ID
 });
   const [open, setOpen] = React.useState(false);
   const [openalert,setopenalert] = React.useState(false);
@@ -77,6 +97,7 @@ function Invoice() {
         const services = response.data;
         let serviceList = services.map(service => service.service_ID).join(", ");
         let packageAmount = services.reduce((total, service) => total + service.service_Amount, 0);
+        let maxTimePeriod = Math.max(...services.map(service => service.timePeriod));
         api.get('/account/profile')
           .then((response) => {
             setUserID(response.data.User.id);
@@ -84,6 +105,7 @@ function Invoice() {
               ...prevState,
               Service_List: serviceList,
               Package_Amount: packageAmount,
+              Time_Period_In_Days: maxTimePeriod,
               User_ID: response.data.User.id
             }));
           })
@@ -95,9 +117,11 @@ function Invoice() {
   const handleOnlinePay = async(e) => {
     e.preventDefault();
     try {
+      console.log(formData.car_ID);
         const response = await api.post('/booking/book', formData);
         console.log(response.data);
         setBookingId(response.data);
+        localStorage.setItem(`disabled-${jwt}`, JSON.stringify({}));
         console.log(bookingId)
         setTimeout(() => navigate('/payment', { state: { bookingId: response.data, amount: totalamount } }), 2);
         // Handle success (e.g., redirect to login page)
@@ -115,8 +139,10 @@ function Invoice() {
   const handleInPersonPay = async(e) => {
     e.preventDefault();
     try {
+      console.log(formData);
         const response = await api.post('/booking/book', formData);
         setopenalert(true);
+        localStorage.setItem(`disabled-${jwt}`, JSON.stringify({}));
         console.log('Registration successful:', response.data.token);
         // Handle success (e.g., redirect to login page)
     } catch (error) {
@@ -242,19 +268,34 @@ function Invoice() {
         onClose={handleClose}
         aria-describedby="alert-dialog-slide-description"
       >
-        <DialogTitle>{"Payment Type Confirmation"}</DialogTitle>
+              <DialogTitle>
+          {"Payment Type Confirmation"}
+          <Button onClick={handleClose} style={{ position:'absolute',right: '0' }}>
+            <CloseIcon />
+          </Button>
+          <br></br>
+        </DialogTitle>
         <DialogContent>
           <DialogContentText id="alert-dialog-slide-description">
             Do you want to make an online payment or in-person payment?
           </DialogContentText>
+          <br></br>
+          <div style={{ display: 'flex', flexDirection: 'row', flexWrap: 'wrap' }}>
+        {data.map((item) => (
+          <Card onClick={() => handleOptionSelect(item.title)} style={{   margin: '10px',justifyContent:'center',alignContent:'center',width:'220px',backgroundColor: selectedOption === item.title ? '#bc0808' : 'white' }}>
+            <CardContent sx={{textAlign:'center',justifyContent:'center',alignContent:'center'}}>
+              <item.icon />
+              <Typography>{item.title}</Typography>
+            </CardContent>
+          </Card>
+        ))}
+        <br></br>
+        </div>
+        <br></br>
+        <br></br>
+        <Button variant="contained" sx={{justifyContent:'center',marginLeft:'190px',backgroundColor:"#bc0808"}} onClick={handleSubmit}>Submit</Button>
         </DialogContent>
-        <DialogActions >
-        <Button onClick={handleClose}>Cancel</Button>
-          <Button variant="contained" onClick={(e) => handleInPersonPay(e)}>In-Person</Button>
-          <Button variant="contained"  onClick={(e) => handleOnlinePay(e)}>Online</Button>
-        </DialogActions>
       </Dialog>
-
         </div>
     );
 }

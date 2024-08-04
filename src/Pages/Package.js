@@ -5,6 +5,7 @@ import { Grid, Card, CardActions, Button } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import { CardContent } from '@mui/material';
 import party from "party-js";
+import { motion } from 'framer-motion';
 
 function Package() {
   const navigate = useNavigate();
@@ -58,6 +59,7 @@ function Package() {
       <Grid container spacing={4} style={{ marginTop: '20px', justifyContent: 'center' }}>
         {packagedata.map((item) => (
           <Grid item key={item.service_ID} style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
+             <motion.div whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }}> 
             <Card
               style={{
                 position: 'relative',
@@ -94,12 +96,16 @@ function Package() {
                 }}
               >
                 <CardActions>
+                <motion.div whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }}> 
                   <Button size="medium" variant="contained" style={{  height:'35px',width:"179px",backgroundColor: '#bc0808' }} onClick={() => handleBuyPackage(item.service_ID)}>
                     Buy Now
                   </Button>
+                  </motion.div> 
                 </CardActions>
+                
               </div>
             </Card>
+            </motion.div> 
           </Grid>
         ))}
       </Grid>

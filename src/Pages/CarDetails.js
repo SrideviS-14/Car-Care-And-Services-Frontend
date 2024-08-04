@@ -3,9 +3,11 @@ import { useNavigate} from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { useAuth } from './AuthContext';
 import axios from 'axios';
-
+import { WindowSharp } from '@mui/icons-material';
+import { motion } from 'framer-motion';
+ 
 function CarDetails(){
-  
+ 
   const {jwt, setJwt } = useAuth();
   const [carDetails, setCarDetails] = useState([]);
   const [selectedCar, setSelectedCar] = useState(null);
@@ -28,21 +30,22 @@ function CarDetails(){
       'Access-Control-Allow-Headers': 'Origin, X-Requested-With, Content-Type, Accept'
     },
   });
-
+ 
+  const fetchCarDetails = async () => {
+    setLoading(true);
+    try {
+      const response = await api.get('/car/getCarDetailsOfUser');
+      setCarDetails(response.data);
+    } catch (error) {
+      setError(error);
+    }
+    setLoading(false);
+  };
+ 
   useEffect(() => {
-    const fetchCarDetails = async () => {
-      setLoading(true);
-      try {
-        const response = await api.get('/car/getCarDetailsOfUser');
-        setCarDetails(response.data);
-      } catch (error) {
-        setError(error);
-      }
-      setLoading(false);
-    };
     fetchCarDetails();
   },[]);
-
+ 
   useEffect(() => {
     api.get('/account/profile')
     .then((response) => {
@@ -50,7 +53,7 @@ function CarDetails(){
       setFormData(prevState => ({ ...prevState, appUser: { id: response.data.UserId } }));
     })
   }, []);
-  
+ 
   const [formData, setFormData] = useState({
     car_Number:'',
     car_Type:'',
@@ -61,7 +64,7 @@ function CarDetails(){
       id: userId
     }
   });
-
+ 
   const validateForm = () => {
     let errors = {};
     if (!formData.car_Number) errors.car_Number = "Car number is required";
@@ -72,13 +75,12 @@ function CarDetails(){
     setFormErrors(errors);
     return Object.keys(errors).length === 0;
   }
-
+ 
   const navigate = useNavigate();
   const handlesubmit = async () => {
     if (!validateForm()) return;
     try {
       const response = await api.post('/car/addCarDetails',formData);
-      setCarDetails([...carDetails, formData]);
       setFormData({
         car_Number:'',
         car_Type:'',
@@ -89,18 +91,21 @@ function CarDetails(){
           id: userId
         }
       });
+      fetchCarDetails();
     } catch (error) {
       alert('Could not add!');
     }
   }
-
+ 
   if (loading) return <div>Loading...</div>;
   if (error) return <div>Error: {error.message}</div>;
-
+ 
   const handleProceed = (car) => {
-    navigate('/invoice', { state: { selectedCar: car, userId: car.appUser.id } });
+    console.log(car);
+    navigate('/invoice', { state: { selectedCar: car } });
   };
-  
+ 
+ 
   return (
     <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', height: '100vh', padding: '50px' }}>
       <Box sx={{width: '50%', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
@@ -199,7 +204,7 @@ function CarDetails(){
       <Box sx={{ width: '50%', display: 'flex', flexDirection: 'column', alignItems: 'center', height: '700px', overflow: 'auto' }}>
   {carDetails.length > 0 ? (
     carDetails.map((car, index) => (
-      <Card key={index} sx={{ backgroundColor:'#F2F3F4',width: '550px', minHeight: '190px', borderRadius: '15px', margin: '10px', cursor: 'pointer', backgroundColor: selectedCar === car ? '#ce2029' : '#F2F3F4' }}
+      <Card key={index} sx={{ backgroundColor:'#F2F3F4',width: '550px', minHeight: '190px', borderRadius: '15px', margin: '10px', cursor: 'pointer' }}
         onClick={() => setSelectedCar(car)}>
         <CardContent>
           <Typography variant="h5" component="div">
@@ -223,5 +228,5 @@ function CarDetails(){
     </div>
   );
 }
-
+ 
 export default CarDetails;

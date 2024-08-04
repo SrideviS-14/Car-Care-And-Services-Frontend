@@ -84,6 +84,9 @@ function Payment(){
   const handleTabChange = (event, newValue) => {
     setTabValue(newValue);
   };
+  const handeCompleted = () =>{
+    setopenalert(true);
+  }
 return(
   <>
   <Container maxWidth="md" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
@@ -99,19 +102,20 @@ return(
           <Tab label="Card Details" />
         </Tabs>
         {tabValue === 0 && (
-          <div style={{ display: 'flex', justifyContent: 'center', fontFamily: 'Times New Roman, Times, serif' }}>
-<div style={{ border: '5px solid #000080', borderRadius: '10px', padding: '10px', backgroundColor: '#fff' }}>
-  <QRCode
-    style={{ width: '500px', height: '400px', marginTop: '50', marginBottom: '50', fontFamily: 'Times New Roman, Times, serif' }}
-    value={`upi://pay?pa=sridevi.srsv@oksbi&pn=Sridevi%20Srsv&aid=uGICAgMCymIPzZA&am=${amount}&cu=INR`}
-    viewBox={`0 0 256 256`}
-    bgColor="#ffffff"
-    fgColor="#000080"
-  />
-</div>
- 
-          </div>
-        )}
+  <div style={{ justifyContent: 'center', fontFamily: 'Times New Roman, Times, serif' }}>
+    <div style={{ border: '5px solid #000080', borderRadius: '10px', padding: '10px', backgroundColor: '#fff', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+      <QRCode
+        style={{ width: '500px', height: '400px', marginTop: '50', marginBottom: '50', fontFamily: 'Times New Roman, Times, serif' }}
+        value={`upi://pay?pa=sridevi.srsv@oksbi&pn=Sridevi%20Srsv&aid=uGICAgMCymIPzZA&am=${amount}&cu=INR`}
+        viewBox={`0 0 256 256`}
+        bgColor="#ffffff"
+        fgColor="#000080"
+      />
+      <Button variant="contained" style={{ marginBottom: '20px',backgroundColor:'#bc0808' }} onClick={handeCompleted}>Completed</Button>
+    </div>
+  </div>
+)}
+
         {tabValue === 1 && (
           <div>
           <Box  width="700px" display="flex" justifyContent="center" alignItems="center" fontFamily='Times New Roman, Times, serif'>
@@ -167,28 +171,28 @@ return(
         </CardActions>
         </Card>
         </Box>
-      <Dialog
-  open={openalert}
-  onClose={handleClosealert}
-  aria-labelledby="alert-dialog-title"
-  aria-describedby="alert-dialog-description"
->
-  <DialogTitle id="alert-dialog-title">
+        <Dialog
+        open={openalert}
+        onClose={handleClosealert}
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description"
+        >
+      <DialogTitle id="alert-dialog-title">
       <img src={Tick} style={{justifyContent:'center',alignItems:'center',textAlign:'center',marginLeft:'80px'}}></img>
-  </DialogTitle>
-  <DialogContent>
-    <DialogContentText id="alert-dialog-description">
+      </DialogTitle>
+      <DialogContent>
+      <DialogContentText id="alert-dialog-description">
       Your Payment is Successful
       Do visit us again
-    </DialogContentText>
-  </DialogContent>
-  <DialogActions>
-    <Button onClick={handleClosealert} autoFocus>
+      </DialogContentText>
+      </DialogContent>
+      <DialogActions>
+      <Button onClick={handleClosealert} autoFocus>
       Thank You
-    </Button>
-  </DialogActions>
-</Dialog>
-</div>
+      </Button>
+      </DialogActions>
+      </Dialog>
+      </div>
         )}
         <br></br>
         <br></br>

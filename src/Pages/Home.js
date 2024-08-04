@@ -15,49 +15,50 @@ import ReactCardFlip from 'react-card-flip';
 import { motion } from "framer-motion";
 
 class MyCard extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            isFlipped: false,
-        };
-        this.handleHover = this.handleHover.bind(this);
-        this.handleHoverLeave = this.handleHoverLeave.bind(this);
-    }
+  constructor(props) {
+      super(props);
+      this.state = {
+          isFlipped: false,
+      };
+      this.handleHover = this.handleHover.bind(this);
+      this.handleHoverLeave = this.handleHoverLeave.bind(this);
+  }
 
-    handleHover(e) {
-        e.preventDefault();
-        this.setState({ isFlipped: true });
-    }
+  handleHover(e) {
+      e.preventDefault();
+      this.setState({ isFlipped: true });
+  }
 
-    handleHoverLeave(e) {
-        e.preventDefault();
-        this.setState({ isFlipped: false });
-    }
+  handleHoverLeave(e) {
+      e.preventDefault();
+      this.setState({ isFlipped: false });
+  }
 
-    render() {
-        return (
-            <ReactCardFlip isFlipped={this.state.isFlipped} flipDirection="vertical" flipSpeedBackToFront={1} flipSpeedFrontToBack={1} sx={{alignContent:'center', justifyContent: 'center'}}>
-                <Card onMouseEnter={this.handleHover} onMouseLeave={this.handleHoverLeave} sx={{ textAlign: 'center', fontFamily:'Times New Roman, Times, serif',alignContent:'center', justifyContent: 'center',width:320,height:310, borderRadius: 10, marginLeft:8, fontFamily:'Times New Roman, Times, serif', backgroundColor:'#F2F3F4','&:hover': { bgcolor:'#dc143c',color:'white' } }}>
-                    <CardContent sx={{ alignContent:'center', justifyContent: 'center', display: 'flex' }}>
-                        <this.props.icon style={{ fontSize: 60 }} onClick={this.props.onIconClick} />
-                    </CardContent>
-                    <CardContent sx={{ alignContent:'center', justifyContent: 'center',textAlign: 'center', fontFamily:'Times New Roman, Times, serif' }}>
-                        <Typography gutterBottom variant="h6" component="h6" style={{ justifyContent:'center', textAlign: 'center', fontFamily:'Times New Roman, Times, serif' }}>
-                            {this.props.title}
-                        </Typography>
-                    </CardContent>
-                </Card>
-                <Card onMouseEnter={this.handleHover} onMouseLeave={this.handleHoverLeave} sx={{justifyContent:'center',textAlign: 'center', fontFamily:'Times New Roman, Times, serif', width: 320, height: 310, borderRadius: 10, marginLeft:8, fontFamily:'Times New Roman, Times, serif', backgroundColor:'#F2F3F4' }}>
-                    <CardContent sx={{ alignContent:'center', justifyContent: 'center' }}>
-                        <Typography gutterBottom variant="h6" component="h6" style={{ alignContent:'justify',justifyContent:'center',textAlign: 'center', fontFamily:'Times New Roman, Times, serif' }}>
-                            {this.props.description}
-                        </Typography>
-                    </CardContent>
-                </Card>
-            </ReactCardFlip>
-        );
-    }
+  render() {
+      return (
+          <ReactCardFlip isFlipped={this.state.isFlipped} flipDirection="vertical" flipSpeedBackToFront={1} flipSpeedFrontToBack={1} sx={{alignContent:'center', justifyContent: 'center'}}>
+              <Card onMouseEnter={this.handleHover} onMouseLeave={this.handleHoverLeave} sx={{ textAlign: 'center', fontFamily:'Times New Roman, Times, serif',alignContent:'center', justifyContent: 'center',width:320,height:310, borderRadius: 10, marginLeft:8, fontFamily:'Times New Roman, Times, serif', backgroundColor:'#F2F3F4','&:hover': { bgcolor:'#dc143c',color:'white', transform: 'scale(1.1)' } }}>
+                  <CardContent sx={{ alignContent:'center', justifyContent: 'center', display: 'flex' }}>
+                      <this.props.icon style={{ fontSize: 60 }} onClick={this.props.onIconClick} />
+                  </CardContent>
+                  <CardContent sx={{ alignContent:'center', justifyContent: 'center',textAlign: 'center', fontFamily:'Times New Roman, Times, serif' }}>
+                      <Typography gutterBottom variant="h6" component="h6" style={{ justifyContent:'center', textAlign: 'center', fontFamily:'Times New Roman, Times, serif' }}>
+                          {this.props.title}
+                      </Typography>
+                  </CardContent>
+              </Card>
+              <Card onMouseEnter={this.handleHover} onMouseLeave={this.handleHoverLeave} sx={{justifyContent:'center',textAlign: 'center', fontFamily:'Times New Roman, Times, serif', width: 320, height: 310, borderRadius: 10, marginLeft:8, fontFamily:'Times New Roman, Times, serif', backgroundColor:'#F2F3F4', '&:hover': { transform: 'scale(1.1)' } }}>
+                  <CardContent sx={{ alignContent:'center', justifyContent: 'center' }}>
+                      <Typography gutterBottom variant="h6" component="h6" style={{ alignContent:'justify',justifyContent:'center',textAlign: 'center', fontFamily:'Times New Roman, Times, serif' }}>
+                          {this.props.description}
+                      </Typography>
+                  </CardContent>
+              </Card>
+          </ReactCardFlip>
+      );
+  }
 }
+
 
 
 function Home() {
@@ -123,13 +124,13 @@ useEffect(() => {
         <marquee>Call to this (+91) 9475765201 to book your service</marquee>
       </div>
       <h1 style={{color:'black'}}>Welcome {data} !!</h1>
-      <Card sx={{ fontFamily:'Times New Roman, Times, serif', justifyContent:'center', height:'max', display: 'flex', maxWidth: 1100, marginLeft:23, marginTop:5, backgroundColor:'#F2F3F4', borderRadius:10, color:'black' }}>
+      <Card sx={{ fontFamily:'Times New Roman, Times, serif', justifyContent:'center', height:'max',display: 'flex', maxWidth: 1100, marginLeft:23, marginTop:5, backgroundColor:'#F2F3F4', borderRadius:10, color:'black' }}>
         <CardMedia
           sx={{width: 1700, height: 500 }}
           image={'https://jmautorepair.com/wp-content/uploads/sites/3436/2023/03/932280slider4.jpg'}
           title="Car Repair"
         />
-        <Box sx={{ color: 'black', fontFamily:'Times New Roman, Times, serif', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
+        <Box sx={{ padding:'10px',color: 'black', fontFamily:'Times New Roman, Times, serif', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
           <CardContent>
           <div style={{fontSize:'300%',fontWeight:'lighter',fontFamily:'Times New Roman, Times, serif'}}>
               {text.map((el, i) => (
@@ -151,9 +152,10 @@ useEffect(() => {
               At MCQueen Car Service, quality service is affordable. We are powered by MCQueen, to be your world-class workshop next door for complete car care - service, maintenance, and car repairs, for any car.
             </Typography>
           </CardContent>
-          <CardActions>
-            <Button size="medium" variant='contained' sx={{ height:'35px',width:"171px", fontFamily:'Times New Roman, Times, serif', borderColor:'#bc0808', backgroundColor:'#bc0808', '&:hover': { bgcolor: '#b0c4de' }}} onClick={handlebutton}>Book A service</Button>
-            <Button size="medium" variant='contained' sx={{ height:'35px',width:"171px",fontFamily:'Times New Roman, Times, serif', borderColor:'#bc0808', backgroundColor:'#bc0808', '&:hover': { bgcolor: '#b0c4de' }}} onClick={handlebutton1}>Learn More</Button>
+          <br></br>
+          <CardActions sx={{alignContent:'center',justifyContent:'center'}}>
+            <Button size="medium" variant='contained' sx={{ height:'35px',width:"171px",justifyContent:'center',alignContent:'center',fontFamily:'Times New Roman, Times, serif', borderColor:'#bc0808', backgroundColor:'#bc0808', '&:hover': { bgcolor: '#b0c4de' }}} onClick={handlebutton}>Book A service</Button>
+            <Button size="medium" variant='contained' sx={{ height:'35px',width:"171px",justifyContent:'center',alignContent:'center',fontFamily:'Times New Roman, Times, serif', borderColor:'#bc0808', backgroundColor:'#bc0808', '&:hover': { bgcolor: '#b0c4de' }}} onClick={handlebutton1}>Learn More</Button>
           </CardActions>
         </Box>
       </Card>

@@ -5,19 +5,22 @@ h1{
 
 .main-header, .main-header1 {
     display: flex;
-    justify-content: space-around; /* evenly distribute the space around the items */
-    align-items: center; /* vertically align the items in the center */
-    flex-wrap: wrap; /* allow the items to wrap onto multiple lines */
-    padding: 0 20px; /* add some padding on the left and right */
-}
-
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .navlink-container {
+    display: flex;
+    justify-content: space-evenly;
+    flex-grow: 1;
+  }
+  
 button{
     height: 30px;
     font-size: 0.9rem;
 }
 nav{
     background-color: whitesmoke;
-    margin-left: 100px;
     align-items: center;
 }
 
@@ -79,6 +82,7 @@ nav{
    
     text-decoration: none;
     margin-left: 15px;
+    margin-right: 20px;
     font-size:x-large;
     color: black;
 }

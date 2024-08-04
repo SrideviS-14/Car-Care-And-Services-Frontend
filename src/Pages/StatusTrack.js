@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { useAuth } from './AuthContext';
 import axios from 'axios';
-import { Stepper, Step, StepLabel, Card, CardContent, Typography, Box, Container } from '@mui/material';
+import { Stepper, Step, StepLabel, Card, CardContent, Typography, Box, Container, Button } from '@mui/material';
  
 const steps = ['confirmed', 'pending', 'completed'];
+const statusText = ['Order Placed', 'Processing', 'Completed'];
  
 const StatusTrack = () => {
     const [data, setdata] = useState([]);
@@ -20,12 +21,24 @@ const StatusTrack = () => {
     useEffect(() => {
         api.get('/booking/getBookingsOfUser')
         .then((response) => {
+            console.log(response.data);
           setdata(response.data);
         })
         .catch((error) => {
           console.error('Error fetching data:', error);
         });
     }, []);
+ 
+    const handleCancel = (booking_ID) => {
+        api.put('/booking/cancelBooking', booking_ID)
+        .then((response) => {
+          console.log(response);
+          window.location.reload();
+        })
+        .catch((error) => {
+          console.error('Error fetching data:', error);
+        });
+    }
     return (
         <Container maxWidth="md">
             <Box sx={{ my: 4 }}>
@@ -52,13 +65,20 @@ const StatusTrack = () => {
                                     {steps.map((label, index) => (
                                         <Step key={label}>
                                             <StepLabel StepIconProps={{
-                                                style: {
-                                                    color: index === activeStep ? (label === 'confirmed' ? 'red' : label === 'pending' ? 'orange' : 'green') : 'grey',
-                                                },
-                                            }}>{label}</StepLabel>
+                                            style: {
+                                                color: index === activeStep ? (label === 'confirmed' ? 'red' : label === 'pending' ? 'orange' : 'green') : 'grey',
+                                            },
+                                            }}>{statusText[index]}
+                                            </StepLabel>
+ 
                                         </Step>
                                     ))}
                                 </Stepper>
+                                {activeStep === 0 && (
+                                    <Button onClick={() => handleCancel(item.booking_ID)}>
+                                        Cancel
+                                    </Button>
+                                )}
                             </CardContent>
                         </Card>
                     )

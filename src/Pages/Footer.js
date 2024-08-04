@@ -7,8 +7,8 @@ import PinterestIcon from '@mui/icons-material/Pinterest';
 
 function Footer() {
   return (
-    <footer className="footer" style={{ bottom: '0', width: '100%',backgroundColor:'#F2F3F4',alignContent:'center',justifyContent:'center',textAlign:'center',fontSize:'large'}}>
-      <p style={{color:'#bc0808',fontFamily:'Times New Roman, Times, serif'}}>© 2024 WheelsUp Care And Services. All rights reserved.</p>
+    <footer className="footer" style={{ marginTop:"10px",bottom: '0', width: '100%',backgroundColor:'#F2F3F4',alignContent:'center',justifyContent:'center',textAlign:'center',fontSize:'large'}}>
+      <p style={{marginTop:'10px',color:'#bc0808',fontFamily:'Times New Roman, Times, serif'}}>© 2024 WheelsUp Care And Services. All rights reserved.</p>
       <a href='https://www.instagram.com/accounts/login/'>
         <InstagramIcon sx={{marginRight:'10px',fontSize:30,color:'#bc0808'}} />
       </a>
@@ -24,6 +24,7 @@ function Footer() {
       <a href='https://www.example.com/'>
         <XIcon sx={{marginRight:'10px',fontSize:30,color:'#bc0808'}}/>
       </a>
+      <br></br>
       <br></br>
     </footer>
   );

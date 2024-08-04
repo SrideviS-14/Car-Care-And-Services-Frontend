@@ -69,17 +69,18 @@ function Layout() {
     handleClose();
   };
 
+
   return (
     <>
       {(role == 'client' || role == '') ?
-      <div style={{backgroundColor:'whitesmoke',position:'sticky',top:'0'}}>
-       <nav className="main-header" style={{ position: 'sticky', width: '90%', top: '0',left:'0'}}>
-         <img src={logo} width='150px' style={{ marginTop: '10px', position: 'sticky', top: '0',left:'0', float: 'left' }}></img>
+       <nav className="main-header" style={{ position: 'sticky', width: '100%', top: '0',left:'0'}}>
+       <img src={logo} width='150px' style={{ marginRight: '35px', marginLeft:'25px',position: 'sticky', top: '0',left:'0', float: 'left' }}></img>
+       <div className="navlink-container" style={{backgroundColor:'whitesmoke',position:"-webkit-sticky",top:'0'}}>
           <NavLink className="homepage navlink" activeClassName="active" to="/" style={{ fontSize: '20px' }}><HomeIcon /><span>Home</span></NavLink>
           <NavLink className="aboutpage navlink" activeClassName="active" to="/About"><InfoIcon /><span>About Us</span></NavLink>
-          <NavLink className="guidepage navlink" activeClassName="active" to="/Cart"><MiscellaneousServicesIcon /><span>Service Booking</span></NavLink>
-          <NavLink className="packagepage navlink" activeClassName="active" to="/Package"><InventoryIcon /><span>Packages</span></NavLink>
-          <NavLink className="servicepage navlink" activeClassName="active" to="/Service"><AllInboxIcon /><span>Quick Book</span></NavLink>
+          <NavLink className="guidepage navlink" activeClassName="active" to="/Cart" ><MiscellaneousServicesIcon /><span>Service Booking</span></NavLink>
+<NavLink className="packagepage navlink" activeClassName="active" to="/Package" ><InventoryIcon /><span>Packages</span></NavLink>
+<NavLink className="servicepage navlink" activeClassName="active" to="/Service" ><AllInboxIcon /><span>Quick Book</span></NavLink>
           <NavLink className="packagepage navlink" activeClassName="active" to="/contact"><CallIcon /><span>Contact</span></NavLink>
           {!!jwt ?
             <div>
@@ -122,14 +123,13 @@ function Layout() {
                   marginRight: 2,
                   color: 'white',
                   borderRadius: 10,
-                  border: 'none',
-                 
+                  border: 'none',   
                 }}>Log in</Button>
               </NavLink>
             </>
           }
+          </div>
         </nav>
-        </div>
         :
         <div style={{backgroundColor:'whitesmoke',position:'sticky',top:'0'}} >
         <nav className="main-header1" style={{ position: 'sticky', width: '80%', top: '0' }}>

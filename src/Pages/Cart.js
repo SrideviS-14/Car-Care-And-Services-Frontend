@@ -104,8 +104,8 @@ function Cart() {
       <Grid container Spacing={2}>
         {carddata.map((item) => (
           <Grid item xs={11} sm={6} key={item.service_ID} >
-            <motion.div whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }}> 
             <Grow in={true} timeout={1000}>
+            <motion.div whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }}> 
               <Card sx={{borderRadius:15,p:2,px:5,mb:5, marginLeft: 7, width: 550, height: 250,backgroundColor:'#F2F3F4',fontFamily:'Times New Roman, Times, serif' }}>
                 <CardContent>
                   <br></br>
@@ -121,7 +121,7 @@ function Cart() {
                   </Typography>
                 </CardContent>
                 <CardActions style={{ justifyContent: 'center' }}>
-                
+                <motion.div whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }}> 
                 <Button
                   size="small"
                   variant='contained'
@@ -130,11 +130,11 @@ function Cart() {
                 >
                   <ShoppingCartIcon /> {addedStatus[item.service_ID] ? 'View in Cart' : 'Add to Cart'}
                 </Button>
-                
+                </motion.div> 
                 </CardActions>
               </Card>
+              </motion.div> 
             </Grow>
-            </motion.div> 
           </Grid>
         ))}
         <Snackbar

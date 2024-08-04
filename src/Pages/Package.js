@@ -6,6 +6,7 @@ import { useNavigate } from 'react-router-dom';
 import { CardContent } from '@mui/material';
 import party from "party-js";
 import { motion } from 'framer-motion';
+import Grow from '@mui/material/Grow';
 
 function Package() {
   const navigate = useNavigate();
@@ -49,7 +50,11 @@ function Package() {
       // Handle error (e.g., display error message)
     }
   };
+  const [checked, setChecked] = React.useState(false);
 
+  const handleChange = () => {
+    setChecked((prev) => !prev);
+  };
   return (
     <div>
       <h1 style={{ color: 'black', justifyContent: 'center', marginTop: '45px' }}>Welcome to our Package Selection</h1>
@@ -59,7 +64,8 @@ function Package() {
       <Grid container spacing={4} style={{ marginTop: '20px', justifyContent: 'center' }}>
         {packagedata.map((item) => (
           <Grid item key={item.service_ID} style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
-             <motion.div whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }}> 
+            <Grow in={true} timeout={1000}>
+            <motion.div whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }}> 
             <Card
               style={{
                 position: 'relative',
@@ -106,6 +112,7 @@ function Package() {
               </div>
             </Card>
             </motion.div> 
+            </Grow>
           </Grid>
         ))}
       </Grid>

@@ -5,7 +5,8 @@ import { useAuth } from './AuthContext';
 import axios from 'axios';
 import { WindowSharp } from '@mui/icons-material';
 import { motion } from 'framer-motion';
- 
+import EastIcon from '@mui/icons-material/East';
+
 function CarDetails(){
  
   const {jwt, setJwt } = useAuth();
@@ -217,7 +218,9 @@ function CarDetails(){
           <Typography color="text.secondary">Car Color: {car.car_Color}</Typography>
         </CardContent>
         <CardActions>
-        <Button onClick={() => handleProceed(car)} variant='contained' sx={{ backgroundColor: '#bc0808', margin: 'auto' }}>Proceed</Button>
+        {selectedCar === car && (
+                  <Button onClick={() => handleProceed(car)} variant='contained' sx={{ backgroundColor: '#bc0808', margin: 'auto' }}><EastIcon /></Button>
+                )}
         </CardActions>
       </Card>
     ))

@@ -1,7 +1,7 @@
 import React, { useState,useEffect } from "react";
 import './Layout.css';
 import { Outlet, NavLink, useNavigate } from "react-router-dom";
-import { Button, Menu, MenuItem, IconButton } from "@mui/material";
+import { Button, Menu, MenuItem, IconButton,Typography } from "@mui/material";
 import { useAuth } from './AuthContext';
 import logo from './images/output-onlinegiftools (2).gif';
 import Footer from './Footer.js';
@@ -25,9 +25,7 @@ import axios from 'axios';
 import { useItemHighlighted } from "@mui/x-charts";
 
 function Layout() {
-  const { jwt, setJwt, role } = useAuth();
-  const [anchorEl, setAnchorEl] = React.useState(null);
-  const open = Boolean(anchorEl);
+  const { jwt, setJwt, role,setRole } = useAuth();
   const navigate = useNavigate();
   axios.defaults.headers.common['Access-Control-Allow-Origin'] = '*';
   axios.defaults.headers.common['Access-Control-Allow-Headers'] = 'Origin, X-Requested-With, Content-Type, Accept';
@@ -53,22 +51,27 @@ function Layout() {
   const handleLogout = () => {
     localStorage.setItem('jwt', '');
     setJwt('');
+    setRole(''); // or setRole('client');
     console.log(localStorage.getItem('jwt'));
   };
-
-  const handleMenu = (event) => {
-    setAnchorEl(event.currentTarget);
-  };
-
-  const handleClose = () => {
-    setAnchorEl(null);
-  };
-
   const handleStatusTrack = () => {
     navigate("/StatusTrack");
     handleClose();
   };
+  const settings = [
+    { title: 'Status Track', icon: <TimelineIcon />, onClick: handleStatusTrack },
+    { title: 'Logout', icon: <LogoutIcon />, onClick: handleLogout }
+  ];
+  const [anchorEl, setAnchorEl] = useState(null);
 
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+  
+  const handleClose = () => {
+    setAnchorEl(null);
+  };  
+  
 
   return (
     <>
@@ -84,22 +87,28 @@ function Layout() {
           <NavLink className="packagepage navlink" activeClassName="active" to="/contact"><CallIcon /><span>Contact</span></NavLink>
           {!!jwt ?
             <div>
-            <IconButton
-              onClick={handleMenu}
-              color="inherit"
-            >
-              <Avatar sx={{backgroundColor: '#bc0808'}}>
-                <AccountCircleRoundedIcon />
-                </Avatar>
-            </IconButton>
-            <Menu
-              anchorEl={anchorEl}
-              open={open}
-              onClose={handleClose}
-            >
-              <MenuItem onClick={handleStatusTrack}><TimelineIcon />Status Track</MenuItem>
-              <MenuItem onClick={handleLogout}><LogoutIcon />Logout</MenuItem>
-            </Menu>
+           <IconButton
+  onClick={handleClick}
+  color="inherit"
+>
+  <Avatar sx={{backgroundColor: '#bc0808'}}>
+    <AccountCircleRoundedIcon />
+  </Avatar>
+</IconButton>
+<Menu
+  id="simple-menu"
+  anchorEl={anchorEl}
+  keepMounted
+  open={Boolean(anchorEl)}
+  onClose={handleClose}
+>
+  {settings.map((option, index) => (
+    <MenuItem key={index} onClick={() => {option.onClick(); handleClose();}}>
+      {option.icon}
+      {option.title}
+    </MenuItem>
+  ))}
+</Menu>    
           </div>    
             :
             <>
@@ -132,8 +141,8 @@ function Layout() {
         </nav>
         :
         <div style={{backgroundColor:'whitesmoke',position:'sticky',top:'0'}} >
-        <nav className="main-header1" style={{ position: 'sticky', width: '80%', top: '0' }}>
-           <img src={logo} width='150px' height='150px' style={{ marginTop: '10px', position: 'sticky', top: '0' }}></img>
+        <nav className="main-header" style={{ position: 'sticky', width: '100%', top: '0',left:'0'}}>
+        <img src={logo} width='150px' style={{ marginRight: '35px', marginLeft:'25px',position: 'sticky', top: '0',left:'0', float: 'left' }}></img>
           <NavLink className="dashboardpage navlink" activeClassName="active" to="/dashboard"><DashboardIcon /><span>Dashboard</span></NavLink>
           <NavLink className="bookingpage navlink" activeClassName="active" to='/booking'><ContentPasteSearchIcon /><span>Orders Log</span></NavLink>
           <NavLink className="servicespage navlink" activeClassName="active" to='/services'><SettingsIcon /><span>Services</span></NavLink>
@@ -150,7 +159,6 @@ function Layout() {
                 color: 'white',
                 borderRadius: 10,
                 border: 'none',
-                marginLeft: 20
               }}>Log out</Button>
             </NavLink>
             :
@@ -165,7 +173,6 @@ function Layout() {
                   color: 'white',
                   borderRadius: 10,
                   border: 'none',
-                  marginLeft: 20
                 }}> Log in</Button>
               </NavLink>
             </>

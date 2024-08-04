@@ -84,9 +84,21 @@ function Payment(){
   const handleTabChange = (event, newValue) => {
     setTabValue(newValue);
   };
-  const handeCompleted = () =>{
-    setopenalert(true);
-  }
+  
+  const [openSuccessDialog, setOpenSuccessDialog] = useState(false);
+
+// Add this function in your Payment function
+const handleSuccessDialogClose = () => {
+  setOpenSuccessDialog(false);
+  navigate('/'); // Navigate to home page
+};
+
+// Add this function where you handle the payment success
+const handlePaymentSuccess = () => {
+  // ... your existing code for payment success
+  setOpenSuccessDialog(true); // Open the success dialog
+};
+ 
 return(
   <>
   <Container maxWidth="md" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
@@ -111,7 +123,7 @@ return(
         bgColor="#ffffff"
         fgColor="#000080"
       />
-      <Button variant="contained" style={{ marginBottom: '20px',backgroundColor:'#bc0808' }} onClick={handeCompleted}>Completed</Button>
+     <Button variant="contained" style={{ marginBottom: '20px',backgroundColor:'#bc0808' }} onClick={handlePaymentSuccess}>Completed</Button>
     </div>
   </div>
 )}
@@ -194,6 +206,26 @@ return(
       </Dialog>
       </div>
         )}
+        <Dialog
+  open={openSuccessDialog}
+  onClose={handleSuccessDialogClose}
+  aria-labelledby="success-dialog-title"
+  aria-describedby="success-dialog-description"
+>
+  <DialogTitle id="success-dialog-title">
+    <img src={Tick} style={{marginLeft:'100px',marginRight:'100px'}}></img>
+  </DialogTitle>
+  <DialogContent>
+    <DialogContentText id="success-dialog-description" sx={{textAlign:'center'}}>
+      Payment Successful
+    </DialogContentText>
+  </DialogContent>
+  <DialogActions>
+    <Button onClick={handleSuccessDialogClose} autoFocus>
+      Thank You
+    </Button>
+  </DialogActions>
+</Dialog>
         <br></br>
         <br></br>
         <br></br>

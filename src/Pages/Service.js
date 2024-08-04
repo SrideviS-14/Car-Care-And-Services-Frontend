@@ -12,6 +12,9 @@ import axios from 'axios';
 import { useAuth } from './AuthContext';
 import Image from './images/output-onlinegiftools.gif'
 import { useNavigate } from 'react-router-dom';
+import FactCheckIcon from '@mui/icons-material/FactCheck';
+import TireRepairIcon from '@mui/icons-material/TireRepair';
+import CarRepairIcon from '@mui/icons-material/CarRepair';
  
 function Service() {
   const navigate = useNavigate();
@@ -26,19 +29,15 @@ function Service() {
     },
   });
   const [carddata, setcarddata] = useState([]);
-  const cardsData =
-  [
-    { title: 'Inspection & Checks', icon: EastIcon },
-    { title: 'Car Repair Service', icon: BuildIcon },
-    { title: 'Tyre Service', icon: LocalGasStationIcon },
-    { title: 'Electronic Services', icon: ElectricCarIcon },
-    { title: 'Air Conditioning Service', icon: AcUnitIcon },
-    { title: 'Engine Service', icon: CarCrashSharpIcon },
-    { title: 'Brake Service', icon: SettingsIcon },
-    { title: 'Car Bulb Check', icon: HighlightIcon },
-    { title: 'Car Bulb Check', icon: HighlightIcon },
-    { title: 'Car Bulb Check', icon: HighlightIcon },
-    { title: 'Car Bulb Check', icon: HighlightIcon }
+  const cardsData = [
+    { title: 'Inspection & Checks', icon: FactCheckIcon, description: "Comprehensive inspection of the vehicle, including safety checks, fluid levels, and overall condition. Our skilled technicians meticulously examine critical components to ensure optimal performance and safety." },
+    { title: 'Car Repair Service', icon: CarRepairIcon, description: "Our expert mechanics handle mechanical issues, engine problems, and other malfunctions. Whether it's a faulty transmission, worn-out brakes, or engine diagnostics, we provide reliable repairs to keep your vehicle running smoothly." },
+    { title: 'Tyre Service', icon: TireRepairIcon, description: "Tire maintenance is crucial for safe driving. Our tire experts perform rotation, balancing, and alignment to extend tire life and enhance handling. We ensure your wheels are road-ready." },
+    { title: 'Electronic Services', icon: ElectricCarIcon, description: "Modern vehicles rely on intricate electronic systems. Our skilled technicians diagnose and repair issues related to sensors, wiring, and onboard components. Trust us to keep your car's electronics in top shape." },
+    { title: 'Air Conditioning Service', icon: AcUnitIcon, description: "Don't sweat it! Our air conditioning service includes thorough inspection, cleaning, and maintenance. We ensure your A/C system blows cool air during scorching summers." },
+    { title: 'Engine Service', icon: CarCrashSharpIcon, description: "Your engine deserves the best care. Our comprehensive engine service covers oil changes, filter replacements, and performance checks. We fine-tune your engine for optimal efficiency and longevity." },
+    { title: 'Brake Service', icon: BuildIcon, description: "Safety first! Our brake service includes inspection, adjustment, and repair of the braking system. We ensure your brakes respond promptly, providing reliable stopping power." },
+    { title: 'Car Bulb Check', icon: HighlightIcon, description: "See and be seen! Our technicians verify and replace bulbs (headlights, taillights, etc.) as needed. Proper lighting enhances visibility and safety on the road." }
   ];
   const [selectedServices, setSelectedServices] = useState([]);
   const handleServiceChange = (event, serviceId) => {
@@ -92,16 +91,17 @@ function Service() {
               <br></br>
               <FormGroup sx={{fontFamily:'Times New Roman, Times, serif'}}>
               {carddata.map((item, index) => (
-                <FormControlLabel sx={{fontFamily:'Times New Roman, Times, serif'}}
-                  key={item.service_ID}
-                  control={<Checkbox onChange={(event) => handleServiceChange(event, item.service_ID)}/>}
-                  label={
-                    <Box sx={{ spacing:'5%',whiteSpace:'nowrap' ,padding:'5%',fontSize:'large',fontFamily:'Times New Roman, Times, serif',display: 'flex', alignItems: 'center' }}>
-                      {React.createElement(cardsData[index].icon)} {item.service_Name} -  ₹{item.service_Amount}
-                    </Box>
-                  }
-                />
-              ))}
+  <FormControlLabel
+    key={item.service_ID}
+    control={<Checkbox onChange={(event) => handleServiceChange(event, item.service_ID)}/>}
+    label={
+      <Box sx={{ spacing:'5%',whiteSpace:'nowrap' ,padding:'5%',fontSize:'large',fontFamily:'Times New Roman, Times, serif',display: 'flex', alignItems: 'center' }}>
+        {React.createElement(cardsData[index].icon, { style: { marginRight: '10px' } })}{item.service_Name} -  ₹{item.service_Amount}
+      </Box>
+    }
+  />
+))}
+
               </FormGroup>
             </CardContent>
             <br></br>

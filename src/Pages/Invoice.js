@@ -17,7 +17,8 @@ import { useLocation } from "react-router-dom";
 import BookOnlineIcon from '@mui/icons-material/BookOnline';
 import PaymentsIcon from '@mui/icons-material/Payments';
 import CloseIcon from '@mui/icons-material/Close';
-
+import logo from './images/output-onlinegiftools (2).gif';
+ 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
@@ -30,11 +31,11 @@ function Invoice() {
     { title: 'Online', icon: BookOnlineIcon },
   ];
   const [selectedOption, setSelectedOption] = useState(null);
-
+ 
   const handleOptionSelect = (option) => {
     setSelectedOption(option);
   }
-
+ 
   const handleSubmit = (event) => {
     if (selectedOption === 'In-Person') {
       handleInPersonPay(event);
@@ -80,13 +81,14 @@ function Invoice() {
     const [userID, setUserID] = useState(0);
  
   useEffect(()=>{
-    api.get('account/getallUsers',{userID})
-    .then((response)=>{
-      const userdetails = response.data;
+    api.get('/account/profile')
+    .then((response) => {
+      console.log(response.data.User);
+      setuserdetails(response.data.User);
     })
-    .catch((error)=>{
+    .catch((error) => {
       console.error('Error fetching data:', error);
-    })
+    });
   },[]);
    
   useEffect(() => {
@@ -181,24 +183,35 @@ function Invoice() {
     return (
       <div style={{  justifyContent: 'center', alignItems: 'center',fontFamily:'Times New Roman, Times, serif' }}>
  
-            <Paper elevation={3} style={{ marginLeft:'400px',marginTop:'50px',marginBottom:'50px',padding: '20px', width: '600px', maxWidth: '100%',fontFamily:'Times New Roman, Times, serif' }} ref={componentRef}>
-           <div className="col-md-4 brcode">
-                                        <Barcode value={totalamount} width={1} height={50} displayValue={false} />
-                                    </div>
+            <Paper elevation={3} style={{fontFamily:'Times New Roman, Times, serif', marginLeft:'400px',marginTop:'50px',marginBottom:'50px',padding: '20px', width: '600px', maxWidth: '100%',fontFamily:'Times New Roman, Times, serif' }} ref={componentRef}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
+    <Barcode value={totalamount} width={2} height={50} displayValue={false}  />
+    <img src={logo} width='150px' style={{ marginRight: '0', marginLeft: '0', marginTop: '0' }} />
+</div>
+
                                     <div className="col-md-8 text-right bbc">
-                                        <h4 style={{ color: '#325aa8',fontFamily:'Times New Roman, Times, serif' }}><strong>Wheels Up Company</strong></h4>
+                                        <h4 style={{ color: '#325aa8',fontFamily:'Times New Roman, Times, serif' }}><strong> Wheels Up Company</strong></h4>
                                         <p style={{fontFamily:'Times New Roman, Times, serif'}}>(+91) 9475765201</p>
                                         <p style={{fontFamily:'Times New Roman, Times, serif'}}>wheelsup.carservices@gmail.com</p>
-                                    </div>
-          <Typography variant="h4" align="center" gutterBottom>
-            Invoice
+                                        <h4 style={{ color: '#325aa8',fontFamily:'Times New Roman, Times, serif',textAlign:'right',marginTop:'-110px' }}><strong>{`Name: ${userdetails.userName}`}</strong></h4>
+                                        <p style={{fontFamily:'Times New Roman, Times, serif',textAlign:'right',marginTop:'10px'}}>{`Email: ${userdetails.email}`}</p>
+                                        <p style={{fontFamily:'Times New Roman, Times, serif',textAlign:'right',marginTop:'10px'}}>{`Phone Number: ${userdetails.phoneNumber}`}</p>
+                                   
+                                   </div>
+                              
+          <br></br>
+          <Typography variant="h4" align="center" gutterBottom sx={{fontFamily:'Times New Roman, Times, serif'}}>
+          <Typography align="center">---------------------------------------------------------------------------------------------------------------------------</Typography>      
+            INVOICE
+            <Typography align="center">---------------------------------------------------------------------------------------------------------------------------</Typography>      
           </Typography>
+          <br></br>
           <TableContainer component={Paper}>
             <Table aria-label="simple table">
               <TableHead style={{fontWeight:'bolder'}}>
                 <TableRow>
-                  <TableCell style={{fontWeight:'bolder',fontFamily:'Times New Roman, Times, serif'}}>Service Name</TableCell>
-                  <TableCell style={{fontWeight:'bolder',fontFamily:'Times New Roman, Times, serif'}}align="right">Amount</TableCell>
+                  <TableCell style={{fontSize:'large',fontWeight:'bolder',fontFamily:'Times New Roman, Times, serif'}}>Service Name</TableCell>
+                  <TableCell style={{fontSize:'large',fontWeight:'bolder',fontFamily:'Times New Roman, Times, serif'}}align="right">Amount</TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
@@ -211,22 +224,32 @@ function Invoice() {
                   </TableRow>
                 ))}
                 <TableRow>
-                  <TableCell component="th" scope="row" style={{ fontWeight: 'bold',fontFamily:'Times New Roman, Times, serif' }}>
-                    GST
-                  </TableCell>
-                  <TableCell align="right" style={{ fontWeight: 'bold',fontFamily:'Times New Roman, Times, serif' }}>{gst}</TableCell>
-                </TableRow>
-                <TableRow>
-                  <TableCell component="th" scope="row" style={{ fontWeight: 'bold',fontFamily:'Times New Roman, Times, serif' }}>
+                <TableCell component="th" scope="row" style={{ fontSize:'medium',fontWeight: 'bold',fontFamily:'Times New Roman, Times, serif' }}>
                     Total
                   </TableCell>
-                  <TableCell align="right" style={{ fontWeight: 'bold',fontFamily:'Times New Roman, Times, serif' }}>₹{totalamount}</TableCell>
+                  <TableCell align="right" style={{ fontSize:'medium',fontWeight: 'bold',fontFamily:'Times New Roman, Times, serif' }}>₹{finaldata}</TableCell>
+                  </TableRow>
+                  <TableRow>
+                  <TableCell component="th" scope="row" style={{ fontSize:'medium',fontWeight: 'bold',fontFamily:'Times New Roman, Times, serif' }}>
+                    GST
+                  </TableCell>
+                  <TableCell align="right" style={{ fontSize:'medium',fontWeight: 'bold',fontFamily:'Times New Roman, Times, serif' }}>₹{gst}</TableCell>
+                </TableRow>
+                <TableRow>
+                  <TableCell component="th" scope="row" style={{ fontSize:'medium',fontWeight: 'bold',fontFamily:'Times New Roman, Times, serif' }}>
+                    Total Amount
+                  </TableCell>
+                  <TableCell align="right" style={{ fontSize:'medium',fontWeight: 'bold',fontFamily:'Times New Roman, Times, serif' }}>₹{totalamount}</TableCell>
                 </TableRow>
               </TableBody>
             </Table>
           </TableContainer>
  <br></br>
  <br></br>
+ <Typography align="center">---------------------------------------------------------------------------------------------------------------------------</Typography>      
+ <Typography variant='h6' align='center'sx={{fontFamily:'Times New Roman, Times, serif',fontSize:'medium',fontWeight: 'bold'}}>THANK YOU!</Typography>        
+ <Typography variant='h6' align='center'sx={{fontFamily:'Times New Roman, Times, serif',fontSize:'medium',fontWeight: 'bold'}}>Do Visit Us Again</Typography>
+ <Typography align="center">---------------------------------------------------------------------------------------------------------------------------</Typography>        
  </Paper>
  <div style={{ display: 'flex', justifyContent: 'space-between', width: '600px', margin: '20px auto' }}>
   <Button size='medium' variant='contained' style={{ height:'35px',width:"179px",backgroundColor: '#bc0808' }}
@@ -236,7 +259,7 @@ function Invoice() {
   <Button size='medium' variant='contained' style={{ height:'35px',width:"171px",backgroundColor: '#bc0808' }}
     onClick={() => handlePayment()}>Proceed To Pay</Button>
 </div>
-
+ 
       <br></br>
       <br></br>
         <Dialog
@@ -301,3 +324,4 @@ function Invoice() {
 }
  
 export default Invoice;
+ 

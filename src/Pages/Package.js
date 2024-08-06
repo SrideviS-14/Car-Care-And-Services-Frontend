@@ -7,7 +7,7 @@ import { CardContent } from '@mui/material';
 import party from "party-js";
 import { motion } from 'framer-motion';
 import Grow from '@mui/material/Grow';
-
+ 
 function Package() {
   const navigate = useNavigate();
   const { jwt } = useAuth();
@@ -21,7 +21,7 @@ function Package() {
     },
   });
   const [packagedata, setpackagedata] = useState([]);
-
+  const [offerData, setOfferData] = useState({});
   useEffect(() => {
     api.get('/service/getAllPackages')
       .then((response) => {
@@ -31,13 +31,21 @@ function Package() {
       .catch((error) => {
         console.error('Error fetching data:', error);
       });
-
+ 
+      api.get('/service/getAllPackagesWithOffers')
+      .then((response) => {
+        console.log(response.data);
+        setOfferData(response.data);
+      })
+      .catch((error) => {
+        console.error('Error fetching data:', error);
+      });
     const confettiAnimation = party.confetti(document.body, {
       count: party.variation.range( 80,100),
     });
-
+ 
   }, []);
-
+ 
   const handleBuyPackage = async (package_ID) => {
     try {
       const response = await api.post('/package/buyPackage', package_ID);
@@ -51,7 +59,7 @@ function Package() {
     }
   };
   const [checked, setChecked] = React.useState(false);
-
+ 
   const handleChange = () => {
     setChecked((prev) => !prev);
   };
@@ -65,7 +73,7 @@ function Package() {
         {packagedata.map((item) => (
           <Grid item key={item.service_ID} style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
             <Grow in={true} timeout={1000}>
-            <motion.div whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }}> 
+            <motion.div whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }}>
             <Card
               style={{
                 position: 'relative',
@@ -82,7 +90,10 @@ function Package() {
               <CardContent>
                 <div style={{ textAlign: 'left',fontWeight:'bolder',fontSize:'x-large' }}>{item.service_Name}</div>
                 <br />
-                <div style={{ textAlign: 'left',fontWeight:'bolder',fontSize:'x-large' }}>₹{item.service_Amount}</div>
+                <div style={{ textAlign: 'left',fontWeight:'bolder',fontSize:'x-large' }}>
+                <span style={{ textDecoration: 'line-through', color: '#808080'}}>₹{offerData[item.service_ID]}</span>
+                  <span style={{ marginLeft: '10px', color: '#c5b358' }}>₹{item.service_Amount}</span>
+                </div>
                 <ul style={{fontSize:'large'}}>
                   {item.description.split(',').map((service) => (
                     <li key={service}>{service}</li>
@@ -102,16 +113,16 @@ function Package() {
                 }}
               >
                 <CardActions>
-                <motion.div whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }}> 
+                <motion.div whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }}>
                   <Button size="medium" variant="contained" style={{  height:'35px',width:"179px",backgroundColor: '#bc0808' }} onClick={() => handleBuyPackage(item.service_ID)}>
                     Buy Now
                   </Button>
-                  </motion.div> 
+                  </motion.div>
                 </CardActions>
-                
+               
               </div>
             </Card>
-            </motion.div> 
+            </motion.div>
             </Grow>
           </Grid>
         ))}
@@ -122,5 +133,6 @@ function Package() {
     </div>
   );
 }
-
+ 
 export default Package;
+

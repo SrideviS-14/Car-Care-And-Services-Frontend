@@ -61,10 +61,10 @@ function ConfirmBooking() {
       console.log('Successful', response.data);
       setOpenRemove(true);
  
-      const savedDisabledStatus = JSON.parse(localStorage.getItem(jwt));
+      const savedDisabledStatus = JSON.parse(localStorage.getItem(`disabled-${jwt}`))
       if (savedDisabledStatus) {
         savedDisabledStatus[serviceId] = false;
-        localStorage.setItem(jwt, JSON.stringify(savedDisabledStatus));
+        localStorage.setItem(`disabled-${jwt}`, JSON.stringify(savedDisabledStatus));
       }
     } catch (error) {
       alert("Cannot remove");

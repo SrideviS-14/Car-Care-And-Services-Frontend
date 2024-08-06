@@ -17,8 +17,32 @@ import { useLocation } from "react-router-dom";
 import BookOnlineIcon from '@mui/icons-material/BookOnline';
 import PaymentsIcon from '@mui/icons-material/Payments';
 import CloseIcon from '@mui/icons-material/Close';
-import logo from './images/output-onlinegiftools (2).gif';
+import image from './images/image.png';
+import { motion } from 'framer-motion';
+import { Document, Page, Text, View, StyleSheet, PDFDownloadLink } from '@react-pdf/renderer';
  
+const styles = StyleSheet.create({
+  page: {
+    flexDirection: 'row',
+    backgroundColor: '#E4E4E4'
+  },
+  section: {
+    margin: 10,
+    padding: 10,
+    flexGrow: 1
+  }
+});
+ 
+// Create a new component for the PDF document
+const MyDocument = () => (
+  <Document>
+    <Page size="A4" style={styles.page}>
+      <View style={styles.section}>
+        <Text>Invoice Details Here</Text>
+      </View>
+    </Page>
+  </Document>
+);
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
@@ -73,8 +97,10 @@ function Invoice() {
     });
     const componentRef = useRef();
     const handlePrint = useReactToPrint({
-        content: () => componentRef.current,
+      content: () => componentRef.current,
+      onAfterPrint: () => window.close(),
     });
+   
     const [finaldata, setfinaldata] = useState(0);
     const [services, setServices] = useState([]);
     const [userdetails,setuserdetails] = useState([]);
@@ -185,10 +211,9 @@ function Invoice() {
  
             <Paper elevation={3} style={{fontFamily:'Times New Roman, Times, serif', marginLeft:'400px',marginTop:'50px',marginBottom:'50px',padding: '20px', width: '600px', maxWidth: '100%',fontFamily:'Times New Roman, Times, serif' }} ref={componentRef}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
-    <Barcode value={totalamount} width={2} height={50} displayValue={false}  />
-    <img src={logo} width='150px' style={{ marginRight: '0', marginLeft: '0', marginTop: '0' }} />
+            <img src={image} width='150px' style={{ marginRight: '0', marginLeft: '0', marginTop: '0' }} />
 </div>
-
+ 
                                     <div className="col-md-8 text-right bbc">
                                         <h4 style={{ color: '#325aa8',fontFamily:'Times New Roman, Times, serif' }}><strong> Wheels Up Company</strong></h4>
                                         <p style={{fontFamily:'Times New Roman, Times, serif'}}>(+91) 9475765201</p>
@@ -196,11 +221,14 @@ function Invoice() {
                                         <h4 style={{ color: '#325aa8',fontFamily:'Times New Roman, Times, serif',textAlign:'right',marginTop:'-110px' }}><strong>{`Name: ${userdetails.userName}`}</strong></h4>
                                         <p style={{fontFamily:'Times New Roman, Times, serif',textAlign:'right',marginTop:'10px'}}>{`Email: ${userdetails.email}`}</p>
                                         <p style={{fontFamily:'Times New Roman, Times, serif',textAlign:'right',marginTop:'10px'}}>{`Phone Number: ${userdetails.phoneNumber}`}</p>
-                                   
+                                        <div style={{textAlign:'right',marginTop:'-220px'}} >
+    <Barcode value={totalamount} width={2} height={50} displayValue={false} sx={{textAlign:'right'}} />
+    </div>
                                    </div>
-                              
+                             
           <br></br>
-          <Typography variant="h4" align="center" gutterBottom sx={{fontFamily:'Times New Roman, Times, serif'}}>
+       
+          <Typography variant="h4" align="center" gutterBottom sx={{marginTop:'130px',fontFamily:'Times New Roman, Times, serif'}}>
           <Typography align="center">---------------------------------------------------------------------------------------------------------------------------</Typography>      
             INVOICE
             <Typography align="center">---------------------------------------------------------------------------------------------------------------------------</Typography>      
@@ -244,6 +272,7 @@ function Invoice() {
               </TableBody>
             </Table>
           </TableContainer>
+       
  <br></br>
  <br></br>
  <Typography align="center">---------------------------------------------------------------------------------------------------------------------------</Typography>      
@@ -252,8 +281,12 @@ function Invoice() {
  <Typography align="center">---------------------------------------------------------------------------------------------------------------------------</Typography>        
  </Paper>
  <div style={{ display: 'flex', justifyContent: 'space-between', width: '600px', margin: '20px auto' }}>
-  <Button size='medium' variant='contained' style={{ height:'35px',width:"179px",backgroundColor: '#bc0808' }}
-    onClick={handlePrint}>Download Invoice</Button>
+  <Button size='medium' variant='contained' style={{ height:'35px',width:"179px",backgroundColor: '#bc0808',color:'white' }}
+    ><PDFDownloadLink style={{color:'white',textDecoration:'none'}}  document={<MyDocument invoiceData={finaldata} />} fileName="invoice.pdf">
+    {({ blob, url, loading, error }) =>
+      loading ? 'Loading document...' : 'Download Invoice'
+    }
+  </PDFDownloadLink></Button>
   <Button size='medium' variant='contained' style={{height:'35px',width:"171px", backgroundColor: '#bc0808' }}
     onClick={() => handleBackToCart()}>Back To Cart</Button>
   <Button size='medium' variant='contained' style={{ height:'35px',width:"171px",backgroundColor: '#bc0808' }}
@@ -304,19 +337,26 @@ function Invoice() {
           </DialogContentText>
           <br></br>
           <div style={{ display: 'flex', flexDirection: 'row', flexWrap: 'wrap' }}>
-        {data.map((item) => (
-          <Card onClick={() => handleOptionSelect(item.title)} style={{   margin: '10px',justifyContent:'center',alignContent:'center',width:'220px',backgroundColor: selectedOption === item.title ? '#bc0808' : 'white' }}>
-            <CardContent sx={{textAlign:'center',justifyContent:'center',alignContent:'center'}}>
-              <item.icon />
-              <Typography>{item.title}</Typography>
-            </CardContent>
-          </Card>
-        ))}
+          {data.map((item) => (
+ <Card onClick={() => handleOptionSelect(item.title)} style={{
+  margin: '10px',
+  justifyContent:'center',
+  alignContent:'center',
+  width:'256px',
+  backgroundColor: selectedOption === item.title ? '#bc0808' : 'white',
+  transition: 'background-color 0.5s ease' // Add this line
+}}>
+    <CardContent sx={{textAlign:'center', justifyContent:'center', alignContent:'center'}}>
+      <item.icon style={{ color: selectedOption === item.title ? 'white' : 'black' }} />
+      <Typography style={{ color: selectedOption === item.title ? 'white' : 'black' }}>{item.title}</Typography>
+    </CardContent>
+  </Card>
+))}
         <br></br>
-        </div>
+       </div>
         <br></br>
         <br></br>
-        <Button variant="contained" sx={{justifyContent:'center',marginLeft:'190px',backgroundColor:"#bc0808"}} onClick={handleSubmit}>Submit</Button>
+        <Button variant="contained" sx={{justifyContent:'center',marginLeft:'228px',backgroundColor:"#bc0808"}} onClick={handleSubmit}>Submit</Button>
         </DialogContent>
       </Dialog>
         </div>
@@ -324,4 +364,3 @@ function Invoice() {
 }
  
 export default Invoice;
- 

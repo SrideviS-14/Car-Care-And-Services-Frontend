@@ -94,9 +94,17 @@ const handleSuccessDialogClose = () => {
 };
 
 // Add this function where you handle the payment success
-const handlePaymentSuccess = () => {
+const handlePaymentSuccess = async() => {
   // ... your existing code for payment success
-  setOpenSuccessDialog(true); // Open the success dialog
+  try {
+    const response = await api.put(`/booking/updateBookingPayment/${bookingId}`);
+    console.log('Registration successful:', response.data.token);
+    setOpenSuccessDialog(true);
+    // Handle success (e.g., redirect to login page)
+  } catch (error) {
+    console.error('Registration failed:');
+    // Handle error (e.g., display error message)
+  } // Open the success dialog
 };
  
 return(
@@ -121,7 +129,6 @@ return(
         value={`upi://pay?pa=sridevi.srsv@oksbi&pn=Sridevi%20Srsv&aid=uGICAgMCymIPzZA&am=${amount}&cu=INR`}
         viewBox={`0 0 256 256`}
         bgColor="#ffffff"
-        fgColor="#000080"
       />
      <Button variant="contained" style={{ marginBottom: '20px',backgroundColor:'#bc0808' }} onClick={handlePaymentSuccess}>Completed</Button>
     </div>
@@ -132,8 +139,8 @@ return(
           <div>
           <Box  width="700px" display="flex" justifyContent="center" alignItems="center" fontFamily='Times New Roman, Times, serif'>
     <Card sx={{ flexDirection: 'row', backgroundColor: '#F2F3F4', height: 540, justifyContent: "center", borderRadius: 12,fontFamily:'Times New Roman, Times, serif' }}>
-        <CardContent>
-        <h1 gutterBottom variant="h5" component="div"style={{textAlign:'center', color: "black",fontFamily:'Times New Roman, Times, serif'}}>Enter your Card Details for Payment</h1>
+        <CardContent style={{width:'500px'}}>
+        <h1 gutterBottom variant="h5" component="div"style={{textAlign:'center', color: "black",fontFamily:'Times New Roman, Times, serif'}}>Card Details</h1>
         <br></br>
         <Box mb={2} style={{fontFamily:'Times New Roman, Times, serif'}}>
             <Typography gutterBottom variant="subtitle1">

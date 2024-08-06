@@ -248,7 +248,7 @@ const [statusConfirmOpen, setStatusConfirmOpen] = useState(false);
      
       return(
         <div >
-                     <h1 style={{ color: 'black', justifyContent: 'center', marginTop: '50px' }}>Orders Log</h1>
+                     <h1 style={{ color: 'black', justifyContent: 'center', marginTop: '50px' }}>Pending Orders</h1>
       <p style={{ textAlign: 'center', fontSize: 'x-large', color: 'black', justifyContent: 'center', marginTop: '25px' }}>
         Update Bookings Of Users
       </p>

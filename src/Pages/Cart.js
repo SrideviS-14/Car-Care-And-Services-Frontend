@@ -14,7 +14,12 @@ import CloseIcon from '@mui/icons-material/Close';
 import IconButton from '@mui/material/IconButton';
 import Snackbar from '@mui/material/Snackbar';
 import { motion } from 'framer-motion';
- 
+
+export const getServiceNameById = (serviceId, carddata) => {
+  const service = carddata.find(item => item.service_ID === serviceId);
+  return service ? service.service_Name : null;
+};
+
 function Cart() {
   const [checked, setChecked] = React.useState(false);
 
@@ -35,13 +40,13 @@ function Cart() {
     },
   });
   const [addedStatus, setAddedStatus] = useState({});
- 
+  const getServiceNameById = (serviceId) => getServiceNameById(serviceId, carddata);
   useEffect(() => {
     api.get('/account/profile')
       .then((response) => {
         console.log(response.data);
         setdata(response.data.User);
-        setAddedStatus(JSON.parse(localStorage.getItem(jwt)) || {});
+        setAddedStatus(JSON.parse(localStorage.getItem(`disabled-${jwt}`)) || {});
       })
       .catch((error) => {
         console.error('Error fetching data:', error);
@@ -49,7 +54,8 @@ function Cart() {
   }, []);
  
   const [carddata, setcarddata] = useState([]);
- 
+  
+
   useEffect(() => {
     api.get('/service/getAllServices')
       .then((response) => {
@@ -67,7 +73,7 @@ function Cart() {
       console.log(service_ID);
       setAddedStatus(prevStatus => {
         const newStatus = { ...prevStatus, [service_ID]: true };
-        localStorage.setItem(jwt, JSON.stringify(newStatus));
+        localStorage.setItem(`disabled-${jwt}`, JSON.stringify(newStatus));
         return newStatus;
       });
       const response = await api.post('/cart/addService', service_ID);

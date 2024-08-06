@@ -1,14 +1,14 @@
-import {Grid,Card,CardContent,Typography,Box,TextField, CardActions, Button} from '@mui/material';
+import {Grid,Card,CardContent,CardMedia,Typography,Box,TextField, CardActions, Button} from '@mui/material';
 import { useNavigate} from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { useAuth } from './AuthContext';
 import axios from 'axios';
-import { WindowSharp } from '@mui/icons-material';
-import { motion } from 'framer-motion';
+import Slide from '@mui/material/Slide';
 import EastIcon from '@mui/icons-material/East';
+import React from 'react';
 
-function CarDetails(){
  
+function CarDetails(){
   const {jwt, setJwt } = useAuth();
   const [carDetails, setCarDetails] = useState([]);
   const [selectedCar, setSelectedCar] = useState(null);
@@ -22,6 +22,13 @@ function CarDetails(){
     car_Type: '',
     car_Color: ''
   });
+ 
+  const images =[
+    {title:'imag1',url:'https://www.arabianbusiness.com/cloud/2021/09/17/C0YPNCuy-523891448.jpg'},
+    {title:'imag2',url:'https://s3.amazonaws.com/media.emercedesbenz.com/magazine/wp-content/uploads/2020/09/02085641/20C0417_003-1000x570.jpg'},
+    {title:'image3',url:'https://theautomotiveblog.com/wp-content/uploads/2021/04/20210420034739_2021_mercedes_c_class_long_wheelbase_front.jpg'},
+    {title:'image4',url:'https://tse2.mm.bing.net/th/id/OIP.XU6fo5eqdQTuykSks_2BXAHaE7?rs=1&pid=ImgDetMain'}
+  ];
   const api = axios.create({
     baseURL: 'http://localhost:8080',
     headers: {
@@ -202,27 +209,38 @@ function CarDetails(){
     </Grid>
     </Card>
       </Box>
-      <Box sx={{ width: '50%', display: 'flex', flexDirection: 'column', alignItems: 'center', height: '700px', overflow: 'auto' }}>
+      <Box sx={{ width: '50%', display: 'flex', flexDirection: 'column', alignItems: 'flex-start', height: '700px', overflow: 'auto' }}>
   {carDetails.length > 0 ? (
     carDetails.map((car, index) => (
-      <Card key={index} sx={{ backgroundColor:'#F2F3F4',width: '550px', minHeight: '190px', borderRadius: '15px', margin: '10px', cursor: 'pointer' }}
-        onClick={() => setSelectedCar(car)}>
-        <CardContent>
-          <Typography variant="h5" component="div">
-            <Box fontWeight="fontWeightBold">
-              {car.car_Company} {car.car_Model}
-            </Box>
-          </Typography>
-          <Typography color="text.secondary">Car Number: {car.car_Number}</Typography>
-          <Typography color="text.secondary">Car Type: {car.car_Type}</Typography>
-          <Typography color="text.secondary">Car Color: {car.car_Color}</Typography>
-        </CardContent>
-        <CardActions>
+      <Slide direction="up" in={true} mountOnEnter unmountOnExit key={index} timeout={1000}>
+        <Card key={index} sx={{ backgroundColor:'#F2F3F4',width: '550px', minHeight: '220px', borderRadius: '15px', margin: '10px', cursor: 'pointer', display: 'flex', flexDirection: 'row' }}
+          onClick={() => setSelectedCar(car)}>
+          <CardContent sx={{ order: 2 }}>
+            <Typography variant="body1" component="div" style={{fontSize:'large',textTransform:'capitalize'}}>
+              <Box fontWeight="fontWeightBold">
+                {car.car_Company} {car.car_Model}
+              </Box>
+              <br></br>
+            </Typography>
+            <Typography variant="body1" color="text.secondary" style={{fontSize:'medium',textTransform:'capitalize'}}>Car Number: {car.car_Number}</Typography>
+            <Typography variant="body1" color="text.secondary" style={{fontSize:'medium',textTransform:'capitalize'}}>Car Type: {car.car_Type}</Typography>
+            <Typography variant="body1" color="text.secondary" style={{fontSize:'medium',textTransform:'capitalize'}}>Car Color: {car.car_Color}</Typography>
+            <br></br>
+            <CardActions>
         {selectedCar === car && (
-                  <Button onClick={() => handleProceed(car)} variant='contained' sx={{ backgroundColor: '#bc0808', margin: 'auto' }}><EastIcon /></Button>
+                  <Button onClick={() => handleProceed(car)} variant='contained' sx={{ backgroundColor: '#bc0808', margin: 'auto' }}>Proceed</Button>
                 )}
         </CardActions>
+          </CardContent>
+          <CardMedia
+                component="img"
+                sx={{ order: 2 ,width:'312px'
+                }}
+                image= {images[index % images.length].url}
+                alt="car image"
+              />
       </Card>
+      </Slide>
     ))
   ) : (
     <Typography variant="h6">No car details available. Please add a car.</Typography>

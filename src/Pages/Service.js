@@ -15,6 +15,8 @@ import { useNavigate } from 'react-router-dom';
 import FactCheckIcon from '@mui/icons-material/FactCheck';
 import TireRepairIcon from '@mui/icons-material/TireRepair';
 import CarRepairIcon from '@mui/icons-material/CarRepair';
+import { motion } from 'framer-motion';
+import Grow from '@mui/material/Grow';
  
 function Service() {
   const navigate = useNavigate();
@@ -79,9 +81,11 @@ function Service() {
   return (
        <Box display="flex" justifyContent="center" alignItems="center" marginTop="85px" marginBottom="50px" marginRight='150px' fontFamily='Times New Roman, Times, serif'>
       <div>
-      <h1 style={{justifyContent:"center" ,alignItems:"center" ,textAlign:'center',color:'black'}}>Book a Car Service Within A Minute</h1>     
+      <h1 style={{justifyContent:"center" ,alignItems:"center" ,textAlign:'center',color:'black'}}>Book a Car Service Within A Minute</h1>    
       <img src={Image} width='70%' style={{marginLeft:'17%',spacing:'nowrap'}}></img>
       </div>
+      <Grow in={true} timeout={1000}>
+      <motion.div whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }}>
       <Card sx={{ marginLeft:'20px',width: 500, height: 680, justifyContent: "center", borderRadius: 12, backgroundColor: '#F2F3F4' }}>
       <Typography gutterBottom variant="h5" component="div"style={{fontFamily:'Times New Roman, Times, serif',textAlign:'center',marginTop:'10%'}}>Experience An Exquisite On A Click </Typography><br></br>
         <Grid container spacing={2}>
@@ -101,7 +105,7 @@ function Service() {
     }
   />
 ))}
-
+ 
               </FormGroup>
             </CardContent>
             <br></br>
@@ -114,6 +118,8 @@ function Service() {
  
         </Grid>
       </Card>
+      </motion.div>
+      </Grow>
       <br></br>
     <br></br>
     <br></br>
@@ -121,4 +127,4 @@ function Service() {
   );
 }
  
-export default Service;
+export default Service

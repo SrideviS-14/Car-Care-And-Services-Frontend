@@ -23,7 +23,10 @@ import SettingsIcon from '@mui/icons-material/Settings';
 import AddBoxIcon from '@mui/icons-material/AddBox';
 import axios from 'axios';
 import { useItemHighlighted } from "@mui/x-charts";
-
+import Tabs from '@mui/material/Tabs';
+import Tab from '@mui/material/Tab';
+import Box from '@mui/material/Box';
+ 
 function Layout() {
   const { jwt, setJwt, role,setRole } = useAuth();
   const navigate = useNavigate();
@@ -47,38 +50,51 @@ function Layout() {
         console.error('Error fetching data:', error);
       });
   }, []);
-
+ 
+  const [value, setValue] = React.useState('one');
+ 
+  const handleChange = (event, newValue) => {
+    setValue(newValue);
+  };
+ 
   const handleLogout = () => {
     localStorage.setItem('jwt', '');
     setJwt('');
     setRole(''); // or setRole('client');
     console.log(localStorage.getItem('jwt'));
+    navigate("/"); // navigate to home page
+    window.location.reload(); // force reload of the page
   };
   const handleStatusTrack = () => {
     navigate("/StatusTrack");
     handleClose();
   };
+  const handleHistory = () => {
+    navigate("/History");
+    handleClose();
+  };
   const settings = [
     { title: 'Status Track', icon: <TimelineIcon />, onClick: handleStatusTrack },
-    { title: 'Logout', icon: <LogoutIcon />, onClick: handleLogout }
+    { title: 'My Bookings', icon: <TimelineIcon />, onClick: handleHistory },
+    { title: 'Logout', icon: <LogoutIcon />, onClick: handleLogout },
   ];
   const [anchorEl, setAnchorEl] = useState(null);
-
+ 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
-  
+ 
   const handleClose = () => {
     setAnchorEl(null);
   };  
-  
-
+ 
+ 
   return (
     <>
       {(role == 'client' || role == '') ?
-       <nav className="main-header" style={{ position: 'sticky', width: '100%', top: '0',left:'0'}}>
-       <img src={logo} width='150px' style={{ marginRight: '35px', marginLeft:'25px',position: 'sticky', top: '0',left:'0', float: 'left' }}></img>
-       <div className="navlink-container" style={{backgroundColor:'whitesmoke',position:"-webkit-sticky",top:'0'}}>
+       <nav className="main-header" style={{  width: '100%', top: '0',left:'0'}}>
+       <img src={logo} width='150px' style={{ marginRight: '35px', marginLeft:'25px', top: '0',left:'0', float: 'left' }}></img>
+       <div className="navlink-container" style={{backgroundColor:'whitesmoke',top:'0'}}>
           <NavLink className="homepage navlink" activeClassName="active" to="/" style={{ fontSize: '20px' }}><HomeIcon /><span>Home</span></NavLink>
           <NavLink className="aboutpage navlink" activeClassName="active" to="/About"><InfoIcon /><span>About Us</span></NavLink>
           <NavLink className="guidepage navlink" activeClassName="active" to="/Cart" ><MiscellaneousServicesIcon /><span>Service Booking</span></NavLink>
@@ -132,7 +148,7 @@ function Layout() {
                   marginRight: 2,
                   color: 'white',
                   borderRadius: 10,
-                  border: 'none',   
+                  border: 'none',  
                 }}>Log in</Button>
               </NavLink>
             </>
@@ -140,14 +156,15 @@ function Layout() {
           </div>
         </nav>
         :
-        <div style={{backgroundColor:'whitesmoke',position:'sticky',top:'0'}} >
-        <nav className="main-header" style={{ position: 'sticky', width: '100%', top: '0',left:'0'}}>
+        <div style={{backgroundColor:'whitesmoke',top:'0'}} >
+        <nav className="main-header" style={{  width: '100%', top: '0',left:'0'}}>
         <img src={logo} width='150px' style={{ marginRight: '35px', marginLeft:'25px',position: 'sticky', top: '0',left:'0', float: 'left' }}></img>
           <NavLink className="dashboardpage navlink" activeClassName="active" to="/dashboard"><DashboardIcon /><span>Dashboard</span></NavLink>
-          <NavLink className="bookingpage navlink" activeClassName="active" to='/booking'><ContentPasteSearchIcon /><span>Orders Log</span></NavLink>
+          <NavLink className="bookingpage navlink" activeClassName="active" to='/booking'><ContentPasteSearchIcon /><span>Pending Orders</span></NavLink>
           <NavLink className="servicespage navlink" activeClassName="active" to='/services'><SettingsIcon /><span>Services</span></NavLink>
           <NavLink className="packagespage navlink" activeClassName="active" to='/packages'><InventoryIcon /><span>Packages</span></NavLink>
           <NavLink className="addbookingpage navlink" activeClassName="active" to='/addbooking'><AddBoxIcon /><span>Book Service</span></NavLink>
+          <NavLink className="addbookingpage navlink" activeClassName="active" to='/queries'><AddBoxIcon /><span>Queries</span></NavLink>
           {!!jwt ?
             <NavLink className="login" activeClassName="active" to="/">
               <Button onClick={handleLogout} style={{
@@ -185,5 +202,5 @@ function Layout() {
     </>
   );
 }
-
+ 
 export default Layout;

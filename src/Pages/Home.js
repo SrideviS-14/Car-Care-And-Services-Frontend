@@ -16,8 +16,9 @@ import { motion } from "framer-motion";
 import FactCheckIcon from '@mui/icons-material/FactCheck';
 import TireRepairIcon from '@mui/icons-material/TireRepair';
 import CarRepairIcon from '@mui/icons-material/CarRepair';
-
-
+import Grow from '@mui/material/Grow';
+import RS from './RS.js';
+ 
 class MyCard extends React.Component {
   constructor(props) {
       super(props);
@@ -27,17 +28,17 @@ class MyCard extends React.Component {
       this.handleHover = this.handleHover.bind(this);
       this.handleHoverLeave = this.handleHoverLeave.bind(this);
   }
-
+ 
   handleHover(e) {
       e.preventDefault();
       this.setState({ isFlipped: true });
   }
-
+ 
   handleHoverLeave(e) {
       e.preventDefault();
       this.setState({ isFlipped: false });
   }
-
+ 
   render() {
       return (
           <ReactCardFlip isFlipped={this.state.isFlipped} flipDirection="vertical" flipSpeedBackToFront={1} flipSpeedFrontToBack={1} sx={{alignContent:'center', justifyContent: 'center'}}>
@@ -62,9 +63,9 @@ class MyCard extends React.Component {
       );
   }
 }
-
-
-
+ 
+ 
+ 
 function Home() {
   const { jwt, setJwt } = useAuth();
   axios.defaults.headers.common['Access-Control-Allow-Origin'] = '*';
@@ -74,7 +75,7 @@ function Home() {
     headers: {
       Authorization: `Bearer ${jwt}`,
       "Content-Type": 'application/json'
-    }, 
+    },
   });
   const [data, setdata] = useState();
 useEffect(() => {
@@ -87,7 +88,7 @@ useEffect(() => {
       console.error('Error fetching data:', error);
     });
 }, []);
-
+ 
   const navigate = useNavigate();
   const HandleClick = () => {
     {!!jwt ? navigate('/Cart') : navigate('/login')}
@@ -128,6 +129,7 @@ useEffect(() => {
         <marquee>Call to this (+91) 9475765201 to book your service</marquee>
       </div>
       <h1 style={{color:'black'}}>Welcome {data} !!</h1>
+      <Grow in={true} timeout={1000}>
       <Card sx={{ fontFamily:'Times New Roman, Times, serif', justifyContent:'center', height:'max',display: 'flex', maxWidth: 1100, marginLeft:23, marginTop:5, backgroundColor:'#F2F3F4', borderRadius:10, color:'black' }}>
         <CardMedia
           sx={{width: 1700, height: 500 }}
@@ -163,8 +165,10 @@ useEffect(() => {
           </CardActions>
         </Box>
       </Card>
+      </Grow>
+      <br></br>
       <h1 style={{ color:'black', fontFamily:'Times New Roman, Times, serif' }}>Our Services</h1>
-      <h1 style={{ color:'black', textAlign:'center', fontFamily:'Times New Roman, Times, serif' }}>Visit our nearest workshop for high-quality service </h1>
+      <Typography variant='h5' style={{ color:'black', textAlign:'center', fontFamily:'Times New Roman, Times, serif' }}>Visit our nearest workshop for high-quality service </Typography>
       <br></br>
       <Grid container spacing={2}>
         {cardsData.map((card, index) => (
@@ -173,6 +177,7 @@ useEffect(() => {
           </Grid>
         ))}
       </Grid>
+      <RS/>
       <br></br>
       <br></br>
       <br></br>

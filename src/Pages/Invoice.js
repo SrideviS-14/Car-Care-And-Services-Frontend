@@ -19,30 +19,10 @@ import PaymentsIcon from '@mui/icons-material/Payments';
 import CloseIcon from '@mui/icons-material/Close';
 import image from './images/image.png';
 import { motion } from 'framer-motion';
-import { Document, Page, Text, View, StyleSheet, PDFDownloadLink } from '@react-pdf/renderer';
  
-const styles = StyleSheet.create({
-  page: {
-    flexDirection: 'row',
-    backgroundColor: '#E4E4E4'
-  },
-  section: {
-    margin: 10,
-    padding: 10,
-    flexGrow: 1
-  }
-});
  
-// Create a new component for the PDF document
-const MyDocument = () => (
-  <Document>
-    <Page size="A4" style={styles.page}>
-      <View style={styles.section}>
-        <Text>Invoice Details Here</Text>
-      </View>
-    </Page>
-  </Document>
-);
+ 
+ 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
@@ -97,8 +77,7 @@ function Invoice() {
     });
     const componentRef = useRef();
     const handlePrint = useReactToPrint({
-      content: () => componentRef.current,
-      onAfterPrint: () => window.close(),
+        content: () => componentRef.current,
     });
    
     const [finaldata, setfinaldata] = useState(0);
@@ -188,6 +167,7 @@ function Invoice() {
         console.error('Error fetching data:', error);
       });
   }, []);
+ 
     useEffect(() => {
         api.get('/cart/getTotal')
             .then((response) => {
@@ -281,12 +261,8 @@ function Invoice() {
  <Typography align="center">---------------------------------------------------------------------------------------------------------------------------</Typography>        
  </Paper>
  <div style={{ display: 'flex', justifyContent: 'space-between', width: '600px', margin: '20px auto' }}>
-  <Button size='medium' variant='contained' style={{ height:'35px',width:"179px",backgroundColor: '#bc0808',color:'white' }}
-    ><PDFDownloadLink style={{color:'white',textDecoration:'none'}}  document={<MyDocument invoiceData={finaldata} />} fileName="invoice.pdf">
-    {({ blob, url, loading, error }) =>
-      loading ? 'Loading document...' : 'Download Invoice'
-    }
-  </PDFDownloadLink></Button>
+ <Button size='medium' variant='contained' style={{ height:'35px',width:"179px",backgroundColor: '#bc0808' }}
+    onClick={handlePrint}>Download Invoice</Button>
   <Button size='medium' variant='contained' style={{height:'35px',width:"171px", backgroundColor: '#bc0808' }}
     onClick={() => handleBackToCart()}>Back To Cart</Button>
   <Button size='medium' variant='contained' style={{ height:'35px',width:"171px",backgroundColor: '#bc0808' }}

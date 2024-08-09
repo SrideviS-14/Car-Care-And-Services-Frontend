@@ -21,6 +21,7 @@ import AccountCircleRoundedIcon from '@mui/icons-material/AccountCircleRounded';
 import Avatar from '@mui/material/Avatar';
 import SettingsIcon from '@mui/icons-material/Settings';
 import AddBoxIcon from '@mui/icons-material/AddBox';
+import FactCheckIcon from '@mui/icons-material/FactCheck';
 import axios from 'axios';
 import { useItemHighlighted } from "@mui/x-charts";
 import Tabs from '@mui/material/Tabs';
@@ -75,7 +76,7 @@ function Layout() {
   };
   const settings = [
     { title: 'Status Track', icon: <TimelineIcon />, onClick: handleStatusTrack },
-    { title: 'My Bookings', icon: <TimelineIcon />, onClick: handleHistory },
+    { title: 'My Bookings', icon: <FactCheckIcon />, onClick: handleHistory },
     { title: 'Logout', icon: <LogoutIcon />, onClick: handleLogout },
   ];
   const [anchorEl, setAnchorEl] = useState(null);
